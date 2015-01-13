@@ -5,7 +5,11 @@ class Projet extends TableObject {
 
 	public function afficheHtml()
 	{
-		echo "<li>", $this->no_projet , " ",$this->nom_projet, "</li>";
+		echo "<tr><td>", $this->no_projet , 
+		"</td><td>", $this->nom_projet,
+		"</td><td><form method='post' action=''>",
+		"<input type='range' name='numVoeux' min='0' max='3' value='0' step='1'>",
+		"</form></td></tr>";
 	}
 }
 ?>

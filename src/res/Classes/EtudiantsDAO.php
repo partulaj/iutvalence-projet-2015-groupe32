@@ -6,16 +6,11 @@ class EtudiantsDAO extends DAO {
 	// Fonction qui retourne tous les étudiants non affecté à un groupe (qui n'on pas de projet)
 	public function getAllWithoutProjects()
 	{
-		global $class,$table;
 		$res=array();
-		$stmt = $this->pdo->query("SELECT * FROM $table WHERE no_groupe IS NULL");
-		if ($stmt==null) 
-		{
-			return null;
-		}
+		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE no_groupe IS NULL");
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) 
 		{
-			$res[] = new $class ($row);
+			$res[] = new $this->class ($row);
 		}
 		return $res;
 	}

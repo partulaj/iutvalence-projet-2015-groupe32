@@ -41,7 +41,7 @@ if (!isset($_SESSION['moi']))
     <h1>Enseignant</h1>
      <?php 
     $_SESSION['moi']->afficheEnseignant(); 
-    $_SESSION['moi']->afficheMesProjets();   
+    $_SESSION['moi']->getAllMyProject();   
     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -10,6 +10,7 @@ function __autoload($class) { require_once "../res/Classes/$class.php"; }
 
 $projetDAO=new ProjetsDAO(MaBD::getInstance());
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
+$voeuxDAO = new VoeuxDAO(MaBD::getInstance());
 
 if (!isset($_SESSION['moi']))
 {
@@ -17,6 +18,7 @@ if (!isset($_SESSION['moi']))
   exit();
 }
 
+echo '<?xml version="1.0" encoding="ISO-8859-1" ?>';
 
 function afficheProjet()
 {
@@ -24,10 +26,24 @@ function afficheProjet()
   $lesProjets=$projetDAO->getAll();
   foreach ($lesProjets as $projet)
   {
-    $projet->afficheHtml();
+  	$projet->afficheHtml();
   }
 }
 
+function afficheVoeux()
+{
+	global $voeuxDAO;
+	$lesVoeux = $voeuxDAO->getAllEtudiant();
+	foreach($lesVoeux as $voeux)
+	{
+		$voeux->afficheVoeu();
+	}
+}
+
+public function enregistrer($_POST['enregistrer'])
+{
+	
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,8 +72,18 @@ function afficheProjet()
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <ul>
+    
+    <table>
+    	<th>Numero de projet</th> <th>Nom du Projet</th> <th>Numero de voeux</th> 
     	<?php afficheProjet(); ?>
-    </ul>
+    </table>
+    <form method='post' action=''>
+	    <input type='submit' name='enregistrer' value='enregistrer' >
+    </form>
+    <h3>Recapitulatif des voeux choisi:</h3>
+    <table>
+    	<?php afficheVoeux();?>
+    </table>
+    
   </body>
 </html>

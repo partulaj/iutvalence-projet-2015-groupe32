@@ -5,33 +5,11 @@ class Enseignant extends TableObject {
 	
 	public function afficheEnseignant()
 	{
-		echo 	"<div id='enseignant-box'>",
-				$this->nom,"<br/>",
-				$this->prenom,"<br/>",
-				"</input type='submit' value='deconection'>",
-				"</div>";
-	}
-	
-	public function afficheMesProjets()
-	{
-		
-		
-		echo 	"<div id='etudiant-box'>",
-		$this->nom,"<br/>",
-		$this->prenom,"<br/>",
-		$this->groupe,"<br/>",
-		"</input type='submit' value='deconection'>",
-		"</div>";
-	}
-	
-	public function afficheGroupe()
-	{
-		echo 	"<div id='etudiant-box'>",
-		$this->groupe,"<br/>",
-		$this->nom,"<br/>",
-		$this->prenom,"<br/>",
-		"</input type='submit' value='deconection'>",
-		"</div>";
+		echo 	"<div id='enseignant-box'>
+				$this->nom<br/>
+				$this->prenom<br/>
+				<form method='post' action='index.php'><input type='submit' name='deconnexion' value='Se déconnecter'></form>
+				</div>";
 	}
 }
 ?>

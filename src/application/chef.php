@@ -15,12 +15,15 @@ $etudiantsSansProjets = $etudiantsDAO->getAllWithoutProjects();
 
 function afficheTab($array)
 {
-  for($i=0;$i<count($array);$i++) 
-  {
-    $array[$i]->afficheEtudiantBox();
-  }
+	echo "<tr><th>Nom</th><th>Prénom</th></tr>";
+  	foreach ($array as $etudiant)
+  	{
+  	  $etudiant->afficheEtudiantRow();
+  	}
 }
 
+if (isse)
+echo '<?xml version="1.0" encoding="utf-8" ?>';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,6 +45,9 @@ function afficheTab($array)
   </head>
   <body>
     <h1>Chef de projet</h1>
+    <?php 
+    	$_SESSION['moi']->afficheChefBox();
+    ?>
     <section>
       <article>
         <table>
@@ -50,10 +56,18 @@ function afficheTab($array)
         ?>
         </table>
       </article>
+      <article id="chef-mail">
+      	<form action="" method="post">
+      		<input type="text" name="sujet" placeholder="Sujet" required><br/>
+      		<textarea rows="5" cols="50" name="Message" placeholder="Message"></textarea><br/>
+      		<input type="submit" name="envoi" value="Envoyer un message aux Sans Projets">
+      	</form>
+      </article>
     </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="../res/js/.ourJS.js">
   </body>
 </html>

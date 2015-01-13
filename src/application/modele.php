@@ -2,6 +2,7 @@
 //Chargement des classes php
 function __autoload($class) { require_once "../res/Classes/$class.php"; }
 
+echo '<?xml version="1.0" encoding="ISO-8859-1" ?>';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

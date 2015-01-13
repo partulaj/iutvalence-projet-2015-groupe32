@@ -12,6 +12,10 @@ $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 $enseignantsDAO = new EnseignantsDAO(MaBD::getInstance());
 $chefsDAO = new ChefsDAO(MaBD::getInstance());
 
+if (isset($_POST['deconnexion']))
+{
+	session_destroy();
+}
 if (isset($_POST['connection']))
 {
 	// On enlève les espace en début et fin 
