@@ -61,44 +61,78 @@ if (isset($_POST['connection']))
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Accueil</title>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Accueil</title>
 
-    <!-- Bootstrap -->
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../res/css/style.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <h1>Accueil</h1>
-	<article>
-		<h2>Identification</h2>
-		<form action="" method="post">
-			<?php
-				if ($param['erreur']==true)
-				{
-					echo "<p class='erreur'>",$param['message'],"</p>";
-				}
-			?>
-			<label>Login</label>
-			<input type="text" name="login"><br/>
-			<label>Mot de passe</label>
-			<input type="password" name="mdp"><br/>
-			<input type="submit" name="connection" value="Se connecter">
-		</form>
-	</article>
-	
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+			<![endif]-->
+		</head>
+		<body>
+			<div class="container">
+				<h1>Accueil</h1>
+				<div class="row">
+					<div class="centre col-xs-12">
+						<h3>Identification</h3>
+					</div>
+				</div>
+				
+				<article>
+					<form action="" method="post" id="connexion">
+
+						<?php
+
+					//Affichage d'un message
+						if ($param['erreur']==true)
+						{
+							echo "<p class='erreur'>",$param['message'],"</p>";
+						}
+						?>
+
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label">Login</label>
+								<input type="text" name="login" class="form-control">
+								<span class="cache glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label">Mot de passe</label>
+								<input type="password" name="mdp" class="form-control">
+								<span class="cache glyphicon glyphicon-remove form-control-feedback"></span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group">
+								<div class="centre">
+									<button type="submit" name="connection" class="btn btn-primary">
+										<span class="glyphicon glyphicon-user"></span> Connexion
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</article>
+			</div>
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../dist/js/bootstrap.min.js"></script>
+		<script src="../res/js/ourJS.js"></script>
+	</body>
+	</html>

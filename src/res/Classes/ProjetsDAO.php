@@ -5,11 +5,11 @@ class ProjetsDAO extends DAO {
 	
 	
 	//fonction qui permet de recuperer la liste des projets associé à l'enseingnant actuel
-	public function getAllMyProject($login)
+	public function getAllMyProjects($login)
 	{
-		$nameProjet = $tableProjet->$this."nom_projet";
 		$res=array();
-		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE Projet.login_enseignant = $login");
+		$stmt = $this->pdo->prepare("SELECT * FROM Projets WHERE Projets.login_enseignant = ?");
+		$stmt->execute(array($login));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);
@@ -17,10 +17,10 @@ class ProjetsDAO extends DAO {
 		return $res;
 	}	
 	
-	public function AddProject()
+	public function afficheProjetsRow()
 	{
-		
-				
+		echo "<tr><td>$this->nom_projet</td><td>$this->contexte</td><td>$this->objectif</td><td>$this->contrainte</td><td>$this->details</td></tr>";
 	}
+	
 }
 ?>

@@ -5,11 +5,25 @@ class Projet extends TableObject {
 
 	public function afficheHtml()
 	{
-		echo "<tr><td>", $this->no_projet , 
-		"</td><td>", $this->nom_projet,
-		"</td><td><form method='post' action=''>",
-		"<input type='range' name='numVoeux' min='0' max='3' value='0' step='1'>",
-		"</form></td></tr>";
+		echo    "<tr>
+					<td>
+						<form method='post' action=''>
+						<input type='hidden' name='noprojet' value='$this->no_projet'>
+						$this->no_projet 
+					</td>
+					<td> $this->nom_projet</td>
+					<td>$this->login_enseignant</td>
+					<td>
+						<div class='input-group'>
+							<input id='voeux_$this->no_projet' type='text' name='priorite' value='0' class='form-control' readonly>
+							<span class='input-group-btn'>
+						    	<button onclick='inputNumberAdd(\"voeux_$this->no_projet\")' class='btn btn-success' type='button'><span class='glyphicon glyphicon-chevron-up'></span></button>
+								<button onclick='inputNumberSub(\"voeux_$this->no_projet\")' class='btn btn-warning' type='button'><span class='glyphicon glyphicon-chevron-down'></span></button>
+    						</span>
+    					</div>
+					</td>
+				</tr>
+				</form>";
 	}
 }
 ?>

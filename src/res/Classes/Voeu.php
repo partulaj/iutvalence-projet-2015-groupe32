@@ -5,8 +5,8 @@ class Voeu extends TableObject {
 	
 	public function afficheVoeu()
 	{
-		echo "<td>", $this->no_projet , 
-		"</td><td>", $this->nom_projet, "</td>";
+		echo "<td>", $this->no_voeu, 
+		"</td><td>", $this->no_projet, "</td>";
 	}
 }
 ?>

@@ -8,13 +8,44 @@ $param['message']=null;
 //Chargement des classes php
 function __autoload($class) { require_once "../res/Classes/$class.php"; }
 
-$projetDAO=new ProjetsDAO(MaBD::getInstance());
-$enseignantDAO = new EnseignantsDAO(MaBD::getInstance());
 
-if (!isset($_SESSION['moi']))
+$enseignantDAO = new EnseignantsDAO(MaBD::getInstance());
+$etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
+$projetsDAO = new ProjetsDAO(MaBD::getInstance());
+
+
+if(!isset($_SESSION['moi']))
 {
   header("Location:index.php");
   exit();
+}
+
+function afficheMesProjets()
+{
+	global $projetsDAO;
+	$mesProjets = $projetsDAO->getAllMyProjects($_SESSION['moi']->login_enseignant);
+	
+	echo "<tr><th>Sujet</th><th>Contexte</th><th>Objectif</th><th>Contrainte</th><th>Details</th></tr>";
+	foreach ($mesProjets as $projets)
+	{
+		$projets->afficheProjetsRow();
+	}
+}
+
+function afficheMesEtudiants($array)
+{
+	echo "<tr><th>Nom Etudiant</th><th>Prénom</th></tr>";
+	foreach ($array as $etudiant)
+	{
+		$etudiant->afficheMyEtudiants();
+	}
+}
+
+if (isset($_POST['envoi']))
+{
+	$message=trim($_POST['message']);
+	$sujet=trim($_POST['sujet']);
+	$_SESSION['moi']->mailToGroupOfThisProject($groupe,$sujet,$message);
 }
 
 
@@ -40,16 +71,26 @@ if (!isset($_SESSION['moi']))
   <body>
     <h1>Enseignant</h1>
      <?php 
-    $_SESSION['moi']->afficheEnseignant(); 
-    $_SESSION['moi']->getAllMyProject();   
+    $_SESSION['moi']->afficheEnseignant();  
     ?>
-
+    <section>
+      <article id= "enseignant-mail">
+      <h2>Envoyer un mail au groupe du projet</h2>
+      <form action="" method="post">
+      		<input type="text" name="sujet" placeholder="Sujet" required><br/>
+      		<textarea rows="5" cols="50" name="message" placeholder="Message"></textarea><br/>
+      		<input type="submit" name="envoi" value="Envoyer un message au groupe du projet">
+      	</form>
+        <table class="table table-bordered table-striped table-condensed">
+        <?php
+          afficheMesProjets();
+        ?>
+        </table>
+        </article>
+    </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <ul>
-    	<?php afficheProjet(); ?>
-    </ul>
   </body>
 </html>

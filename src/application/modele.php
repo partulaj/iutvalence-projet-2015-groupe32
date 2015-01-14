@@ -14,6 +14,7 @@ echo '<?xml version="1.0" encoding="ISO-8859-1" ?>';
 
     <!-- Bootstrap -->
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../res/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

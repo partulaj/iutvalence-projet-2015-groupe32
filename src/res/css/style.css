@@ -1,22 +1,13 @@
-/*Tableau*/
-table
+.centre
 {
-	
+	text-align:center;
 }
-tr
+.cache
 {
-	width: 33%;
+	display:none;
 }
-td
+.doublecentre
 {
-	
-}
-th
-{
-	
-}
-/*Formulaire*/
-label
-{
-	display:block;
+	text-align:center;
+	vertical-align: middle;
 }
