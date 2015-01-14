@@ -6,14 +6,14 @@ class Projet extends TableObject {
 	public function afficheHtml()
 	{
 		echo    "<tr>
-					<td>
+					<td class='col-xs-1'>
 						<form method='post' action=''>
 						<input type='hidden' name='noprojet' value='$this->no_projet'>
 						$this->no_projet 
 					</td>
-					<td> $this->nom_projet</td>
-					<td>$this->login_enseignant</td>
-					<td>
+					<td class='col-xs-3'> $this->nom_projet</td>
+					<td class='col-xs-3'>$this->login_enseignant</td>
+					<td class='col-xs-5'>
 						<div class='input-group'>
 							<input id='voeux_$this->no_projet' type='text' name='priorite' value='0' class='form-control' readonly>
 							<span class='input-group-btn'>
