@@ -94,14 +94,16 @@ if (isset($_POST['connection']))
 					//Affichage d'un message
 						if ($param['erreur']==true)
 						{
-							echo "<p class='erreur'>",$param['message'],"</p>";
+							echo 	"<div class='row'>
+										<p class='erreur doublecentre'>",$param['message'],"</p>
+									</div>";
 						}
 						?>
 
 						<div class="row">
 							<div class="form-group">
 								<label class="control-label">Login</label>
-								<input type="text" name="login" class="form-control">
+								<input type="text" name="login" class="form-control input-index">
 								<span class="cache glyphicon glyphicon-remove form-control-feedback"></span>
 							</div>
 						</div>

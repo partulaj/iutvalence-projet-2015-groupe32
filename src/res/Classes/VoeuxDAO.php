@@ -3,7 +3,7 @@ class VoeuxDAO extends DAO {
 	protected $table = "Voeux";
 	protected $class = "Voeu";
 	
-	//recuperation des voeux enfonction du login de l'etudiant
+	//fonction qui recupère les voeux de l'etudiant en fonction de son login
 	public function getAllVoeuEtudiant($login)
 	{
 		$res = array();

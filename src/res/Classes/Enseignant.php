@@ -3,13 +3,16 @@ class Enseignant extends TableObject {
 	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
-	public function afficheEnseignant()
+	//fonction qui affiche le nom et prénom
+	public function afficheNP()
 	{
-		echo 	"<div id='enseignant-box'>
-				$this->nom_enseignant<br/>
-				$this->prenom_enseignant<br/>
-				<form method='post' action='index.php'><input type='submit' name='deconnexion' value='Se déconnecter'></form>
-				</div>";
+		echo 	$this->nom_enseignant," ",$this->prenom_enseignant;
+	}
+
+	//fonction qui affiche le bouton de déconnexion
+	public function afficheDeconnexionButton()
+	{
+		echo "<form method='post' action='index.php'><button type='submit' name='deconnexion' class='btn btn-danger'><span class='glyphicon glyphicon-off'></span> </a></form>";
 	}
 	
 	//Envoi un mail au groupe selectionné

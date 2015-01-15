@@ -15,10 +15,11 @@ class EtudiantsDAO extends DAO {
 		return $res;
 	}
 	
-	public function AfficheMyEtudiants()
+	public function getAllWithThisProject($projets)
 	{
+		
 		$res=array();
-		$stmt = $this->pdo->query("SELECT * FROM `$this->table` INNER JOIN `Groupes` ON Etudiants.no_groupe = Groupes.no_groupe INNER JOIN `Projets` ON Groupes.no_groupe = Projets.no_groupe INNER JOIN `Enseignants` ON Projets.login_enseignant = Enseignants.login_enseignant");
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = $projets->no_groupe");
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);

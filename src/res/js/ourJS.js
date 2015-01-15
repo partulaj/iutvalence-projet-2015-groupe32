@@ -3,9 +3,9 @@ function inputNumberAdd(inputToChange)
 {
 	var input=document.getElementById(inputToChange);
 	var value=parseInt(document.getElementById(inputToChange).value)+1;
-	if (value>5) 
+	if (value>3) 
 	{
-		value=5;
+		value=3;
 	}
 	document.getElementById(inputToChange).value=value;
 }
@@ -20,4 +20,3 @@ function inputNumberSub(inputToChange)
 	}
 	document.getElementById(inputToChange).value=value;
 }
-
