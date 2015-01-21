@@ -46,7 +46,7 @@ class TableObject {
         $this->fields = $f;
         // Création de la liste des noms de champ sans la clé
         foreach ($this->fields as $name => $value) 
-            if (! in_array($name, static::$keyFieldsNames))
+        	if (! in_array($name, static::$keyFieldsNames))
                 $this->fieldsNamesWithoutKey[] = $name;
     }
 

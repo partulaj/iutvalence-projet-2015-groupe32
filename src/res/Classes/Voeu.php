@@ -1,7 +1,7 @@
 <?php
 class Voeu extends TableObject {
 	static public $keyFieldsNames = array('no_voeu','login_etudiant'); // par défaut un seul champ
-	public $hasAutoIncrementedKey = true;	
+	public $hasAutoIncrementedKey = false;	
 	
 	public function afficheVoeu()
 	{

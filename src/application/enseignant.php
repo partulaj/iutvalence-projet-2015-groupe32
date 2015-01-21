@@ -97,9 +97,9 @@ if (isset($_POST['Nouveau Projet']))
 						?>
 					</table>
 				</div>
-				<div class="row">
+				<input type="button" name="new_projet" value="Nouveau Projet" onclick="DisplayFormVisible();"><br/>
+				<div id="formDiv" style="visibility:hidden">
 					<form action="" method="post">
-						<input type="submit" name="new_projet" value="Nouveau Projet"><br/>
 						<br/><input type="text" name="projet_name" placeholder="Nom Projet" class="form-control" required><br/>
 						<input type="text" name="nb_min" placeholder="Nombre minimal" class="form-control" required><br/>
 						<input type="text" name="nb_max" placeholder="Nom maximum" class="form-control" required><br/>
@@ -107,6 +107,7 @@ if (isset($_POST['Nouveau Projet']))
 						<textarea rows="5" cols="25" name="objectif" placeholder="Objectif" class="form-control"></textarea><br/>
 						<textarea rows="5" cols="25" name="contraintes" placeholder="Contraintes" class="form-control"></textarea><br/>
 						<textarea rows="5" cols="25" name="details" placeholder="Details" class="form-control"></textarea><br/>
+						<input type="button" name="new_projet" value="Nouveau Projet" onclick="DisplayFormVisible();"><br/>
 					</form>
 				</div>
 				<div class="row">
@@ -124,5 +125,6 @@ if (isset($_POST['Nouveau Projet']))
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 				<!-- Include all compiled plugins (below), or include individual files as needed -->
 				<script src="js/bootstrap.min.js"></script>
+				<script src="../res/js/ourJS.js"></script>
 			</body>
 			</html>

@@ -1,4 +1,4 @@
-
+//fonction pour incrémenter le champ 'number'
 function inputNumberAdd(inputToChange)
 {
 	var input=document.getElementById(inputToChange);
@@ -10,6 +10,7 @@ function inputNumberAdd(inputToChange)
 	document.getElementById(inputToChange).value=value;
 }
 
+//fonction pour décrémenter le champ 'number'
 function inputNumberSub(inputToChange)
 {
 	var input=document.getElementById(inputToChange);
@@ -19,4 +20,10 @@ function inputNumberSub(inputToChange)
 		value=0;
 	}
 	document.getElementById(inputToChange).value=value;
+}
+
+//fonction qui permet d'afficher le formulaire caché
+function DisplayFormVisible()
+{
+	document.getElementById("formDiv").style.visibility="visible";
 }

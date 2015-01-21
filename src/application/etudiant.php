@@ -37,7 +37,7 @@ function afficheVoeux()
 {
 	global $voeuxDAO;
 	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['moi']->login_etudiant);
-	//sort($lesVoeux, SORT_NUMERIC); //trie les voeux de façon ordonée
+	
 	foreach($lesVoeux as $voeux)
 	{
 		$voeux->afficheVoeu();
@@ -46,55 +46,37 @@ function afficheVoeux()
 
 if (isset($_POST))
 {
-	for ($i=1; $i < (count($_POST)+1)/2; $i++) { 
-		if($_POST["priorite_$i"]!=0)
+	if ($_SESSION['moi']->nb_voeux==5)
+	{
+		return;
+	}
+	else 
+	{
+		$voeux = $_POST["voeux"];
+		$priorite = $_POST["priorite"];
+		for($i=0;$i<count($_POST);$i++)
 		{
-			$num = $_SESSION['moi']->nb_voeux+1;
-			if ($num<=5) 
+			if($priorite[$i]!=0)
 			{
-				$date = new DateTime();
-				$priorite = $_POST["priorite_$i"];
-				$projet = $_POST["voeux_$i"];
-				$etudiant = $_SESSION['moi']->login_etudiant;
-				$voeu = new Voeu ($num,$date,$priorite,$projet,$etudiant);
-				$voeuxDAO->insert($voeu);
+				$num = $_SESSION['moi']->nb_voeux+1;
+				if ($num<=5)
+				{
+					$dateBrut = new DateTime();
+					$date = $dateBrut->format('Y-m-d');
+					$prioriteVoeu = $priorite[$i];
+					echo $prioriteVoeu;
+					$projet = $voeux[$i];
+					echo $projet;
+					$etudiant = $_SESSION['moi']->login_etudiant;
+					$voeu = new Voeu (array("no_voeu"=>$num,"date"=>$date,"priorité"=>$prioriteVoeu,"no_projet"=>$projet,"login_etudiant"=>$etudiant));
+					$voeuxDAO->insert($voeu);
+				}
 			}
 		}
 	}
 }
 
-//on enregistre les voeux dans la base de donnée
-// if(isset($_POST['enregistrer']))
-// {
-// global $voeuxDAO, $projetDAO;
-// 	$lesProjets = $projetDAO->getAll();
-//	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['moi']->login_etudiant);
-// 	$now = new DateTime();
-// 	if(count($lesVoeux) > 5)
-// 	{
-// 		echo "ERREUR: vous avez déjà fait 5 voeux!" ;
-// 	}
-// 	esle
-// 	{
-// 		foreach($lesProjets as $projet) //pour tous les projets
-// 		{
-// 			if(isset($_POST["priorite"])) //si la priorité a été modifier on crée un voeu
-// 			{
-// 				$levoeu = new Voeu(array("no_voeu"=> DAO::UNKNOWN_ID, "date"=> $now->format('y-m-d'), "priorité"=>$_POST["priorite"], "no_projet"=>$_POST["noprojet"], "login_etudiant"=> $_SESSION['moi']->login_etudiant));
-// 				$voeuxDAO->insert($levoeu);
-// 			}
-// 		}
-// 	}
 
-// }
-/*
-//on suprime le voeu
-if(isset($_POST['suprimer'])) 
-{
-	global $voeuxDAO;
-	$voeuxDAO->delete($no_voeux);
-}
-*/
 ?>
 
 <!DOCTYPE html>
@@ -135,7 +117,7 @@ if(isset($_POST['suprimer']))
 				</div>
 				<div class="row">
 					<h3>Liste des projets</h3>
-					<p>Choisissez 5 projets parmis la liste si dessous et régler la priorité que vous souhaitez leur affecter ebtre 1 et 3:</p>
+					<p>Choisissez 5 projets parmis la liste si dessous et régler la priorité que vous souhaitez leur affecter entre 1 et 3:</p>
 				</div>
 				<div class="row">
 					<form method="post" action="">
