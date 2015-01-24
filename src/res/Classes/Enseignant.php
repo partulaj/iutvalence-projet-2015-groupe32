@@ -3,18 +3,23 @@ class Enseignant extends TableObject {
 	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
-	//fonction qui affiche le nom et prénom
+	//Fonction qui affiche le nom et prénom
 	public function afficheNP()
 	{
 		echo 	$this->nom_enseignant," ",$this->prenom_enseignant;
 	}
 
-	//fonction qui affiche le bouton de déconnexion
+	//Fonction qui affiche le bouton de déconnexion
 	public function afficheDeconnexionButton()
 	{
 		echo "<form method='post' action='index.php'><button type='submit' name='deconnexion' class='btn btn-danger'><span class='glyphicon glyphicon-off'></span> </a></form>";
 	}
 	
+	//////////////// A modifié ////////////////
+	/*
+	 * la requête doit être préparé
+	 * les requêtes sont dans les classes DAO
+	 */
 	//Envoi un mail au groupe selectionné
 	public function mailToGroupOfThisProject($groupe, $subject, $message)
 	{	

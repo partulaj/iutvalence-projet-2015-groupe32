@@ -3,6 +3,7 @@ class Projet extends TableObject {
 	static public $keyFieldsNames = array('no_projet'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = true;
 
+	//Fonction d'affichage d'un Projet
 	public function afficheHtml()
 	{
 		$DAOtemporaire = new EnseignantsDAO(MaBD::getInstance());
@@ -25,8 +26,10 @@ class Projet extends TableObject {
 					</td>
 				</tr>";
 	}
-	
-	//fonction qui permet d'afficher les projets du professeur
+
+////////////////////A déplacer vers Enseignant ////////////////////
+/*
+	//Fonction qui permet d'afficher les projets du professeur
 	public function afficheMesProjets()
 	{
 		$ProjetDAO = new ProjetsDAO(MaBD::getInstance());
@@ -39,10 +42,8 @@ class Projet extends TableObject {
 		echo "<tr>
 				<td class='col-xs-1'> $this->no_projet</td>
 				<td class='col-xs-2'> $this->nom_projet</td>
-				
-				
-			  </tr>";
-		
+			  </tr>";	
 	}
+*/
 }
 ?>

@@ -4,6 +4,7 @@ session_start();
 //Chargement des classes php
 function __autoload($class) { require_once "../res/Classes/$class.php"; }
 
+//On vérifie que l'utilisateur est connecté
 if (!isset($_SESSION['moi']))
 {
 	header("Location:index.php");
@@ -13,6 +14,7 @@ if (!isset($_SESSION['moi']))
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 $etudiantsSansProjets = $etudiantsDAO->getAllWithoutProjects();
 
+//Fonction d'affichage des etudiant
 function afficheTab($array)
 {
 	echo "<tr><th>Nom</th><th>Prénom</th></tr>";
@@ -22,6 +24,7 @@ function afficheTab($array)
 	}
 }
 
+//Envoi d'un message au élèves sans projets
 if (isset($_POST['envoi']))
 {
 	$message=trim($_POST['message']);
