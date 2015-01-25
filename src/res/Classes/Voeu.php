@@ -7,8 +7,9 @@ class Voeu extends TableObject {
 	public function afficheVoeu()
 	{
 		echo "<tr>
-				<form>
-					<td class='col-1'> 
+				<form method='post' action=''>
+					<td class='col-1'>
+						<input type='hidden' name='voeuToDel' value='$this->no_voeu'> 
 						$this->no_voeu 
 					</td>
 					<td class='col-2'> 

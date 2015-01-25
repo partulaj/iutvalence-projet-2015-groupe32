@@ -32,6 +32,26 @@ if (isset($_POST['envoi']))
 	$_SESSION['moi']->mailToSansProjets($etudiantsSansProjets,$sujet,$message);
 }
 
+//Importe les etudiants à partir d'un fichier xml
+/*
+ * pb avec le téléchargement du fichier
+ * finir l'import des etudiants
+ */
+if (isset($_FILES['fichier_import'])) 
+{
+	if (is_uploaded_file($_FILES['fichier_import']['tmp_name'])==true) 
+	{
+		echo "File ",$_FILES['fichier_import']['name']," téléchargé avec succès.<br/>";
+		$res = move_uploaded_file($_FILES['fichier_import']['tmp_name'],"./listeEtudiants.xml");
+		if ($res==true) 
+		{
+			$xml=simplexml_load_file("./listeEtudiants.xml");
+			print_r($xml);
+			unlink("./listeEtudiants.xml");
+		}
+	}
+}
+
 echo '<?xml version="1.0" encoding="utf-8" ?>';
 ?>
 <!DOCTYPE html>
@@ -90,18 +110,33 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 			<div class="row">
 				<h3>Liste des étudiants Sans Projet</h3>
 			</div>
-			<table class="table table-bordered table-striped table-condensed">
-				<?php
-				afficheTab($etudiantsSansProjets);
-				?>
-			</table>
-		</article>
-	</section>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="../res/js/ourJS.js"></script>
-</body>
-</html>
+			<div clas="row">
+				<table class="table table-bordered table-striped table-condensed">
+					<?php
+					afficheTab($etudiantsSansProjets);
+					?>
+				</table>
+			</div>
+
+			<div class="row">
+				<h3>Importation des étudiants</h3>
+				<form enctype="multipart/form-data" method="post" action="">
+					<div class="form-group">
+						<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+						<input type="file" name="fichier_import" class="form-control">
+					</div>
+					<div class="form-group centre">
+						<button type="submit" class="btn btn-primary">
+							<span class="glyphicon glyphicon-open"></span> Importer
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="../res/js/ourJS.js"></script>
+	</body>
+	</html>
