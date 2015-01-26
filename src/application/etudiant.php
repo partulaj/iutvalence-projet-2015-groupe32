@@ -26,7 +26,6 @@ if (!isset($_SESSION['moi']))
 //Enregistrement du ou des voeux
 /*
  * vérifier le fonctionnement
- * finir l'implémentation de l'attribut nb_voeux
  */
 if (isset($_POST['enregistrer']))
 {
@@ -38,7 +37,7 @@ if (isset($_POST['enregistrer']))
 	}
 	else 
 	{
-		$tabVoeux = $_POST['voeux'];//on récupère le tableau des voeux 
+		$tabVoeux = $_POST['projets'];//on récupère le tableau des voeux 
 		$tabPriorite = $_POST['priorite'];//on récupère le tableau des priorités
 		for ($i=0; $i<count($_POST)-1; $i++)
 		{
@@ -59,24 +58,31 @@ if (isset($_POST['enregistrer']))
 					$etudiant = $_SESSION['moi']->login_etudiant;
 					$voeu = new Voeu (array("no_voeu"=>$num,"date"=>$date,"priorité"=>$prioriteVoeu,"no_projet"=>$projet,"login_etudiant"=>$etudiant));
 					$voeuxDAO->insert($voeu);
-					echo "insert";
 					$_SESSION['moi']->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant
 					$etudiantDAO->update($_SESSION['moi']);
-					echo "update";
 				}
 			}
 		}
 	}
 }
-
+//Supression d'un voeu
 if (isset($_POST['supprimer_voeux']))
 {
-	$search = array($_POST['voeuToDel'],$_SESSION['moi']->login_etudiant);
+	$search = array($_POST['voeuToEdit'],$_SESSION['moi']->login_etudiant);
 	$voeuSupp = $voeuxDAO->getOne($search);
 	$voeuxDAO->delete($voeuSupp);
 	$_SESSION['moi']->nb_voeux = $_SESSION['moi']->nb_voeux-1;
 	$etudiantDAO->update($_SESSION['moi']);
 }
+//Modification d'un voeu
+if (isset($_POST['modifier_voeux']))
+{
+	$search = array($_POST['voeuToEdit'],$_SESSION['moi']->login_etudiant);
+	$voeuMod = $voeuxDAO->getOne($search);
+	$voeuMod->priorité = $_POST['prioriteVoeuEdit'];
+	$voeuxDAO->update($voeuMod);
+}
+
 //Fonction d'affichage des projet 
 function afficheProjet()
 {
@@ -125,7 +131,7 @@ echo '<?xml version="1.0" encoding="ISO-8859-1" ?>';
 			<body>
 				<div class="container">
 					<div class='row'>
-						<div class='navbar navbar-default' role='navigation'>
+						<div class='navbar navbar-inverse' role='navigation'>
 							<div class='navbar-header'>
 								<a class='navbar-brand' href='#'>Etudiant</a>
 							</div>
