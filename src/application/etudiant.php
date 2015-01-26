@@ -6,6 +6,7 @@ session_start();
 
 //Tableau de parammètres de la page
 $param['erreur']=false;
+$param['reussi']=false;
 $param['message']=null;
 
 //Chargement des classes php
@@ -24,9 +25,6 @@ if (!isset($_SESSION['moi']))
 }
 
 //Enregistrement du ou des voeux
-/*
- * vérifier le fonctionnement
- */
 if (isset($_POST['enregistrer']))
 {
 	// Si l'étudiant à + de 5 voeux on affiche un message d'erreur
@@ -65,6 +63,7 @@ if (isset($_POST['enregistrer']))
 		}
 	}
 }
+
 //Supression d'un voeu
 if (isset($_POST['supprimer_voeux']))
 {
@@ -74,6 +73,7 @@ if (isset($_POST['supprimer_voeux']))
 	$_SESSION['moi']->nb_voeux = $_SESSION['moi']->nb_voeux-1;
 	$etudiantDAO->update($_SESSION['moi']);
 }
+
 //Modification d'un voeu
 if (isset($_POST['modifier_voeux']))
 {
@@ -81,6 +81,8 @@ if (isset($_POST['modifier_voeux']))
 	$voeuMod = $voeuxDAO->getOne($search);
 	$voeuMod->priorité = $_POST['prioriteVoeuEdit'];
 	$voeuxDAO->update($voeuMod);
+	$param['reussi']=true;
+	$param['message']="La modification de vos voeux à bien était faites";
 }
 
 //Fonction d'affichage des projet 
@@ -159,6 +161,10 @@ echo '<?xml version="1.0" encoding="ISO-8859-1" ?>';
 						if ($param['erreur']!=false)
 						{
 							echo "<div class='alert alert-danger'>",$param['message'],"</div>";
+						}
+						if ($param['reussi']==true)
+						{
+							echo "<div class='alert alert-success'>",$param['message'],"</div>";
 						}
 						?>
 						<div class="col-sm-6">

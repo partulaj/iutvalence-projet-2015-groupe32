@@ -29,7 +29,6 @@ function afficheLesProjets()
 	foreach ($mesProjets as $projets)
 	{
 		$projets->afficheMesProjets();
-		
 	}
 }
 
@@ -74,7 +73,8 @@ if (isset($_POST['Nouveau Projet']))
 	
 		<!-- Bootstrap -->
 		<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-	
+		<link href="../res/css/style.css" rel="stylesheet">
+		
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -109,9 +109,11 @@ if (isset($_POST['Nouveau Projet']))
 					?>
 				</table>
 			</div>
+			
 			<input type="button" name="new_projet" value="Nouveau Projet" onclick="DisplayFormVisible();"><br/>
-			<div id="formDiv" style="visibility:hidden">
+			<div id="formDiv">
 				<form action="" method="post">
+							<div class="form-group">
 					<br/><input type="text" name="projet_name" placeholder="Nom Projet" class="form-control" required><br/>
 					<input type="text" name="nb_min" placeholder="Nombre minimal" class="form-control" required><br/>
 					<input type="text" name="nb_max" placeholder="Nom maximum" class="form-control" required><br/>
@@ -119,7 +121,12 @@ if (isset($_POST['Nouveau Projet']))
 					<textarea rows="5" cols="25" name="objectif" placeholder="Objectif" class="form-control"></textarea><br/>
 					<textarea rows="5" cols="25" name="contraintes" placeholder="Contraintes" class="form-control"></textarea><br/>
 					<textarea rows="5" cols="25" name="details" placeholder="Details" class="form-control"></textarea><br/>
-					<input type="button" name="new_projet" value="Nouveau Projet" onclick="DisplayFormVisible();"><br/>
+					<div class="centre">
+						<button type="submit" name="new_projet" class="btn btn-primary btn-primary">
+							<span class="glyphicon glyphicon-folder-open"></span> Nouveau Projet
+						</button>
+					</div>
+					</div>
 				</form>
 			</div>
 			<div class="row">
@@ -127,18 +134,22 @@ if (isset($_POST['Nouveau Projet']))
 			</div>
 			<div class="row">
 				<form action="" method="post">
+							<div class="form-group">
 					<input type="text" name="sujet" placeholder="Sujet" class="form-control" required><br/>
 					<textarea rows="5" cols="50" name="message" placeholder="Message" class="form-control"></textarea><br/>
-					<button type="submit" name="envoi" class="btn btn-primary">
-						<span class="glyphicon glyphicon-envelope"></span> Envoyer
-					</button>
+					<div class="centre">
+						<button type="submit" name="envoi" class="btn btn-primary">
+							<span class="glyphicon glyphicon-envelope"></span> Envoyer
+						</button>
+					</div>
+					</div>
 				</form>
 			</div>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
+		<script src="../dist/js/bootstrap.min.js"></script>
 		<script src="../res/js/ourJS.js"></script>
 	</body>
 </html>

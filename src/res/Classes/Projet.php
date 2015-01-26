@@ -28,7 +28,7 @@ class Projet extends TableObject {
 	}
 
 ////////////////////A déplacer vers Enseignant ////////////////////
-/*
+
 	//Fonction qui permet d'afficher les projets du professeur
 	public function afficheMesProjets()
 	{
@@ -44,6 +44,6 @@ class Projet extends TableObject {
 				<td class='col-xs-2'> $this->nom_projet</td>
 			  </tr>";	
 	}
-*/
+
 }
 ?>
