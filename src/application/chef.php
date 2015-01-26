@@ -64,6 +64,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 
 	<!-- Bootstrap -->
 	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../res/css/whhg.css">
 	<link href="../res/css/style.css" rel="stylesheet">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -75,21 +76,10 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-10">
-					<h1>Chef de projet</h1>
-					<?php
-					$_SESSION['moi']->afficheNP();
-					?>
-				</div>
-				<div class="col-xs-2">
-					<div class="doublecentre">
-						<?php 
-						$_SESSION['moi']->afficheDeconnexionButton();
-						?>
-					</div>
-				</div>
-			</div>
+			<?php 
+				$_SESSION['moi']->afficheNavBar();
+			?>
+			
 			<div class="row">
 				<h3>Envoyer un mail aux Sans Projet</h3>
 			</div>

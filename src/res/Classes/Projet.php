@@ -14,7 +14,7 @@ class Projet extends TableObject {
 						$this->no_projet 
 					</td>
 					<td class='col-xs-3'> $this->nom_projet</td>
-					<td class='col-xs-3'>",$enseignant->afficheNP(),"</td>
+					<td class='col-xs-3'>",$enseignant->nom_enseignant," ",$enseignant->prenom_enseignant,"</td>
 					<td class='col-xs-5'>
 						<div class='input-group'>
 							<input id='projets_$this->no_projet' type='text' name='priorite[]' value='0' class='form-control' readonly>

@@ -6,6 +6,8 @@ class Voeu extends TableObject {
 	//Fonction d'affichage d'un voeux
 	public function afficheVoeu()
 	{
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$projet=$DAOtemporaire->getOne($this->no_projet);
 		echo "<tr>
 				<form method='post' action=''>
 					<td class='col-xs-1'>
@@ -14,6 +16,9 @@ class Voeu extends TableObject {
 					</td>
 					<td class='col-xs-1'> 
 						$this->no_projet
+					</td>
+					<td>
+						
 					</td>
 					<td class='col-xs-3'>
 						<div class='input-group'>

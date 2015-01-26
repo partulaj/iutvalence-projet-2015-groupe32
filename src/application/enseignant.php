@@ -73,6 +73,7 @@ if (isset($_POST['Nouveau Projet']))
 	
 		<!-- Bootstrap -->
 		<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../res/css/whhg.css">
 		<link href="../res/css/style.css" rel="stylesheet">
 		
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -84,21 +85,9 @@ if (isset($_POST['Nouveau Projet']))
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-10">
-					<h1>Enseignant</h1>
-					<?php
-					$_SESSION['moi']->afficheNP();
-					?>
-				</div>
-				<div class="col-xs-2">
-					<div class="doublecentre">
-						<?php 
-						$_SESSION['moi']->afficheDeconnexionButton();
-						?>
-					</div>
-				</div>
-			</div>
+			<?php
+				$_SESSION['moi']->afficheNavBar();
+			?>
 			<div class="row">
 				<h2>Mes Projets</h2>
 			</div>
