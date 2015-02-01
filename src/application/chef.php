@@ -2,7 +2,7 @@
 session_start();
 
 //Chargement des classes php
-function __autoload($class) { require_once "../res/Classes/$class.php"; }
+function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 
 //On vérifie que l'utilisateur est connecté
 if (!isset($_SESSION['moi']))
@@ -52,7 +52,6 @@ if (isset($_FILES['fichier_import']))
 	}
 }
 
-echo '<?xml version="1.0" encoding="utf-8" ?>';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -60,12 +59,14 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Chef de projet</title>
+	<title>Modele de page</title>
 
 	<!-- Bootstrap -->
-	<link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../res/css/whhg.css">
-	<link href="../res/css/style.css" rel="stylesheet">
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- WebHostingHub Glyphs -->
+	<link href="../whhg/css/whhg.css" rel="stylesheet">
+	<!-- Style Personnel -->
+	<link href="../ressources/css/style.css" rel="stylesheet">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -75,11 +76,10 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 	  <![endif]-->
 	</head>
 	<body>
-		<div class="container">
-			<?php 
-				$_SESSION['moi']->afficheNavBar();
-			?>
-			
+		<?php 
+		$_SESSION['moi']->afficheNavBar();
+		?>
+		<div class="container">			
 			<div class="row">
 				<h3>Envoyer un mail aux Sans Projet</h3>
 			</div>
@@ -123,10 +123,10 @@ echo '<?xml version="1.0" encoding="utf-8" ?>';
 				</form>
 			</div>
 		</div>
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<!-- jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
-		<script src="../res/js/ourJS.js"></script>
+		<!-- JavaScript -->
+		<script src="../dist/js/bootstrap.min.js"></script>
+		<script src="../ressources/js/ourJS.js"></script>
 	</body>
 	</html>
