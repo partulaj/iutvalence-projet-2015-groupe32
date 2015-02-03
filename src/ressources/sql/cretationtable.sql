@@ -36,7 +36,7 @@ mail_enseignant varchar(150)
 
 CREATE TABLE Projets
 (
-no_projet serial NOT NULL PRIMARY KEY,
+no_projet integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 nom_projet varchar(50),
 nb_etu_min integer NOT NULL,
 nb_etu_max integer NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE Taches
 no_tache integer NOT NULL PRIMARY KEY,
 nom_tache varchar(50),
 avancement varchar(20),
-no_projet serial,
+no_projet integer,
 login_etudiant varchar(20),
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
