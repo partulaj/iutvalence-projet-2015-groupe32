@@ -15,6 +15,13 @@ class VoeuxDAO extends DAO {
 		}
 		return $res;
 	}
+	
+	//Fonction qui supprime tous les voeux d'un étudiant
+	public function deleteAllMyWish($login)
+	{
+		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE login_etudiant = ?");
+		return $stmt->execute(array($login));
+	}
 
 }
 ?>

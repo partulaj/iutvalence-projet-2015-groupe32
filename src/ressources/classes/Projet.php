@@ -68,11 +68,12 @@ class Projet extends TableObject {
 	private function affectationAuto($tab)
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$DAOtemporaire2 = new VoeuxDAO(MaBD::getInstance());
 		for($i=0;$i<$this->nb_etu_max;$i++)
 		{
 			$tab[$i]->no_groupe=$this->no_groupe;
 			$DAOtemporaire->update($tab[$i]);
-			$DAOtemporaire->deleteAllMyWish($tab[$i]->login_etudiant);
+			$DAOtemporaire2->deleteAllMyWish($tab[$i]);
 		}
 	}
 }

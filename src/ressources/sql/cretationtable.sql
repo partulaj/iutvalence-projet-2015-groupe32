@@ -21,7 +21,7 @@ mdp_etudiant varchar(50),
 mail_etudiant varchar(150),
 no_groupe integer,
 nb_voeux integer DEFAULT 0,
-FOREIGN KEY Etudiants(no_groupe) REFERENCES Groupes(no_groupe)
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 );
 
 CREATE TABLE Enseignants
@@ -46,20 +46,20 @@ contrainte text,
 details text,
 login_enseignant varchar(20),
 no_groupe integer,
-FOREIGN KEY Projets(login_enseignant) REFERENCES Enseignants (login_enseignant),
-FOREIGN KEY Projets2(no_groupe) REFERENCES Groupes (no_groupe)
+FOREIGN KEY (login_enseignant) REFERENCES Enseignants(login_enseignant),
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 );
 
 
 CREATE TABLE Voeux
 (
-no_projet serial,
+no_projet integer,
 login_etudiant varchar(20),
 date date NOT NULL,
 priorité integer NOT NULL,
-FOREIGN KEY Voeux(no_projet) REFERENCES Projets (no_projet),
-FOREIGN KEY Voeux2(login_etudiant) REFERENCES Etudiants (login_etudiant),
-PRIMARY KEY (no_projet,login_etudiant)
+PRIMARY KEY (no_projet,login_etudiant),
+FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
+FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 );
 
 
@@ -70,6 +70,6 @@ nom_tache varchar(50),
 avancement varchar(20),
 no_projet serial,
 login_etudiant varchar(20),
-FOREIGN KEY Taches(no_projet) REFERENCES Projets (no_projet),
-FOREIGN KEY Taches2(login_etudiant) REFERENCES Etudiants(login_etudiant)
+FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
+FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 );

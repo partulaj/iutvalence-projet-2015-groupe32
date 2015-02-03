@@ -17,10 +17,17 @@ $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['moi']))
+if (!isset($_SESSION['moi']->login_etudiant))
 {
 	header("Location:index.php");
 	exit();
+}
+
+//
+$affectationProjet=$projetDAO->getAll();
+foreach ($affectationProjet as $projetAAffecter)
+{
+	$projetAAffecter->initAffectationAuto();
 }
 
 //Enregistrement du ou des voeux
@@ -38,7 +45,7 @@ if (isset($_POST['enregistrer']))
 	{
 		$tabVoeux = $_POST['projets'];//on récupère le tableau des voeux 
 		$tabPriorite = $_POST['priorite'];//on récupère le tableau des priorités
-		for ($i=0; $i<count($_POST)-2; $i++)
+		for ($i=0; $i<count($tabVoeux); $i++)
 		{
 			$search= array($tabVoeux[$i],$_SESSION['moi']->login_etudiant);
 			if($voeuxDAO->getOne($search)!=null)
@@ -123,7 +130,7 @@ function afficheVoeux()
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Modele de page</title>
+	<title>Etudiant</title>
 
 	<!-- Bootstrap -->
 	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">

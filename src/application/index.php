@@ -101,7 +101,7 @@ if (isset($_POST['connexion']))
 					if ($param['erreur']==true)
 					{
 						echo 	"<div class='row'>
-						<p class='erreur doublecentre'>",$param['message'],"</p>
+						<p class='alert alert-danger doublecentre'>",$param['message'],"</p>
 					</div>";}
 					?>
 

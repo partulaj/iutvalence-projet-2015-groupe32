@@ -12,6 +12,7 @@ class MaBD {
       if (self::$pdo == null) {
          $dsn = "mysql:host=gigondas;dbname=pjtuto;charset=utf8";
          self::$pdo = new PDO($dsn, "pjtuto", "pjtuto");
+         self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       }
       return self::$pdo;
    }
