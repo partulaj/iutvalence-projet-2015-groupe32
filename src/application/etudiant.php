@@ -108,7 +108,10 @@ function afficheProjet()
 	$lesProjets = $projetDAO->getAll(); // à changer pour ne pas afficher les projets déjà affectés
 	foreach ($lesProjets as $projet)
 	{
-		$projet->afficheHtml();
+		if ($projet->affecter==0)
+		{
+			$projet->afficheHtml();
+		}
 	}
 }
 

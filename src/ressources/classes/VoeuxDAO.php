@@ -20,7 +20,7 @@ class VoeuxDAO extends DAO {
 	public function deleteAllMyWish($login)
 	{
 		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE login_etudiant = ?");
-		return $stmt->execute(array($login));
+		$stmt->execute(array($login));
 	}
 
 }

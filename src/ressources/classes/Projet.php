@@ -69,11 +69,14 @@ class Projet extends TableObject {
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
 		$DAOtemporaire2 = new VoeuxDAO(MaBD::getInstance());
+		$DAOtemporaire3 = new ProjetsDAO(MaBD::getInstance());
 		for($i=0;$i<$this->nb_etu_max;$i++)
 		{
 			$tab[$i]->no_groupe=$this->no_groupe;
-			$DAOtemporaire->update($tab[$i]);
+			$DAOtemporaire3->update($this);
 			$DAOtemporaire2->deleteAllMyWish($tab[$i]);
+			$DAOtemporaire->update($tab[$i]);
+			$this->affecter=1;
 		}
 	}
 }
