@@ -116,6 +116,12 @@ function afficheProjet()
 }
 
 //Fonction d'affichage des voeux 
+
+/**
+ * Foncion qui récupère les voeux et les affiche dans un tableau
+ * @author Jérémie
+ * @version 1.0
+ */
 function afficheVoeux()
 {
 	global $voeuxDAO;

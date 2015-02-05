@@ -4,6 +4,11 @@ class Chef extends TableObject {
 	public $hasAutoIncrementedKey = false;
 	
 	//Fonction qui affiche la barre de navigation du chef des projet
+
+	/**
+	 * Fonction d'affichage de la barre de navigation
+	 * Fonction qui permet l'affichage d'une barre de navigation responsive (Bootstrap) avec le nom et le prénom du chef des projet ainsi que l'onglet actif
+	 */
 	public function afficheNavBar()
 	{
 		echo "
@@ -31,6 +36,14 @@ class Chef extends TableObject {
 	}
 
 	//Fonction d'envoi de mail aux étudiants sans projet
+
+	/**
+	 * Fonction qui envoie un mail au élève sans projet
+	 * Fonction qui permet au chef des projet d'envoyer un mail à tous les étudiants sans projet.
+	 * $array : tableau des étudiants sans projet
+	 * $subject : sujet du mail
+	 * $message : message du mail
+	 */
 	public function mailToSansProjets($array, $subject, $message)
 	{
 		foreach ($array as $etudiant)

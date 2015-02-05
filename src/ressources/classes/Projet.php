@@ -1,9 +1,18 @@
 <?php
+/**
+ * Classe représentent un projet tutoré
+ * @author Jérémie
+ * @package ressources/classes
+ */
 class Projet extends TableObject {
 	static public $keyFieldsNames = array('no_projet'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = true;
 
-	//Fonction d'affichage d'un Projet
+	/**
+	 * Fonction qui affiche un projet dans une ligne d'un tableau
+	 * Fonction qui permet d'afficher un projet sous forme de ligne d'un tableau. Ligne avec plusieurs colonnes.
+	 * @author Jérémie
+	 */
 	public function afficheHtml()
 	{
 		$DAOtemporaire = new EnseignantsDAO(MaBD::getInstance());
@@ -45,7 +54,11 @@ class Projet extends TableObject {
 			  </tr>";	
 	}
 	
-	//Fonction qui vérifie qu'il y ai suffisament d'élèves pour lancer l'affectation automatique
+	/**
+	 * Fonction qui lance l'affectation automatique ci le nombre d'étudiant est suffisant
+	 * Fonction qui déclenche l'affectation automatique si le nombres d'étudiant n'ayant pas de voeux plus prioritaire est supérieur ou égale au nombre d'étudiants maximale sur le projet
+	 * @author Jérémie
+	 */
 	public function initAffectationAuto()
 	{
 		$res = array();

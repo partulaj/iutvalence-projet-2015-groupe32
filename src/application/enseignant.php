@@ -7,6 +7,10 @@ $param['reussi'] = false;
 $param ['message'] = null;
 
 // Chargement des classes php
+
+/**
+ * Fonction de chargement automatique des classes
+ */
 function __autoload($class) {
 	require_once "../ressources/classes/$class.php";
 }
@@ -31,6 +35,10 @@ foreach ( $projetAffectation as $projetAAffecter ) {
 */
 
 // Fonction d'affichage des projets
+
+/**
+ * Fonction qui récupère les projets et les affiches dans un tableau
+ */
 function afficheLesProjets() {
 	global $projetsDAO;
 	echo "<br/><tr><th>Numero</th><th>Sujet</th><th>Etudiants sur le projet</th></tr>";

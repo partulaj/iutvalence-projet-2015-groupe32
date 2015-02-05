@@ -1,7 +1,13 @@
 <?php
+/**
+ * Page d'accueil du chef des projet tutorés
+ * @package application
+ */
 session_start();
 
-//Chargement des classes php
+/**
+ * Fonction de chargement automatique des classes
+ */
 function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 
 //On vérifie que l'utilisateur est connecté
@@ -14,7 +20,13 @@ if (!isset($_SESSION['moi']))
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 $etudiantsSansProjets = $etudiantsDAO->getAllWithoutProjects();
 
-//Fonction d'affichage des etudiant
+/**
+ * Fonction d'affichage des étudiant
+ * Fonction qui affiche le tableau des étudiants que l'on passe en paramètre
+ * $array : un tableau d'étudiants
+ * @author Jérémie
+ * @version 1.0
+ */
 function afficheTab($array)
 {
 	echo "<tr><th>Nom</th><th>Prénom</th></tr>";
@@ -32,11 +44,7 @@ if (isset($_POST['envoi']))
 	$_SESSION['moi']->mailToSansProjets($etudiantsSansProjets,$sujet,$message);
 }
 
-//Importe les etudiants à partir d'un fichier xml
-/*
- * pb avec le téléchargement du fichier
- * finir l'import des etudiants
- */
+/*Import des étudiants via xml (à finir)*/
 if (isset($_FILES['fichier_import'])) 
 {
 	if (is_uploaded_file($_FILES['fichier_import']['tmp_name'])==true) 
@@ -103,6 +111,16 @@ if (isset($_FILES['fichier_import']))
 			<div clas="row">
 				<table class="table table-bordered table-striped table-condensed">
 					<?php
+
+/**
+ * Page d'accueil du chef des projet tutorés
+ * @package application
+ */
+
+/**
+ * Page d'accueil du chef des projet tutorés
+ * @package application
+ */
 					afficheTab($etudiantsSansProjets);
 					?>
 				</table>

@@ -4,6 +4,12 @@ class VoeuxDAO extends DAO {
 	protected $class = "Voeu";
 	
 	//Fonction qui recupère les voeux de l'etudiant en fonction de son login
+
+	/**
+	 * Fonction qui récuppère tous les voeux d'un étudiant
+	 * Fonction qui permet de récupérer tous les voeux de l'étudiant dont le login est passé en paramètre.
+	 * $login : le login d'un étudiant
+	 */
 	public function getAllVoeuEtudiant($login)
 	{
 		$res = array();

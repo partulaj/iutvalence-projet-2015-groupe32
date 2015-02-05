@@ -4,6 +4,13 @@ class Enseignant extends TableObject {
 	public $hasAutoIncrementedKey = false;
 	
 	//Fonction qui affiche le nom et prénom
+
+	/**
+	 * Fonction d'affichage de la barre de navigation
+	 * Fonction qui permet d'afficher une barre de navigation responsive (Bootstrap) avec le nom et le prénom de l'enseignant ainsi que l'onglet actif.
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function afficheNavBar()
 	{
 		echo "

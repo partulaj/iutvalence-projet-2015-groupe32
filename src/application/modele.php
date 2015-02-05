@@ -1,4 +1,9 @@
 <?php
+/**
+ * Modèle de page php pour le projet
+ * @package application
+ */
+
 //Chargement des classes php
 function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 ?>

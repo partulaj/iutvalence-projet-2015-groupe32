@@ -3,7 +3,14 @@ class Etudiant extends TableObject {
 	static public $keyFieldsNames = array('login_etudiant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
-	//Fonction d'affichage de la barre de navigation
+
+
+	/**
+	 * Fonction d'affichage de la barre de navigation
+	 * Fonction qui permet l'affichage d'une barre de navigation responsive (Bootstrap) avec le nom et le prénom de l'étudiant ainsi que l'onglet actif
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function afficheNavBar()
 	{
 		echo "
@@ -30,10 +37,12 @@ class Etudiant extends TableObject {
 		</nav>";
 	}
 
-	//Méthode qui permet de savoir si l'étudiant à un voeux plus prioritaire que celui passé en paramètre
-	/*
-	 * Renvoie : true si l'etudiant à un voeux plus prioritaire
-	 *		     false si ce n'est pas le cas  
+	/**
+	 * Fonction qui permet de voir si l'étudiant à un voeux avec une priorité plus importante
+	 * Fonction qui regarde parmi tous les voeux de l'étudiant si celui-ci à un voeu avec une priorité plus importante que celui pour le projet dont le numéro est passé en paramètre
+	 * $num = un numéro de projet
+	 * @author Jérémie
+	 * @version 1.0
 	 */
 	public function aUnMeilleurVoeu($num)
 	{
@@ -50,7 +59,14 @@ class Etudiant extends TableObject {
 		return false;
 	}
 	
-	//Méthode qui affiche un etudiant sous forme de ligne d'un tableau
+	
+
+	/**
+	 * Fonction qui permet d'afficher un étudiant dans une ligne d'un tableua
+	 * Fonction qui permet d'afficher un étudiant sous forme d'une ligne d'un tableau. Ligne avec 3 colonnes : le nom de l'étudiant, le prénom de l'étudiant, un lien pour lui envoyer un mail
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function afficheEtudiantRow()
 	{
 		echo '<tr><td>',$this->nom_etudiant,'</td><td>',$this->prenom_etudiant,'</td><td><a href="mailto:',$this->mail_etudiant,'">Lui écrire</a></td></tr>';
