@@ -3,7 +3,12 @@ class EtudiantsDAO extends DAO {
 	protected $table = "Etudiants";
 	protected $class = "Etudiant";
 
-	// Fonction qui retourne tous les étudiants non affecté à un groupe (qui n'on pas de projet)
+	/**
+	 * Fonction qui récupère tous les étudiants sans projet
+	 * Fonction qui permet de récupérer un tableau contenant tous les étudiants qui n'on pas encore de projet
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function getAllWithoutProjects()
 	{
 		$res=array();
@@ -15,11 +20,19 @@ class EtudiantsDAO extends DAO {
 		return $res;
 	}
 	
-	// Fonction qui retourne tous les étudiants d'un même groupe
-	public function getAllWithThisProject($projets)
+	/**
+	 * Fonction qui récupère tous les étudiants d'un projet
+	 * Fonction qui permet de récupérer tous les étudiants d'un projet que l'on passe en paramètre
+	 * @param $projets : un Projet
+	 * @return $res : un tableau d'étudiants
+	 * @author Ihab, Jérémie
+	 * @version 1.1
+	 */
+	public function getAllWithThisProject($projet)
 	{	
 		$res=array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = $projets->no_groupe");
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = ?");
+		$stmt ->execute(array($projet->no_groupe));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);
@@ -27,7 +40,14 @@ class EtudiantsDAO extends DAO {
 		return $res;
 	}
 	
-	// Fonction qui retourne tous les étudiants associé à un voeu dont le numéro est passé en paramètre
+	/**
+	 * Fonction qui retourne tous les étudiant qui ont fait un voeu sur un certain projet
+	 * Fonction qui permet de récupérer tous les étudiants qui ont fait un voeu sur le projet dont le numéro est passé en paramètre
+	 * @param $num : un numéro de projet
+	 * @return $res : un tableau d'étudiants
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function getAllWithThisWish($num)
 	{
 		$res = array();

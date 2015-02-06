@@ -3,12 +3,12 @@ class VoeuxDAO extends DAO {
 	protected $table = "Voeux";
 	protected $class = "Voeu";
 	
-	//Fonction qui recupère les voeux de l'etudiant en fonction de son login
-
 	/**
-	 * Fonction qui récuppère tous les voeux d'un étudiant
+	 * Fonction qui récupère tous les voeux d'un étudiant
 	 * Fonction qui permet de récupérer tous les voeux de l'étudiant dont le login est passé en paramètre.
-	 * $login : le login d'un étudiant
+	 * @param $login : le login d'un étudiant
+	 * @author Jérémie
+	 * @version 1.0
 	 */
 	public function getAllVoeuEtudiant($login)
 	{
@@ -22,7 +22,13 @@ class VoeuxDAO extends DAO {
 		return $res;
 	}
 	
-	//Fonction qui supprime tous les voeux d'un étudiant
+	/**
+	 * Fonction qui efface tous les voeux d'un étudiant
+	 * Fonction qui permet d'effacer tous les voeux d'un étudiant dont le login est passé en paramètre.
+	 * @param $login : le login d'un étudiant
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function deleteAllMyWish($login)
 	{
 		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE login_etudiant = ?");

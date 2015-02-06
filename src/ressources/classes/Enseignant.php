@@ -3,8 +3,6 @@ class Enseignant extends TableObject {
 	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
-	//Fonction qui affiche le nom et prénom
-
 	/**
 	 * Fonction d'affichage de la barre de navigation
 	 * Fonction qui permet d'afficher une barre de navigation responsive (Bootstrap) avec le nom et le prénom de l'enseignant ainsi que l'onglet actif.
@@ -36,13 +34,6 @@ class Enseignant extends TableObject {
 			</div>
 		</nav>
 		";
-	}
-	
-	
-	//Fonction qui affiche le bouton de déconnexion
-	public function afficheDeconnexionButton()
-	{
-		echo "<form method='post' action='index.php'><button type='submit' name='deconnexion' class='btn btn-danger'><span class='glyphicon glyphicon-off'></span> </a></form>";
 	}
 	
 	//////////////// A modifié ////////////////

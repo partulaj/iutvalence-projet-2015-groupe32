@@ -26,7 +26,7 @@ define("APP_USER", "admin");
 // Note: 8 characters minimum
 define("APP_PASSWORD", "pjtuto2015"); //
 // Or change this (not recommended) //
-define("REQUIRES_PASSWORD", true);
+define("REQUIRES_PASSWORD", false);
 //////////////////////////////////////
 
 

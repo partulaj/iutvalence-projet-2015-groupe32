@@ -2,18 +2,15 @@
 class GroupesDAO extends DAO {
 	protected $table = "Groupes";
 	protected $class = "Groupe";
-	
-	public function getAllGroupe()
-	{
-		$res=array();
-		$stmt = $this->pdo->query("SELECT no_groupe,nom_etudiant,prenom_etudiant FROM $this->table");
-		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-		{
-			$res[] = new $this->class ($row);
-		}
-		return $res;
-	}
-	
+
+	/**
+	 * Fonction qui renvoie le Groupe associé au projet
+	 * Fonction qui permet de récupérer les groupes associé au projet (si il y en a plusieurs par exemple les robots ePuk) dont on passe le numéro en paramètre
+	 * @param $no_projet : un numéro de projet
+	 * @return $res : un tableau de Groupe
+	 * @author Ihab
+	 * @version 1.0
+	 */
 	public function getGroupeOfThisProject($no_projet)
 	{
 		$res=array();

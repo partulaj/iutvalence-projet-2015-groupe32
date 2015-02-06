@@ -15,6 +15,8 @@ class Voeu extends TableObject {
 	/**
 	 * Fonction qui permet d'afficher un voeu dans une ligne d'un tableau
 	 * Fonction qui permet d'afficher un voeu sous la forme d'une ligne d'un tableau. Ligne avec 5 colonnes
+	 * @author Jérémie
+	 * @version 1.0
 	 */
 	public function afficheVoeu() {
 		$DAOtemporaire = new ProjetsDAO ( MaBD::getInstance () );

@@ -12,6 +12,7 @@ class Projet extends TableObject {
 	 * Fonction qui affiche un projet dans une ligne d'un tableau
 	 * Fonction qui permet d'afficher un projet sous forme de ligne d'un tableau. Ligne avec plusieurs colonnes.
 	 * @author Jérémie
+	 * @version 1.0
 	 */
 	public function afficheHtml()
 	{
@@ -58,6 +59,7 @@ class Projet extends TableObject {
 	 * Fonction qui lance l'affectation automatique ci le nombre d'étudiant est suffisant
 	 * Fonction qui déclenche l'affectation automatique si le nombres d'étudiant n'ayant pas de voeux plus prioritaire est supérieur ou égale au nombre d'étudiants maximale sur le projet
 	 * @author Jérémie
+	 * @version 1.0
 	 */
 	public function initAffectationAuto()
 	{
@@ -77,7 +79,13 @@ class Projet extends TableObject {
 		}
 	}
 	
-	
+	/**
+	 * Fonction qui affecte automatiquement les étudiant au projet
+	 * Fonction qui permet d'affecter les étudiant au projet en cours ($this)
+	 * @param $tab : un tableau d'étudiants
+	 * @author Jérémie
+	 * @todo
+	 */
 	private function affectationAuto($tab)
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());

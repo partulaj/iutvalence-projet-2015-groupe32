@@ -2,6 +2,8 @@
 /**
  * Page d'accueil du chef des projet tutorés
  * @package application
+ * @author Jérémie
+ * @version 1.1
  */
 session_start();
 

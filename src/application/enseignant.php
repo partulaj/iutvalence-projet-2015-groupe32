@@ -1,4 +1,10 @@
 <?php
+/**
+ * Page d'accueil des enseignants 
+ * @package application
+ * @author Ihab, Jérémie
+ * @version 1.0
+ */
 session_start ();
 
 // Tableau de parammètres de la page

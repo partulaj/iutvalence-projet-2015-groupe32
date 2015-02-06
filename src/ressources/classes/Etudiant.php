@@ -72,11 +72,5 @@ class Etudiant extends TableObject {
 		echo '<tr><td>',$this->nom_etudiant,'</td><td>',$this->prenom_etudiant,'</td><td><a href="mailto:',$this->mail_etudiant,'">Lui écrire</a></td></tr>';
 	}
 
-	//Utilité à discuter
-	/*
-	public function afficheMesEtudiants()
-	{
-		echo '<tr><td>',$this->nom_etudiant,'</td><td>',$this->prenom_etudiant,'</td><td>';
-	}*/	
 }
 ?>

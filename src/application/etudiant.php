@@ -1,4 +1,10 @@
 <?php
+/**
+ * Page d'accueil des étudiants 
+ * @package application
+ * @author Audrey, Jérémie
+ * @version 1.1
+ */
 session_start();
 
 //pour le debug

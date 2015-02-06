@@ -1,4 +1,10 @@
 <?php
+/**
+ * Page de connexion
+ * @package application
+ * @author Jérémie
+ * @version 1.0
+ */
 session_start();
 
 //Tableau de paramètres de la page
