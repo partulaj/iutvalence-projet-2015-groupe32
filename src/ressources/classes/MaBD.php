@@ -1,8 +1,9 @@
 <?php
-// Classe de connexion à une base de données
-// S'inspire du pattern singleton pour n'ouvrir qu'une seule connexion
-// Utilisation :
-//    $bd = MaBD::getInstance(); // $bd est un objet PDO
+/** Classe de connexion à une base de données
+ *  S'inspire du pattern singleton pour n'ouvrir qu'une seule connexion
+ *  Utilisation :
+ *  $bd = MaBD::getInstance(); // $bd est un objet PDO
+ */
 class MaBD {
 
    static private $pdo = null; // Le singleton

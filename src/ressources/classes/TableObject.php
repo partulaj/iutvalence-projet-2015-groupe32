@@ -53,18 +53,35 @@ class TableObject {
     // Affichage par défaut : champs séparés par une tabulation
     public function __tostring() { return implode("\t", $this->fields); }
 
-    // ------- setter et getter -------
+    /**
+     * Getter pour les objets TableObject ainsi que ceux qui héritent de celui-ci
+     * @param $field : le champs que l'on veut modifier
+     * @throws Exception 
+     * @return multitype:
+     */
     public function __get($field) {
-        if (isset($this->fields[$field]))
+    	try {
+        //if (isset($this->fields[$field]))
             return $this->fields[$field];
-        throw new Exception("Invalid field name $field in ". get_class($this));
+    	}
+    	catch (Exception $e)
+    	{
+    		$e = new Exception("Invalid field name $field in ". get_class($this));
+    		throw $e;
+    	}
+
     }
 
     public function __set($field, $value) {
-        if (isset($this->fields[$field]))
+        try {
+        	//if (isset($this->fields[$field]))
             $this->fields[$field] = $value;
-        else 
-            throw new Exception("Invalid field name $field in ". get_class($this));
+        }
+        catch (Exception $e)
+        {
+        	$e = new Exception("Invalid field name $field in ". get_class($this));
+        	throw $e;
+        } 
     }
 
     public function __isset($field) {

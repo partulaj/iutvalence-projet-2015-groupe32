@@ -3,7 +3,7 @@
  * Page d'accueil des étudiants 
  * @package application
  * @author Audrey, Jérémie
- * @version 1.1
+ * @version 1.3
  */
 session_start();
 
@@ -23,7 +23,7 @@ $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['moi']->login_etudiant))
+if (!isset($_SESSION['etu']->login_etudiant))
 {
 	header("Location:index.php");
 	exit();
@@ -40,7 +40,7 @@ foreach ($affectationProjet as $projetAAffecter)
 if (isset($_POST['enregistrer']))
 {
 	// Si l'étudiant à + de 5 voeux on affiche un message d'erreur
-	if ($_SESSION['moi']->nb_voeux == 5)
+	if ($_SESSION['etu']->nb_voeux == 5)
 	{
 		$param['erreur']=true;
 		$param['message']="Vous ne pouvez pas faire plus de 5 voeux, si vous voulez ajouter un voeux il vous faut d'abord en enlever un";
@@ -53,7 +53,7 @@ if (isset($_POST['enregistrer']))
 		$tabPriorite = $_POST['priorite'];//on récupère le tableau des priorités
 		for ($i=0; $i<count($tabVoeux); $i++)
 		{
-			$search= array($tabVoeux[$i],$_SESSION['moi']->login_etudiant);
+			$search= array($tabVoeux[$i],$_SESSION['etu']->login_etudiant);
 			if($voeuxDAO->getOne($search)!=null)
 			{
 				$param['erreur']=true;
@@ -61,7 +61,7 @@ if (isset($_POST['enregistrer']))
 				break;
 			}
 
-			if ($_SESSION['moi']->nb_voeux == 5)
+			if ($_SESSION['etu']->nb_voeux == 5)
 			{
 				$param['erreur']=true;
 				$param['message']="Vous avez atteint le nombres maximum de voeux";
@@ -70,16 +70,16 @@ if (isset($_POST['enregistrer']))
 			{
 				if ($tabPriorite[$i]!=0)//si le voeu a une priorité différente de 0 on l'ajoute 
 				{
-					$num = $_SESSION['moi']->nb_voeux+1;
+					$num = $_SESSION['etu']->nb_voeux+1;
 					$dateBrut = new DateTime();
 					$date = $dateBrut->format('Y-m-d');
 					$prioriteVoeu = $tabPriorite[$i];
 					$projet = $tabVoeux[$i];
-					$etudiant = $_SESSION['moi']->login_etudiant;
+					$etudiant = $_SESSION['etu']->login_etudiant;
 					$voeu = new Voeu (array("date"=>$date,"priorité"=>$prioriteVoeu,"no_projet"=>$projet,"login_etudiant"=>$etudiant));
 					$voeuxDAO->insert($voeu);
-					$_SESSION['moi']->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant
-					$etudiantDAO->update($_SESSION['moi']);
+					$_SESSION['etu']->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant
+					$etudiantDAO->update($_SESSION['etu']);
 				}
 			}
 		}
@@ -89,17 +89,17 @@ if (isset($_POST['enregistrer']))
 //Supression d'un voeu
 if (isset($_POST['supprimer_voeux']))
 {
-	$search = array($_POST['voeuToEdit'],$_SESSION['moi']->login_etudiant);
+	$search = array($_POST['voeuToEdit'],$_SESSION['etu']->login_etudiant);
 	$voeuSupp = $voeuxDAO->getOne($search);
 	$voeuxDAO->delete($voeuSupp);
-	$_SESSION['moi']->nb_voeux = $_SESSION['moi']->nb_voeux-1;
-	$etudiantDAO->update($_SESSION['moi']);
+	$_SESSION['etu']->nb_voeux = $_SESSION['etu']->nb_voeux-1;
+	$etudiantDAO->update($_SESSION['etu']);
 }
 
 //Modification d'un voeu
 if (isset($_POST['modifier_voeux']))
 {
-	$search = array($_POST['voeuToEdit'],$_SESSION['moi']->login_etudiant);
+	$search = array($_POST['voeuToEdit'],$_SESSION['etu']->login_etudiant);
 	$voeuMod = $voeuxDAO->getOne($search);
 	$voeuMod->priorité = $_POST['prioriteVoeuEdit'];
 	$voeuxDAO->update($voeuMod);
@@ -131,7 +131,7 @@ function afficheProjet()
 function afficheVoeux()
 {
 	global $voeuxDAO;
-	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['moi']->login_etudiant);
+	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['etu']->login_etudiant);
 	foreach($lesVoeux as $voeux)
 	{
 		$voeux->afficheVoeu();
@@ -163,7 +163,7 @@ function afficheVoeux()
 	</head>
 	<body>
 		<?php 
-		$_SESSION['moi']->afficheNavBar();
+		$_SESSION['etu']->afficheNavBar();
 		?>
 		<div class="container">
 			<div class="row">

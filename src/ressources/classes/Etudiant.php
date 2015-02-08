@@ -42,13 +42,13 @@ class Etudiant extends TableObject {
 	 * Fonction qui regarde parmi tous les voeux de l'étudiant si celui-ci à un voeu avec une priorité plus importante que celui pour le projet dont le numéro est passé en paramètre
 	 * $num = un numéro de projet
 	 * @author Jérémie
-	 * @version 1.0
+	 * @version 1.2
 	 */
 	public function aUnMeilleurVoeu($num)
 	{
 		$DAOtemporaire = new VoeuxDAO(MaBD::getInstance());
 		$voeux = $DAOtemporaire->getAllVoeuEtudiant($this->login);
-		$voeu = $DAOtemporaire->getOne(array($num,$this->login));
+		$voeu = $DAOtemporaire->getOne(array($num,$this->login_etudiant));
 		foreach ($voeux as $voeuAComparer)
 		{
 			if ($voeuAComparer->priorité>$voeu->priorité)

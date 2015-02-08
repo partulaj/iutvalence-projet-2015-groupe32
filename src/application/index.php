@@ -36,7 +36,7 @@ if (isset($_POST['connexion']))
 	$moi=$etudiantsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_etudiant==$mdp))
 	{
-		$_SESSION['moi']=$moi;
+		$_SESSION['etu']=$moi;
 		header("Location:etudiant.php");
 		exit();	
 	}
@@ -45,7 +45,7 @@ if (isset($_POST['connexion']))
 	$moi=$enseignantsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_enseignant==$mdp))
 	{
-		$_SESSION['moi']=$moi;
+		$_SESSION['ens']=$moi;
 		header("Location:enseignant.php");
 		exit();	
 	}
@@ -54,7 +54,7 @@ if (isset($_POST['connexion']))
 	$moi=$chefsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_chef==$mdp))
 	{
-		$_SESSION['moi']=$moi;
+		$_SESSION['chef']=$moi;
 		header("Location:chef.php");
 		exit();	
 	}

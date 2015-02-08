@@ -10,7 +10,7 @@ mail_chef varchar(150)
 CREATE TABLE Groupes
 (
 no_groupe integer NOT NULL PRIMARY KEY
-)ENGINE=INNODB;;
+)ENGINE=INNODB;
 
 CREATE TABLE Etudiants
 (
@@ -22,7 +22,7 @@ mail_etudiant varchar(150),
 no_groupe integer,
 nb_voeux integer DEFAULT 0,
 FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
-)ENGINE=INNODB;;
+)ENGINE=INNODB;
 
 CREATE TABLE Enseignants
 (
@@ -31,7 +31,7 @@ nom_enseignant varchar(20),
 prenom_enseignant varchar(20),
 mdp_enseignant varchar(50),
 mail_enseignant varchar(150)
-)ENGINE=INNODB;;
+)ENGINE=INNODB;
 
 
 CREATE TABLE Projets
@@ -60,7 +60,7 @@ priorité integer NOT NULL,
 PRIMARY KEY (no_projet,login_etudiant),
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
-)ENGINE=INNODB;;
+)ENGINE=INNODB;
 
 
 CREATE TABLE Taches
@@ -72,4 +72,4 @@ no_projet integer,
 login_etudiant varchar(20),
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
-)ENGINE=INNODB;;
+)ENGINE=INNODB;

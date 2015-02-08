@@ -36,47 +36,32 @@ class Projet extends TableObject {
 					</td>
 				</tr>";
 	}
-
-////////////////////A déplacer vers Enseignant ////////////////////
-
-	//Fonction qui permet d'afficher les projets du professeur
-	public function afficheMesProjets()
-	{
-		$ProjetDAO = new ProjetsDAO(MaBD::getInstance());
-		$EtudiantDAO = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $EtudiantDAO->getAll();
-		//$etudiants = $EtudiantDAO->getAllWithThisProject($this->no_groupe);
-		//<td class='col-xs-3'>",$etudiants->afficheMesEtudiants(),"</td>
-		$projets = $ProjetDAO->getAllMyProjects($this->login_enseignant);
-		
-		echo "<tr>
-				<td class='col-xs-1'> $this->no_projet</td>
-				<td class='col-xs-2'> $this->nom_projet</td>
-			  </tr>";	
-	}
 	
 	/**
 	 * Fonction qui lance l'affectation automatique ci le nombre d'étudiant est suffisant
 	 * Fonction qui déclenche l'affectation automatique si le nombres d'étudiant n'ayant pas de voeux plus prioritaire est supérieur ou égale au nombre d'étudiants maximale sur le projet
 	 * @author Jérémie
-	 * @version 1.0
+	 * @version 1.2
 	 */
 	public function initAffectationAuto()
 	{
 		$res = array();
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
 		$etudiantsATrier = $DAOtemporaire->getAllWithThisWish($this->no_projet);
-		for ($i=0;$i>count($etudiantsATrier);$i++)
+		foreach ($etudiantsATrier as $etudiant)
 		{
-			if ($etudiantsATrier[$i]->aUnMeilleurVoeu($this->no_projet)==false)
+			if ($etudiant->aUnMeilleurVoeu($this->no_projet)==false)
 			{
-				$res[]=$etudiantsATrier[$i];
+				$res[]=$etudiant;
 			}
 		}
-		if (count($res)-1>=$this->nb_etu_max)
+		if (count($res)>=$this->nb_etu_max)
 		{
-			$this->affectationAuto($res);
+			$bis=$this->affectationAuto($res);
+			return $bis;
+			//return "blop";
 		}
+		//return "pas blop";
 	}
 	
 	/**
@@ -84,21 +69,35 @@ class Projet extends TableObject {
 	 * Fonction qui permet d'affecter les étudiant au projet en cours ($this)
 	 * @param $tab : un tableau d'étudiants
 	 * @author Jérémie
-	 * @todo
+	 * @version 0.2
 	 */
 	private function affectationAuto($tab)
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
 		$DAOtemporaire2 = new VoeuxDAO(MaBD::getInstance());
-		$DAOtemporaire3 = new ProjetsDAO(MaBD::getInstance());
-		for($i=0;$i<$this->nb_etu_max;$i++)
+		$DAOtemporaire3 = new ProjetsDAO(MaBD::getInstance()); 
+		foreach ($tab as $etudiant)
 		{
-			$tab[$i]->no_groupe=$this->no_groupe;
-			$DAOtemporaire3->update($this);
-			$DAOtemporaire2->deleteAllMyWish($tab[$i]);
-			$DAOtemporaire->update($tab[$i]);
+			$etudiant->no_groupe=$this->no_groupe;
 			$this->affecter=1;
+			$DAOtemporaire->update($etudiant);
+			$DAOtemporaire3->update($this);
+			$DAOtemporaire2->deleteAllMyWish($etudiant->login_etudiant);		
 		}
+	}
+	
+	/**
+	 * Fonction qui affiche les projets de l'enseignant
+	 *
+	 * @author Ihab, Jérémie
+	 * @version 0.2
+	 */
+	public function afficheMesProjets()
+	{
+		echo "<tr>
+		<td class='col-xs-1'> $this->no_projet</td>
+		<td class='col-xs-2'> $this->nom_projet</td>
+		</tr>";
 	}
 }
 ?>

@@ -3,7 +3,7 @@
  * Page d'accueil des enseignants 
  * @package application
  * @author Ihab, Jérémie
- * @version 1.0
+ * @version 1.1
  */
 session_start ();
 
@@ -11,8 +11,6 @@ session_start ();
 $param ['erreur'] = false;
 $param['reussi'] = false;
 $param ['message'] = null;
-
-// Chargement des classes php
 
 /**
  * Fonction de chargement automatique des classes
@@ -27,20 +25,10 @@ $etudiantDAO = new EtudiantsDAO ( MaBD::getInstance () );
 $projetsDAO = new ProjetsDAO ( MaBD::getInstance () );
 
 // On vérifie que l'utilisateur est connecté
-if (! isset ( $_SESSION ['moi'] )) {
+if (! isset ( $_SESSION ['ens'] )) {
 	header ( "Location:index.php" );
 	exit ();
 }
-
-// Lancement de l'affectation des projet
-/*
-$projetAffectation = $projetsDAO->getAll ();
-foreach ( $projetAffectation as $projetAAffecter ) {
-	$projetAAffecter->affectationAuto ();
-}
-*/
-
-// Fonction d'affichage des projets
 
 /**
  * Fonction qui récupère les projets et les affiches dans un tableau
@@ -48,7 +36,7 @@ foreach ( $projetAffectation as $projetAAffecter ) {
 function afficheLesProjets() {
 	global $projetsDAO;
 	echo "<br/><tr><th>Numero</th><th>Sujet</th><th>Etudiants sur le projet</th></tr>";
-	$mesProjets = $projetsDAO->getAllMyProjects ( $_SESSION ['moi']->login_enseignant );
+	$mesProjets = $projetsDAO->getAllMyProjects ( $_SESSION ['ens']->login_enseignant );
 	foreach ( $mesProjets as $projets ) {
 		$projets->afficheMesProjets ();
 	}
@@ -58,7 +46,7 @@ function afficheLesProjets() {
 if (isset ( $_POST ['envoi'] )) {
 	$message = trim ( $_POST ['message'] );
 	$sujet = trim ( $_POST ['sujet'] );
-	$_SESSION ['moi']->mailToGroupOfThisProject ( $groupe, $sujet, $message );
+	$_SESSION ['ens']->mailToGroupOfThisProject ( $groupe, $sujet, $message );
 }
 
 // Ajout d'un projet
@@ -86,7 +74,7 @@ if (isset ( $_POST ['new_projet'] )) {
 			"objectif" => $objectif,
 			"contrainte" => $contrainte,
 			"details" => $details,
-			"login_enseignant" => $_SESSION['moi']->login_enseignant,
+			"login_enseignant" => $_SESSION['ens']->login_enseignant,
 			"no_groupe" => $newGroupe->no_groupe,
 	) );
 	$projetsDAO->insert($newProjet);
@@ -118,7 +106,7 @@ if (isset ( $_POST ['new_projet'] )) {
 </head>
 <body>
 		<?php
-		$_SESSION ['moi']->afficheNavBar ();
+		$_SESSION ['ens']->afficheNavBar ();
 		?>
 	<div class="container">
 		<div class="row">

@@ -13,7 +13,7 @@ session_start();
 function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 
 //On vérifie que l'utilisateur est connecté
-if (!isset($_SESSION['moi']))
+if (!isset($_SESSION['chef']))
 {
 	header("Location:index.php");
 	exit();
@@ -43,7 +43,7 @@ if (isset($_POST['envoi']))
 {
 	$message=trim($_POST['message']);
 	$sujet=trim($_POST['sujet']);
-	$_SESSION['moi']->mailToSansProjets($etudiantsSansProjets,$sujet,$message);
+	$_SESSION['chef']->mailToSansProjets($etudiantsSansProjets,$sujet,$message);
 }
 
 /*Import des étudiants via xml (à finir)*/
@@ -87,7 +87,7 @@ if (isset($_FILES['fichier_import']))
 	</head>
 	<body>
 		<?php 
-		$_SESSION['moi']->afficheNavBar();
+		$_SESSION['chef']->afficheNavBar();
 		?>
 		<div class="container">			
 			<div class="row">
