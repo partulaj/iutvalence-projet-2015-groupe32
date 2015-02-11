@@ -36,6 +36,16 @@ class Enseignant extends TableObject {
 		";
 	}
 	
+	public function afficheMesProjets()
+	{
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$mesProjets = $DAOtemporaire->getAllMyProjects($this->login_enseignant);
+		foreach ($mesProjets as $projet)
+		{
+			$projet->toTableRow();
+		}
+	}
+	
 	//////////////// A modifié ////////////////
 	/*
 	 * la requête doit être préparé

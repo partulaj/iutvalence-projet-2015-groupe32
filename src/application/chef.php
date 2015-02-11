@@ -34,7 +34,7 @@ function afficheTab($array)
 	echo "<tr><th>Nom</th><th>Prénom</th></tr>";
 	foreach ($array as $etudiant)
 	{
-		$etudiant->afficheEtudiantRow();
+		$etudiant->toTableRow();
 	}
 }
 

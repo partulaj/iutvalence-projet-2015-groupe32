@@ -47,7 +47,7 @@ class Etudiant extends TableObject {
 	public function aUnMeilleurVoeu($num)
 	{
 		$DAOtemporaire = new VoeuxDAO(MaBD::getInstance());
-		$voeux = $DAOtemporaire->getAllVoeuEtudiant($this->login);
+		$voeux = $DAOtemporaire->getAllVoeuEtudiant($this->login_etudiant);
 		$voeu = $DAOtemporaire->getOne(array($num,$this->login_etudiant));
 		foreach ($voeux as $voeuAComparer)
 		{
@@ -67,9 +67,17 @@ class Etudiant extends TableObject {
 	 * @author Jérémie
 	 * @version 1.0
 	 */
-	public function afficheEtudiantRow()
+	public function toTableRow()
 	{
 		echo '<tr><td>',$this->nom_etudiant,'</td><td>',$this->prenom_etudiant,'</td><td><a href="mailto:',$this->mail_etudiant,'">Lui écrire</a></td></tr>';
+	}
+	
+	/**
+	 * 
+	 */
+	public function toListElement()
+	{
+		echo "<li class='list-group-item'>$this->nom_etudiant $this->prenom_etudiant</li>";
 	}
 
 }

@@ -30,18 +30,6 @@ if (! isset ( $_SESSION ['ens'] )) {
 	exit ();
 }
 
-/**
- * Fonction qui récupère les projets et les affiches dans un tableau
- */
-function afficheLesProjets() {
-	global $projetsDAO;
-	echo "<br/><tr><th>Numero</th><th>Sujet</th><th>Etudiants sur le projet</th></tr>";
-	$mesProjets = $projetsDAO->getAllMyProjects ( $_SESSION ['ens']->login_enseignant );
-	foreach ( $mesProjets as $projets ) {
-		$projets->afficheMesProjets ();
-	}
-}
-
 // Envoie d'un message au élèves du groupe
 if (isset ( $_POST ['envoi'] )) {
 	$message = trim ( $_POST ['message'] );
@@ -121,7 +109,7 @@ if (isset ( $_POST ['new_projet'] )) {
 		<div class="row">
 			<table class="table table-bordered table-striped table-condensed">
 					<?php
-					afficheLesProjets ();
+					$_SESSION['ens']->afficheMesProjets();
 					?>
 				</table>
 		</div>

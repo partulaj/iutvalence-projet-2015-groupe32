@@ -2,7 +2,7 @@ window.onload = function()
 {
 	$('#formDiv').hide("fast");
 }
-//fonction pour incrémenter le champ 'number'
+//fonction po-ur incrémenter le champ 'number'
 function inputNumberAdd(inputToChange)
 {
 	var input=document.getElementById(inputToChange);

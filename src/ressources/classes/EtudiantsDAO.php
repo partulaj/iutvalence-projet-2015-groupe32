@@ -26,13 +26,13 @@ class EtudiantsDAO extends DAO {
 	 * @param $projets : un Projet
 	 * @return $res : un tableau d'étudiants
 	 * @author Ihab, Jérémie
-	 * @version 1.1
+	 * @version 1.2
 	 */
-	public function getAllWithThisProject($projet)
+	public function getAllWithThisProject($no_groupe)
 	{	
 		$res=array();
 		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = ?");
-		$stmt ->execute(array($projet->no_groupe));
+		$stmt ->execute(array($no_groupe));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);
