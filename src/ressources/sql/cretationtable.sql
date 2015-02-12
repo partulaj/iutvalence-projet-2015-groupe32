@@ -7,11 +7,6 @@ mdp_chef varchar(50),
 mail_chef varchar(150)
 )ENGINE=INNODB;;
 
-CREATE TABLE Groupes
-(
-no_groupe integer NOT NULL PRIMARY KEY
-)ENGINE=INNODB;
-
 CREATE TABLE Etudiants
 (
 login_etudiant varchar(20) NOT NULL PRIMARY KEY,
@@ -48,7 +43,14 @@ login_enseignant varchar(20),
 no_groupe integer,
 affecter boolean DEFAULT false,
 FOREIGN KEY (login_enseignant) REFERENCES Enseignants(login_enseignant),
-FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
+)ENGINE=INNODB;
+
+CREATE TABLE Groupes
+(
+	no_groupe integer NOT NULL,
+	no_projet integer NOT NULL,
+	FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
+	PRIMARY KEY (no_projet, no_groupe)
 )ENGINE=INNODB;
 
 CREATE TABLE Voeux

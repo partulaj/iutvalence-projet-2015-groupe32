@@ -46,15 +46,19 @@ class Enseignant extends TableObject {
 		}
 	}
 	
-	//////////////// A modifié ////////////////
-	/*
-	 * la requête doit être préparé
-	 * les requêtes sont dans les classes DAO
+	/**
+	 * Fonction qui envoie un mail à tous les étudiants s'un groupe
+	 * Fonction qui permet d'envoyer un message à tous les étudiants d'un groupe
+	 * @param $no_groupe : le numéro d'un groupe
+	 * @param $subject : le sujet du message
+	 * @param $message : le message
+	 * @author Ihab, Jérémie
 	 */
-	//Envoi un mail au groupe selectionné
-	public function mailToGroupOfThisProject($groupe, $subject, $message)
+	public function mailToThisGroup($no_groupe, $subject, $message)
 	{	
-		foreach ($row as $etudiant)
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$etuGroupe = $DAOtemporaire->getAllWithThisProject($no_groupe);
+		foreach ($etuGroupe as $etudiant)
 		{
 			mail($etudiant->mail_etudiant, $subject, $message);
 		}

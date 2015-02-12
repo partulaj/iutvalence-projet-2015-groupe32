@@ -59,5 +59,6 @@ class EtudiantsDAO extends DAO {
 		}
 		return $res;
 	}
+	
 }
 ?>
