@@ -154,6 +154,12 @@ if (isset ( $_POST ['new_projet'] )) {
 		<div class="row">
 			<h2>Envoyer un mail au groupe du projet</h2>
 		</div>
+    		<FORM>
+    			<SELECT name="nom" size="1">
+    			<OPTION selected>nom d'un groupe
+    			</SELECT>
+    		</FORM>
+		
 		<div class="row">
 			<form action="" method="post">
 				<div class="form-group">

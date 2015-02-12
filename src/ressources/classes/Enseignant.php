@@ -54,13 +54,6 @@ class Enseignant extends TableObject {
 	//Envoi un mail au groupe selectionné
 	public function mailToGroupOfThisProject($groupe, $subject, $message)
 	{	
-		$res=array();
-		$stmt = $this->pdo->query("SELECT no_etudiant,mail_etudiant FROM $etudiant WHERE $etudiant->no_groupe = $groupe->no_groupe");
-		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-		{
-			$res[] = new $this->class ($row);
-		}
-		return $res;
 		foreach ($row as $etudiant)
 		{
 			mail($etudiant->mail_etudiant, $subject, $message);
