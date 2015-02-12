@@ -182,7 +182,7 @@ if (isset ( $_POST ['new_projet'] )) {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- JavaScript -->
-	<script src="../dist/js/bootstrap.min.js"></script>
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	<script src="../ressources/js/ourJS.js"></script>
 </body>
 </html>
