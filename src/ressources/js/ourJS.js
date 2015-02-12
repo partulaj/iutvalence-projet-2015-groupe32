@@ -1,8 +1,20 @@
-window.onload = function()
+/**
+ * Déclaration des variable globales
+ */
+var deplier=0;
+
+/**
+ * Fonction qui se lance au démarrage
+ */
+$(document).ready(function () 
 {
 	$('#formDiv').hide("fast");
-}
-//fonction po-ur incrémenter le champ 'number'
+});
+
+/**
+ * Fonction qui incrémente la valeur d'un input
+ * @param inputToChange : id de l'input à incrémenter
+ */
 function inputNumberAdd(inputToChange)
 {
 	var input=document.getElementById(inputToChange);
@@ -14,7 +26,10 @@ function inputNumberAdd(inputToChange)
 	document.getElementById(inputToChange).value=value;
 }
 
-//fonction pour décrémenter le champ 'number'
+/**
+ * Fonction qui décrémente la valeur d'un input
+ * @param inputToChange : id de l'input à décrémenter
+ */
 function inputNumberSub(inputToChange)
 {
 	var input=document.getElementById(inputToChange);
@@ -26,18 +41,19 @@ function inputNumberSub(inputToChange)
 	document.getElementById(inputToChange).value=value;
 }
 
-//fonction qui permet d'afficher le formulaire caché
-var deplier=0; // 0 le menu n'est pas déplier, 1 le menu est déplier 
+/**
+ * Fonction qui affiche 
+ */ 
 function DisplayFormVisible()
 {
 	if(deplier==0) 
 	{
-		$("#formDiv").show("slow");
+		$("#formDiv").slideDown("slow");
 		deplier=1;
 	}
 	else
 	{
-		$("#formDiv").hide("slow");
+		$("#formDiv").slideUp("slow");
 		deplier=0;
 	}
 }

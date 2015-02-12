@@ -1,5 +1,6 @@
 <?php
 class GroupesDAO extends DAO {
+	const NOT_AFFECTED=100;
 	protected $table = "Groupes";
 	protected $class = "Groupe";
 

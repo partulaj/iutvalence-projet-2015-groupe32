@@ -52,7 +52,7 @@ if (isset ( $_POST ['new_projet'] )) {
 	$newGroupe = new Groupe ( array (
 			"no_groupe" => DAO::UNKNOWN_ID 
 	) );
-	$groupesDAO->insert ( $newGroupe );
+	$groupesDAO->insert($newGroupe);
 	$newProjet = new Projet ( array (
 			"no_projet" => DAO::UNKNOWN_ID,
 			"nom_projet" => $name_project,
@@ -63,7 +63,7 @@ if (isset ( $_POST ['new_projet'] )) {
 			"contrainte" => $contrainte,
 			"details" => $details,
 			"login_enseignant" => $_SESSION['ens']->login_enseignant,
-			"no_groupe" => $newGroupe->no_groupe,
+			"no_groupe" => $newGroupe->no_groupe
 	) );
 	$projetsDAO->insert($newProjet);
 	$param['reussi']=true;

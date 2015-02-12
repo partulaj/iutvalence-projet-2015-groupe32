@@ -5,14 +5,16 @@
  * @package ressources/classes
  */
 class Projet extends TableObject {
-	public static $keyFieldsNames = array ('no_projet');
+	public static $keyFieldsNames = array (
+			'no_projet' 
+	);
 	public $hasAutoIncrementedKey = true;
 	
 	/**
 	 * Fonction qui affiche un projet dans une ligne d'un tableau
 	 * Fonction qui permet d'afficher un projet sous forme de ligne d'un tableau.
 	 * Ligne avec plusieurs colonnes.
-	 * 
+	 *
 	 * @author Jérémie
 	 * @version 1.0
 	 */
@@ -41,7 +43,7 @@ class Projet extends TableObject {
 	/**
 	 * Fonction qui lance l'affectation automatique ci le nombre d'étudiant est suffisant
 	 * Fonction qui déclenche l'affectation automatique si le nombres d'étudiant n'ayant pas de voeux plus prioritaire est supérieur ou égale au nombre d'étudiants maximale sur le projet
-	 * 
+	 *
 	 * @author Jérémie
 	 * @version 1.2
 	 */
@@ -57,33 +59,33 @@ class Projet extends TableObject {
 		if (count ( $res ) >= $this->nb_etu_max) {
 			$bis = $this->affectationAuto ( $res );
 			return $bis;
-			// return "blop";
 		}
-		// return "pas blop";
 	}
 	
 	/**
 	 * Fonction qui affecte automatiquement les étudiant au projet
 	 * Fonction qui permet d'affecter les étudiant au projet en cours ($this)
-	 * 
+	 *
 	 * @param $tab :
 	 *        	un tableau d'étudiants
 	 * @author Jérémie
 	 * @version 0.3
 	 */
 	private function affectationAuto($tab) {
-		MaBD::getInstance()->beginTransaction();
+		// MaBD::getInstance()->beginTransaction();
 		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
 		$DAOtemporaire2 = new VoeuxDAO ( MaBD::getInstance () );
 		$DAOtemporaire3 = new ProjetsDAO ( MaBD::getInstance () );
-		foreach ( $tab as $etudiant ) {
+		foreach ( $tab as $etudiant ) 
+		{
 			$etudiant->no_groupe = $this->no_groupe;
 			$this->affecter = 1;
 			$DAOtemporaire->update ( $etudiant );
 			$DAOtemporaire3->update ( $this );
 			$DAOtemporaire2->deleteAllMyWish ( $etudiant->login_etudiant );
+			$DAOtemporaire2->deleteAllWishForThisProject ( $this );
 		}
-		MaBD::getInstance()->commit();
+		// MaBD::getInstance()->commit();
 	}
 	
 	/**
@@ -93,8 +95,8 @@ class Projet extends TableObject {
 	 * @version 0.2
 	 */
 	public function toTableRow() {
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $DAOtemporaire->getAllWithThisProject($this->no_groupe);
+		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
+		$etudiants = $DAOtemporaire->getAllWithThisProject ( $this->no_groupe );
 		echo "
 			<tr>
 				<td class='col-xs-1'> $this->no_projet</td>
@@ -102,14 +104,12 @@ class Projet extends TableObject {
 				<td>
 					<ul class='list-group'>
 		";
-		foreach($etudiants as $etudiant)
-		{
-			$etudiant->toListElement();
+		foreach ( $etudiants as $etudiant ) {
+			$etudiant->toListElement ();
 		}
 		echo "		</ul>
 				</td>				
 				</tr>";
-
 	}
 }
 ?>

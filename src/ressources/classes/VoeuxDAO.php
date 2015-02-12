@@ -35,5 +35,17 @@ class VoeuxDAO extends DAO {
 		$stmt->execute(array($login));
 	}
 
+	/**
+	 * Fonction qui efface tous les voeux associé à un projet
+	 * Fonction qui permet d'effacer tous les voeux d'un projet dont le numéro est passé en paramètre.
+	 * @param $no_projet : le numéro d'un projet
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	public function deleteAllWishForThisProject($no_projet)
+	{
+		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE no_projet = ?");
+		$stmt->execute(array($no_projet));
+	}
 }
 ?>
