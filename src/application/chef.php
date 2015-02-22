@@ -31,7 +31,6 @@ $etudiantsSansProjets = $etudiantsDAO->getAllWithoutProjects();
  */
 function afficheTab($array)
 {
-	echo "<tr><th>Nom</th><th>Prénom</th></tr>";
 	foreach ($array as $etudiant)
 	{
 		$etudiant->toTableRow();
@@ -67,17 +66,17 @@ if (isset($_FILES['fichier_import']))
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Chef</title>
 
-	<!-- Bootstrap -->
-	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- WebHostingHub Glyphs -->
-	<link href="../whhg/css/whhg.css" rel="stylesheet">
+	<title>Chef</title>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+	<!-- Web Hosting Hub Glyph-->
+	<link rel="stylesheet" href="../whhg/css/whhg.css">
 	<!-- Style Personnel -->
 	<link href="../ressources/css/style.css" rel="stylesheet">
-
+	<link rel="import" href="../ressources/component.html">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -85,68 +84,86 @@ if (isset($_FILES['fichier_import']))
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
 	</head>
-	<body>
+	<body class="brown lighten-5">
 		<?php 
 		$_SESSION['chef']->afficheNavBar();
 		?>
-		<div class="container">			
-			<div class="row">
-				<h3>Envoyer un mail aux Sans Projet</h3>
+		<div class="container brown lighten-5">		
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Envoyer un mail aux Sans Projet</h5>
+						<p>Saisissez le sujet et le contenu du mail que vous souhaiter envoyer au étudiants Sans Projet</p>
+					</div>
+				</div>
+				<div class="hide col s12">
+					<form action="" method="post">
+						<div class="input-field">
+							<label for="sujet">Sujet</label>
+							<input type="text" name="sujet" required>
+						</div>
+						<div class="input-field">
+							<label for="message">Message</label>
+							<textarea class="materialize-textarea" name="message" required></textarea>
+						</div>
+						<div class="input-field">
+							<div class="centre">
+								<button type="submit" name="envoi" class="btn light-blue darken-2">
+									<span class="mdi-communication-email"></span> Envoyer
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 
-			<form action="" method="post">
-				<div class="form-group">
-					<input type="text" name="sujet" placeholder="Sujet" class="form-control" required><br/>
-					<textarea class="form-control" name="message" placeholder="Message"></textarea>
-				</div>
-				<div class="form-group">
-					<div class="centre">
-						<button type="submit" name="envoi" class="btn btn-primary">
-							<span class="glyphicon glyphicon-envelope"></span> Envoyer
-						</button>
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Liste des étudiants Sans Projet</h5>
+						<p>Voici la liste des étudiants qui 'nont pas encore de projet</p>
 					</div>
+				</div>
+				<div class="col s12 hide">
+					<table class="responsive-table bordered hoverable">
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+						</tr>
+						<?php
+						afficheTab($etudiantsSansProjets);
+						?>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<h4>Importation des étudiants</h4>
+				<form enctype="multipart/form-data" method="post" action="">
+					<div class="file-field input-field">
+						<input class="file-path validate" type="text"/>
+						<div class="btn light-blue darken-2">
+							<span>File</span>
+							<input type="file" name="fichier_import"/>
+						</div>
+					</div>
+					<div class=""
+					<button type="submit" class="btn light-blue darken-2">
+						<span class="glyphicon glyphicon-open"></span> Importer
+					</button>
 				</div>
 			</form>
-			<div class="row">
-				<h3>Liste des étudiants Sans Projet</h3>
-			</div>
-			<div clas="row">
-				<table class="table table-bordered table-striped table-condensed">
-					<?php
-
-/**
- * Page d'accueil du chef des projet tutorés
- * @package application
- */
-
-/**
- * Page d'accueil du chef des projet tutorés
- * @package application
- */
-					afficheTab($etudiantsSansProjets);
-					?>
-				</table>
-			</div>
-
-			<div class="row">
-				<h3>Importation des étudiants</h3>
-				<form enctype="multipart/form-data" method="post" action="">
-					<div class="form-group">
-						<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-						<input type="file" name="fichier_import" class="form-control">
-					</div>
-					<div class="form-group centre">
-						<button type="submit" class="btn btn-primary">
-							<span class="glyphicon glyphicon-open"></span> Importer
-						</button>
-					</div>
-				</form>
-			</div>
 		</div>
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- JavaScript -->
-		<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
 	</body>
 	</html>

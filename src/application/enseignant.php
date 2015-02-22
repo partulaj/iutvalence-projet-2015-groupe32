@@ -38,7 +38,7 @@ if (isset ( $_POST ['envoi'] )) {
 }
 
 // Ajout d'un projet
-if (isset ( $_POST ['new_projet'] )) {
+if (isset($_POST['new_projet'])) {
 	$groupesDAO = new GroupesDAO ( MaBD::getInstance () );
 	
 	$name_project = trim ( $_POST ['projet_name'] );
@@ -48,24 +48,27 @@ if (isset ( $_POST ['new_projet'] )) {
 	$objectif = trim ( $_POST ['objectif'] );
 	$contrainte = trim ( $_POST ['contrainte'] );
 	$details = trim ( $_POST ['details'] );
-	
-	$newGroupe = new Groupe ( array (
-			"no_groupe" => DAO::UNKNOWN_ID 
-	) );
-	$groupesDAO->insert($newGroupe);
-	$newProjet = new Projet ( array (
-			"no_projet" => DAO::UNKNOWN_ID,
-			"nom_projet" => $name_project,
-			"nb_etu_min" => $nb_min,
-			"nb_etu_max" => $nb_max,
-			"contexte" => $contexte,
-			"objectif" => $objectif,
-			"contrainte" => $contrainte,
-			"details" => $details,
-			"login_enseignant" => $_SESSION['ens']->login_enseignant,
-			"no_groupe" => $newGroupe->no_groupe
-	) );
+	$nom_groupe = trim($_POST['nom_groupe']);
+
+	$newProjet = new Projet(array(
+		"no_projet" => DAO::UNKNOWN_ID,
+		"nom_projet" => $name_project,
+		"nb_etu_min" => $nb_min,
+		"nb_etu_max" => $nb_max,
+		"contexte" => $contexte,
+		"objectif" => $objectif,
+		"contrainte" => $contrainte,
+		"details" => $details,
+		"login_enseignant" => $_SESSION['ens']->login_enseignant
+		) );
 	$projetsDAO->insert($newProjet);
+	var_dump($newProjet);
+	$newGroupe = new Groupe (array (
+		"no_projet" => $newProjet->no_projet,
+		"nom_groupe" => $_POST['nom_groupe'] 
+		) );
+	$groupesDAO->insert($newGroupe);
+
 	$param['reussi']=true;
 	$param['message']="Votre projet à bien été créé";
 }
@@ -73,116 +76,146 @@ if (isset ( $_POST ['new_projet'] )) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Enseignant</title>
+	<meta charset="utf-8">
 
-<!-- Bootstrap -->
-<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- WebHostingHub Glyphs -->
-<link href="../whhg/css/whhg.css" rel="stylesheet">
-<!-- Style Personnel -->
-<link href="../ressources/css/style.css" rel="stylesheet">
+	<title>Enseignant</title>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+	<!-- Web Hosting Hub Glyph-->
+	<link rel="stylesheet" href="../whhg/css/whhg.css">
+	<!-- Style Personnel -->
+	<link href="../ressources/css/style.css" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
-</head>
-<body>
+	</head>
+	<body class=" brown lighten-5">
 		<?php
 		$_SESSION ['ens']->afficheNavBar ();
 		?>
-	<div class="container">
-		<div class="row">
-			<h2>Mes Projets</h2>
+		<div class="container brown lighten-5">
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Mes Projets</h5>
+					</div>
+				</div>
+				<div class="hide">
+					<div class="row">
+						<div class="col s12">
+							<table class="responsive-table bordered striped centered col s12">
+								<tr>
+									<th>Numéro de Projet</th>
+									<th>Nom du Projet</th>
+								</tr>
+								<?php
+								$_SESSION['ens']->afficheMesProjets();
+								?>
+							</table>
+						</div>
+						<div class="col s12">
+							<div class="centre">
+								<br/>
+								<a class="btn-floating btn-large waves-effect waves-light green slide-link">
+									<i class="mdi-content-add"></i>
+								</a>
+							</div>
+						</div>
+						<div class="hide col s12">
+							<form action="" method="post">
+								<div class="input-field"> 
+									<label for="projet_name">Nom du Projet</label>
+									<input type="text" name="projet_name" required>
+								</div>
+								<div class="input-field">
+									<label for="nb_min">Nombre d'étudiants minimum</label>
+									<input type="text" name="nb_min" required>
+								</div>
+								<div class="input-field">
+									<label for="nb_max">Nombre d'étudiants maximum</label>
+									<input type="text" name="nb_max" required>
+								</div>
+								<div class="input-field">
+									<label for="contexte">Contexte</label>
+									<textarea class="materialize-textarea" name="contexte" required></textarea>
+								</div>
+								<div class="input-field">
+									<label for="objectif">Objectif</label>
+									<textarea class="materialize-textarea" name="objectif" required></textarea>
+								</div>
+								<div class="input-field">
+									<label for="contrainte">Contraintes</label>
+									<textarea class="materialize-textarea" name="contrainte" required></textarea>
+								</div>
+								<div class="input-field">
+									<label for="details">Détails</label>
+									<textarea class="materialize-textarea" name="details" required></textarea>
+								</div>
+								<div class="input-field">
+									<label for="nom_groupe">Nom Groupe</label>
+									<input type="text" name="nom_groupe" required>
+								</div>
+								<div class="centre">
+									<button type="submit" name="new_projet" class="btn light-blue darken-2">
+										<span class="icon-save-floppy"></span> Enregistrer le nouveau Projet
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Envoyer un mail au groupe du projet</h5>
+					</div>
+				</div>
+				<form class="hide" action="" method="post">
+					<label for="projet">Projet</label>
+					<select name="projet">
+						<option value="" disabled selected>Choose your option</option>
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					<div class="input-field">
+						<label for="sujet">Sujet</label>
+						<input type="text" name="sujet" class="form-control" required>
+					</div>
+					<div class="input-field">
+						<label for="message">Message</label>
+						<textarea class="materialize-textarea" name="message" required></textarea>
+					</div>
+					<div class="centre">
+						<button type="submit" name="envoi" class="btn light-blue darken-2">
+							<span class="mdi-communication-email"></span> Envoyer
+						</button>
+					</div>
+				</form>
+			</div>
+			<!--Import jQuery before materialize.js-->
+			<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+			<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+			<script src="../ressources/js/ourJS.js"></script>
 			<?php 
 			if ($param['reussi']==true)
 			{
-				echo "<div class='alert alert-success'>",$param['message'],"</div>";
+				echo 	"<script>toast('",$param['message'],"', 4000)</script>";
 			}
 			?>
-		</div>
-		<div class="row">
-			<table class="table table-bordered table-striped table-condensed">
-					<?php
-					$_SESSION['ens']->afficheMesProjets();
-					?>
-				</table>
-		</div>
-		<div class="centre">
-			<button type="submit" class="btn btn-primary btn-primary"
-				onclick="DisplayFormVisible();">
-				<span class="glyphicon glyphicon-folder-open"></span> Créer un
-				Projet
-			</button>
-		</div>
-		<div id="formDiv">
-			<form action="" method="post">
-				<div class="form-group">
-					<br /> <input type="text" name="projet_name"
-						placeholder="Nom Projet" class="form-control" required><br /> <input
-						type="text" name="nb_min" placeholder="Nombre minimal"
-						class="form-control" required><br /> <input type="text"
-						name="nb_max" placeholder="Nombre maximum" class="form-control"
-						required><br />
-					<textarea rows="5" cols="25" name="contexte" placeholder="Contexte"
-						class="form-control"></textarea>
-					<br />
-					<textarea rows="5" cols="25" name="objectif" placeholder="Objectif"
-						class="form-control"></textarea>
-					<br />
-					<textarea rows="5" cols="25" name="contrainte"
-						placeholder="Contraintes" class="form-control"></textarea>
-					<br />
-					<textarea rows="5" cols="25" name="details" placeholder="Details"
-						class="form-control"></textarea>
-					<br />
-					<div class="centre">
-						<button type="submit" name="new_projet"
-							class="btn btn-primary btn-success">
-							<span class="icon-save-floppy"></span> Enregistrer le nouveau
-							Projet
-						</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="row">
-			<h2>Envoyer un mail au groupe du projet</h2>
-		</div>
-    		<FORM>
-    			<SELECT name="nom" size="1">
-    			<OPTION selected>nom d'un groupe
-    			</SELECT>
-    		</FORM>
-		
-		<div class="row">
-			<form action="" method="post">
-				<div class="form-group">
-					<input type="text" name="sujet" placeholder="Sujet"
-						class="form-control" required><br />
-					<textarea rows="5" cols="50" name="message" placeholder="Message"
-						class="form-control"></textarea>
-					<br />
-					<div class="centre">
-						<button type="submit" name="envoi" class="btn btn-primary">
-							<span class="glyphicon glyphicon-envelope"></span> Envoyer
-						</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<!-- jQuery -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!-- JavaScript -->
-	<script src="../bootstrap/js/bootstrap.min.js"></script>
-	<script src="../ressources/js/ourJS.js"></script>
-</body>
-</html>
+		</body>
+		</html>

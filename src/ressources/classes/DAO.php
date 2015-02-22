@@ -51,6 +51,7 @@ class DAO {
 
     // Récupération d'un objet dont on donne la clé (tableau des valeurs composant la clé ou simplement la 
     // valeur si la clé n'est pas composée)
+    // Retourne NULL si l'objet n'est pas dans la base.
     public function getOne($key) {
         if ($this->stmtGetOne == null) {
             // Construction de la requête
@@ -61,18 +62,19 @@ class DAO {
             $this->stmtGetOne->execute($key);
         else
             $this->stmtGetOne->execute(array($key));
-        $row = $this->stmtGetOne->fetch(PDO::FETCH_ASSOC);
-        if ($row===false) 
-        {
-            return null;
-        }
-        return new $this->class($row);
+        
+        if ($row = $this->stmtGetOne->fetch(PDO::FETCH_ASSOC)) 
+            return new $this->class($row);
+        return NULL;
     }
 
-    // Récupération de tous les objets dans une table
-    public function getAll() {
+    // Récupération de tous les objets dans une table (peut être vide)
+    // $complementRequete contient une chaîne ajoutée à la requête, par exemple :
+    //      ORDER BY champ;
+    //      WHERE champ = 'valeur';
+    public function getAll($complementRequete = "") {
         $res = array();
-        $stmt = $this->pdo->query("SELECT * FROM $this->table");
+        $stmt = $this->pdo->query("SELECT * FROM $this->table $complementRequete");
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
             $res[] = new $this->class($row);
         return $res;
@@ -95,8 +97,11 @@ class DAO {
         return $res;
     }
 
-    // Mise à jour de l'objet
+    // Mise à jour de l'objet, impossible s'il n'y a pas au moins un champ en plus de la clé
     public function update($obj) {
+        if (count($obj->getFieldsNamesWithoutKey()) == 0)
+            throw new Exception("Invalid field list in $this->class update (empty)");
+
         if ($this->stmtUpdate == null) {
             $this->stmtUpdate = $this->newUpdateStatement($obj);
         }

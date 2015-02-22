@@ -71,14 +71,13 @@ if (isset($_POST['connexion']))
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Accueil</title>
-
-	<!-- Bootstrap -->
-	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- WebHostingHub Glyphs -->
-	<link href="../whhg/css/whhg.css" rel="stylesheet">
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+	<!-- Web Hosting Hub Glyph-->
+	<link rel="stylesheet" href="../whhg/css/whhg.css">
 	<!-- Style Personnel -->
 	<link href="../ressources/css/style.css" rel="stylesheet">
 
@@ -89,63 +88,55 @@ if (isset($_POST['connexion']))
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
 	</head>
-	<body>
-		<div class="container">
-			<h1>Accueil</h1>
-			<div class="row">
-				<div class="centre col-xs-12">
-					<h3>Identification</h3>
-				</div>
+	<body class="brown lighten-5">
+		<nav>
+			<div class="nav-wrapper light-blue darken-2">
+				<a href="#" class="brand-logo">Accueil</a>
 			</div>
-
-			<article>
+		</nav>
+		<div class="container brown lighten-5">
+			<div class="card">
+				<div class="row">
+					<div class="centre col-xs-12">
+						<h4>Identification</h4>
+					</div>
+				</div>
 				<form action="" method="post" id="connexion">
-
-					<?php
-
-					//Affichage d'un message
-					if ($param['erreur']==true)
-					{
-						echo 	"<div class='row'>
-						<p class='alert alert-danger doublecentre'>",$param['message'],"</p>
-					</div>";}
-					?>
-
 					<div class="row">
-						<div class="form-group">
-							<label class="control-label">Login</label>
-							<input type="text" name="login" class="form-control input-index">
-							<span class="cache glyphicon glyphicon-remove form-control-feedback"></span>
+						<div class="input-field col s12">
+							<label for="login">Login</label>
+							<input type="text" name="login" class="validate">
 						</div>
 					</div>
-
 					<div class="row">
-						<div class="form-group">
-							<label class="control-label">Mot de passe</label>
-							<input type="password" name="mdp" class="form-control">
-							<span class="cache glyphicon glyphicon-remove form-control-feedback"></span>
+						<div class="input-field col s12">
+							<label for="mdp">Mot de passe</label>
+							<input type="password" name="mdp" class="validate">
 						</div>
 					</div>
-
 					<div class="row">
-						<div class="form-group">
+						<div class="input-field col s12">
 							<div class="centre">
-								<button type="submit" name="connexion" class="btn btn-primary">
-									<span class="glyphicon glyphicon-user"></span> Connexion
+								<button type="submit" name="connexion" class="waves-effect waves-light btn light-blue darken-2">
+									<i class="mdi-action-account-circle"></i> Connexion
 								</button>
 							</div>
 						</div>
 					</div>
-
 				</form>
-			</article>
 		</div>
 	</div>
 
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!-- JavaScript -->
-		<script src="../bootstrap/js/bootstrap.min.js"></script>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+	<?php
+		//Affichage d'un message
+	if ($param['erreur']==true)
+	{
+		echo 	"<script>toast('",$param['message'],"', 4000)</script>";
+	}
+	?>
 	<script src="../ressources/js/ourJS.js"></script>
 </body>
 </html>

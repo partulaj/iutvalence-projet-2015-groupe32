@@ -17,6 +17,7 @@ function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 $param['erreur']=false;
 $param['reussi']=false;
 $param['message']=null;
+
 //Création des DAO
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
@@ -29,7 +30,7 @@ if (!isset($_SESSION['etu']->login_etudiant))
 	exit();
 }
 
-//
+//On lance l'affectation automatique
 $affectationProjet=$projetDAO->getAll();
 foreach ($affectationProjet as $projetAAffecter)
 {
@@ -143,14 +144,13 @@ function afficheVoeux()
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Etudiant</title>
-
-	<!-- Bootstrap -->
-	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- WebHostingHub Glyphs -->
-	<link href="../whhg/css/whhg.css" rel="stylesheet">
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+	<!-- Web Hosting Hub Glyph-->
+	<link rel="stylesheet" href="../whhg/css/whhg.css">
 	<!-- Style Personnel -->
 	<link href="../ressources/css/style.css" rel="stylesheet">
 
@@ -161,60 +161,74 @@ function afficheVoeux()
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
 	</head>
-	<body>
+	<body class="brown lighten-5">
 		<?php 
 		$_SESSION['etu']->afficheNavBar();
 		?>
-		<div class="container">
-			<div class="row">
-				<?php 
-				if ($param['erreur']!=false)
-				{
-					echo "<div class='alert alert-danger'>",$param['message'],"</div>";
-				}
-				if ($param['reussi']==true)
-				{
-					echo "<div class='alert alert-success'>",$param['message'],"</div>";
-				}
-				?>
-				<div class="col-sm-6">
-					<h3>Liste des projets</h3>
-					<p>Choisissez 5 projets parmis la liste si dessous et régler la priorité que vous souhaitez leur affecter entre 1 et 3:</p>
-					<form method="post" action="">
-						<table class="table table-bordered table-striped table-condensed">
-							<tr>
-								<th>Numero de projet</th>
-								<th>Nom du Projet</th>
-								<th>Tuteur</th>
-								<th>Priorité du voeu</th>
-							</tr> 
-							<?php afficheProjet(); ?>
-						</table>
-						<div class="centre">
-							<button type="submit" name="enregistrer" class="btn btn-success">
-								<span class="glyphicon glyphicon-ok"></span> Enregistrer
-							</button>
-						</div>
-					</form>
+		<div class="container brown lighten-5">
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Liste des Projets</h5>
+						<p>Choisissez jusqu'a 5 projets parmis la liste des projets proposé en dessou</p>
+					</div>
 				</div>
-				<div class="col-sm-6">
-					<h3>Recapitulatif des voeux choisi:</h3>
-					<p>Voici la liste des voeux que vous avez fait ordonner par priorité</p>
-					<table class="table table-bordered table-striped table-condensed">
+				<form class="hide" method="post" action="">
+					<table class="responsive-table bordered striped ">
 						<tr>
 							<th>Numero de projet</th>
-							<th>Nom du projet</th>
+							<th>Nom du Projet</th>
 							<th>Tuteur</th>
-						</tr>
-						<?php afficheVoeux();?>
-					</table>
+							<th>Priorité du voeu</th>
+							<th>Fiche du Projet</th>
+						</tr> 
+						<?php afficheProjet(); ?>
+					</table><br/>
+					<div class="centre">
+						<button type="submit" name="enregistrer" class="btn light-blue darken-2">
+							<span class="icon-ok"></span> Enregistrer
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="card">
+				<div class="row">
+					<div class="col s12">
+						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
+							<i class="mdi-hardware-keyboard-arrow-down"></i>
+						</a>
+						<h5>Recapitulatif des voeux choisi:</h5>
+						<p>Voici la liste des voeux que vous avez fait ordonner par priorité</p>
+					</div>
 				</div>
+				<table class="responsive-table bordered striped centered hide">
+					<tr>
+						<th>Numero de projet</th>
+						<th>Nom du projet</th>
+						<th>Tuteur</th>
+						<th>Priorité du voeu</th>
+					</tr>
+					<?php afficheVoeux();?>
+				</table>
 			</div>
 		</div>
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- JavaScript -->
-		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
+		<?php 
+		if ($param['erreur']!=false)
+		{
+			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
+		}
+		if ($param['reussi']==true)
+		{
+			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
+		}
+		?>
 	</body>
 	</html>

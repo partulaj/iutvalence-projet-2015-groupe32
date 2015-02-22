@@ -37,20 +37,16 @@ class Voeu extends TableObject {
 						$enseignant->nom_enseignant $enseignant->prenom_enseignant
 					</td>
 					<td class='col-xs-3'>
-						<div class='input-group'>
-							<input id='voeux_$this->no_projet' type='text' name='prioriteVoeuEdit' value='$this->priorité' class='form-control' readonly>
-							<span class='input-group-btn'>
-						    	<button onclick='inputNumberAdd(\"voeux_$this->no_projet\")' class='btn btn-success' type='button'><span class='glyphicon glyphicon-chevron-up'></span></button>
-								<button onclick='inputNumberSub(\"voeux_$this->no_projet\")' class='btn btn-warning' type='button'><span class='glyphicon glyphicon-chevron-down'></span></button>
-    						</span>
-    					</div> 
+						<p class='range-field'>
+							<input type='range' name='prioriteVoeuEdit' value='$this->priorité' min='1' max='3'>
+    					</p> 
 					</td>
 					<td>
-					<button type='submit' name='modifier_voeux' class='btn btn-warning'>
-						<span class='glyphicon glyphicon-floppy-open'></span>  
+					<button type='submit' name='modifier_voeux' class='btn green accent-4'>
+						<span class='mdi-image-edit'></span>  
 					</button>
-					<button type='submit' name='supprimer_voeux' class='btn btn-danger'>
-						<span class='glyphicon glyphicon-remove'></span>
+					<button type='submit' name='supprimer_voeux' class='btn red'>
+						<span class='mdi-action-delete'></span>
 					</button>
 					</td>
 				</form>

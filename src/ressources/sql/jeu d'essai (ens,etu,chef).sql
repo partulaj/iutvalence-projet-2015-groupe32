@@ -1,5 +1,3 @@
-INSERT INTO Groupes VALUES (100);
-
 INSERT INTO Enseignants VALUES ('ens1','Hatake','Kakashi','ens1','');
 INSERT INTO Enseignants VALUES ('ens2','Uchiha','Madara','ens2','');
 INSERT INTO Enseignants VALUES ('ens3','Sarutobi','Asuma','ens3','');

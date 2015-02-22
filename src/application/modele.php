@@ -11,14 +11,14 @@ function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Modele de page</title>
 
-	<!-- Bootstrap -->
-	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- WebHostingHub Glyphs -->
-	<link href="../whhg/css/whhg.css" rel="stylesheet">
+	<title>Modele de page</title>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+	<!-- Web Hosting Hub Glyph-->
+	<link rel="stylesheet" href="../whhg/css/whhg.css">
 	<!-- Style Personnel -->
 	<link href="../ressources/css/style.css" rel="stylesheet">
 
@@ -32,10 +32,9 @@ function __autoload($class) { require_once "../ressources/classes/$class.php"; }
 	<body>
 		<h1>Modele de page</h1>
 
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<!-- JavaScript -->
-		<script src="../bootstrap/js/bootstrap.min.js"></script>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
 	</body>
 	</html>

@@ -1,26 +1,21 @@
-table
-{
-	background-color: white;
-}
 .centre
 {
 	text-align:center;
 }
-.cache
+.card
 {
-	display:none;
+	padding-top: 10px;
+	padding-left: 10px;
 }
-.doublecentre
+.arrow-link
 {
-	text-align:center;
-	vertical-align: middle;
+	float: right;
 }
-.erreur
+p
 {
-	border:#a94442 1px solid;
-	border-radius: 4px;
-	background-color: #f2dede;
+	word-wrap:break-word;
+}
+.navbar-link
+{
 	font-size: 1.2em;
-	padding-top:6px;
-	padding-bottom: 6px; 
 }

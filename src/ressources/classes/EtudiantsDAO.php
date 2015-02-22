@@ -12,7 +12,7 @@ class EtudiantsDAO extends DAO {
 	public function getAllWithoutProjects()
 	{
 		$res=array();
-		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE no_groupe IS NULL");
+		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE nom_groupe IS NULL");
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) 
 		{
 			$res[] = new $this->class ($row);
@@ -28,11 +28,11 @@ class EtudiantsDAO extends DAO {
 	 * @author Ihab, Jérémie
 	 * @version 1.2
 	 */
-	public function getAllWithThisProject($no_groupe)
+	public function getAllWithThisProject($nom_groupe)
 	{	
 		$res=array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = ?");
-		$stmt ->execute(array($no_groupe));
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE nom_groupe = ?");
+		$stmt ->execute(array($nom_groupe));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);

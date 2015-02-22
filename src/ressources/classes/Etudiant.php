@@ -14,24 +14,27 @@ class Etudiant extends TableObject {
 	public function afficheNavBar()
 	{
 		echo "
-		<nav class='navbar navbar-inverse'>
-			<div class='container-fluid'>
-				<div class='navbar-header'>
-					<a class='navbar-brand' href='#'><span class='icon-student-school'></span>  $this->nom_etudiant $this->prenom_etudiant</a>
-				</div>
-				<ul class='nav navbar-nav'>
-					<li class='active'>
-						<a href='#'><span class='glyphicon glyphicon-home'></span> Accueil</a>
-					</li>
-					<li>
-						<a href='#'><span class='glyphicon glyphicon-envelope'></span> Message</a>
-					</li>
+		<nav>
+			<form name='formDeDeconnexion' method='post' action='index.php'>
+				<input type='hidden' name='deconnexion' value='deconnexion'>
+			</form>
+			<div class='nav-wrapper light-blue darken-2'>
+				<a href='#'' class='brand-logo'>
+					<span class='icon-student-school'></span>
+					$this->nom_etudiant $this->prenom_etudiant
+				</a>
+				<a href='#' data-activates='mobile-demo' class='button-collapse'>
+					<i class='mdi-navigation-menu'></i>
+				</a>
+				<ul id='nav-mobile' class='right hide-on-med-and-down'>
+					<li><a href='sass.html'>Sass</a></li>
+					<li><a href='components.html'>Components</a></li>
+					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>
-				<ul class='nav navbar-nav navbar-right'>
-					<form name='formDeDeconnexion' method='post' action='index.php'>
-						<input type='hidden' name='deconnexion' value='deconnexion'>
-					</form>
-					<li class='btn-danger'><a href='javascript:document.formDeDeconnexion.submit();' ><span class='glyphicon glyphicon-off'></span></a></li>
+				<ul class='side-nav' id='mobile-demo'>
+					<li><a href='sass.html'>Sass</span></a></li>
+					<li><a href='components.html'>Components</a></li>
+					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>
 			</div>
 		</nav>";
@@ -77,7 +80,7 @@ class Etudiant extends TableObject {
 	 */
 	public function toListElement()
 	{
-		echo "<li class='list-group-item'>$this->nom_etudiant $this->prenom_etudiant</li>";
+		echo "<li>$this->nom_etudiant $this->prenom_etudiant</li>";
 	}
 
 }
