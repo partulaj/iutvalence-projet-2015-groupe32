@@ -22,6 +22,7 @@ $param['message']=null;
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
+$tachesDAO = new TachesDAO(MaBD::getInstance());
 
 //On vérifie que l'utilisateur est connecté 
 if (!isset($_SESSION['etu']->login_etudiant))
@@ -123,7 +124,6 @@ function afficheProjet()
 }
 
 //Fonction d'affichage des voeux 
-
 /**
  * Foncion qui récupère les voeux et les affiche dans un tableau
  * @author Jérémie
@@ -138,6 +138,39 @@ function afficheVoeux()
 		$voeux->afficheVoeu();
 	}
 }
+
+//Fonction qui recupaire et affiche les taches du projet associer à l'etudiant
+function afficheTaches()
+{
+	global $tachesDAO;
+	$lesTaches = $tachesDAO->getAllTacheEtudiant($_SESSION['etu']->no_projet);
+	foreach($lesTaches as $tache)
+	{
+		$tache->afficheTache();
+	}
+}
+
+//Ajout d'une tache à la liste de tache
+if (isset($_POST['ajouterTache']))
+{
+	$no_tache = ? ;//incrementation par raport au soutache
+	$nom_tache = $_POST['nomTache'];
+	$avancement = ? ; 
+	$no_projet = $_SESSION['etu']->no_projet;
+	$login_etudiant = $_SESSION['etu']->login_etudiant;
+	
+	$tache = new Taches(array(
+			"no_tache" => $no_tache,
+			"nom_tache" => $nom_tache,
+			"avancement" => $avancement,
+			"no_projet" => $no_projet,
+			"login_etudiant" => $login_etudiant
+	) );
+	$tachesDAO->insert(tache);
+}
+
+//Modification d'une tache
+
 
 ?>
 <!DOCTYPE html>
@@ -216,6 +249,16 @@ function afficheVoeux()
 				</table>
 			</div>
 		</div>
+		<div class="row">
+			<h5>Mon Projet</h5>
+			<form>
+				<?php afficheTaches(); ?>
+				<button type="submit" name="ajouterTache" class="btn">
+					<span class=""></span> Ajouter une tache
+				</button>
+			</form>
+		</div>
+		
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
