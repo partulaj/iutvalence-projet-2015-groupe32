@@ -77,7 +77,7 @@ class Projet extends TableObject {
 		$DAOtemporaire3 = new ProjetsDAO ( MaBD::getInstance () );
 		foreach ( $tab as $etudiant ) 
 		{
-			$etudiant->nom_groupe = $this->nom_groupe;
+			$etudiant->no_groupe = $this->no_groupe;
 			$this->affecter = 1;
 			$DAOtemporaire->update ( $etudiant );
 			$DAOtemporaire3->update ( $this );

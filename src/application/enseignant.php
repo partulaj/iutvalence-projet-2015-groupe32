@@ -48,7 +48,6 @@ if (isset($_POST['new_projet'])) {
 	$objectif = trim ( $_POST ['objectif'] );
 	$contrainte = trim ( $_POST ['contrainte'] );
 	$details = trim ( $_POST ['details'] );
-	$nom_groupe = trim($_POST['nom_groupe']);
 
 	$newProjet = new Projet(array(
 		"no_projet" => DAO::UNKNOWN_ID,
@@ -65,7 +64,7 @@ if (isset($_POST['new_projet'])) {
 	var_dump($newProjet);
 	$newGroupe = new Groupe (array (
 		"no_projet" => $newProjet->no_projet,
-		"nom_groupe" => $_POST['nom_groupe'] 
+		"no_groupe" => DAO::UNKNOWN_ID
 		) );
 	$groupesDAO->insert($newGroupe);
 
@@ -159,10 +158,6 @@ if (isset($_POST['new_projet'])) {
 								<div class="input-field">
 									<label for="details">Détails</label>
 									<textarea class="materialize-textarea" name="details" required></textarea>
-								</div>
-								<div class="input-field">
-									<label for="nom_groupe">Nom Groupe</label>
-									<input type="text" name="nom_groupe" required>
 								</div>
 								<div class="centre">
 									<button type="submit" name="new_projet" class="btn light-blue darken-2">

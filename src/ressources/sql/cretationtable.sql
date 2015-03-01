@@ -33,11 +33,9 @@ FOREIGN KEY (login_enseignant) REFERENCES Enseignants(login_enseignant)
 
 CREATE TABLE Groupes
 (
-nom_groupe varchar(20) NOT NULL,
+no_groupe integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 no_projet integer NOT NULL,
-INDEX (nom_groupe,no_projet),
-FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
-PRIMARY KEY (no_projet, nom_groupe)
+FOREIGN KEY (no_projet) REFERENCES Projets(no_projet)
 )ENGINE=INNODB;
 
 CREATE TABLE Etudiants
@@ -47,11 +45,9 @@ nom_etudiant varchar(20),
 prenom_etudiant varchar(20),
 mdp_etudiant varchar(50),
 mail_etudiant varchar(150),
-nom_groupe varchar(20),
-no_projet integer,
+no_groupe integer,
 nb_voeux integer DEFAULT 0,
-INDEX (nom_groupe,no_projet),
-FOREIGN KEY (nom_groupe,no_projet) REFERENCES Groupes(nom_groupe,no_projet)
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;
 
 CREATE TABLE Voeux
