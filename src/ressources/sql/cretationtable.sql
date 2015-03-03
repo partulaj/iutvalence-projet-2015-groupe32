@@ -45,8 +45,9 @@ nom_etudiant varchar(20),
 prenom_etudiant varchar(20),
 mdp_etudiant varchar(50),
 mail_etudiant varchar(150),
-no_groupe integer,
+no_groupe integer DEFAULT null,
 nb_voeux integer DEFAULT 0,
+ajac boolean,
 FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;
 

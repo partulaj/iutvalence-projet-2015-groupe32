@@ -25,16 +25,9 @@ $etudiantDAO = new EtudiantsDAO ( MaBD::getInstance () );
 $projetsDAO = new ProjetsDAO ( MaBD::getInstance () );
 
 // On vérifie que l'utilisateur est connecté
-if (! isset ( $_SESSION ['ens'] )) {
+if (! isset ( $_SESSION ['user']->login_enseignant )) {
 	header ( "Location:index.php" );
 	exit ();
-}
-
-// Envoie d'un message au élèves du groupe
-if (isset ( $_POST ['envoi'] )) {
-	$message = trim ( $_POST ['message'] );
-	$sujet = trim ( $_POST ['sujet'] );
-	$_SESSION ['ens']->mailToGroupOfThisProject ( $groupe, $sujet, $message );
 }
 
 // Ajout d'un projet
@@ -58,16 +51,29 @@ if (isset($_POST['new_projet'])) {
 		"objectif" => $objectif,
 		"contrainte" => $contrainte,
 		"details" => $details,
-		"login_enseignant" => $_SESSION['ens']->login_enseignant
+		"login_enseignant" => $_SESSION['user']->login_enseignant
 		) );
 	$projetsDAO->insert($newProjet);
 	var_dump($newProjet);
-	$newGroupe = new Groupe (array (
-		"no_projet" => $newProjet->no_projet,
-		"no_groupe" => DAO::UNKNOWN_ID
-		) );
-	$groupesDAO->insert($newGroupe);
-
+	if (isset($_POST['nb_groupes']))
+	{
+		for ($i=0; $i < Groupe::NB_GROUPE_MAX; $i++) 
+		{ 
+			$newGroupe = new Groupe (array (
+				"no_projet" => $newProjet->no_projet,
+				"no_groupe" => DAO::UNKNOWN_ID
+				) );
+			$groupesDAO->insert($newGroupe);
+		}
+	}
+	else
+	{
+		$newGroupe = new Groupe (array (
+			"no_projet" => $newProjet->no_projet,
+			"no_groupe" => DAO::UNKNOWN_ID
+			) );
+		$groupesDAO->insert($newGroupe);		
+	}
 	$param['reussi']=true;
 	$param['message']="Votre projet à bien été créé";
 }
@@ -96,7 +102,7 @@ if (isset($_POST['new_projet'])) {
 	</head>
 	<body class=" brown lighten-5">
 		<?php
-		$_SESSION ['ens']->afficheNavBar ();
+		$_SESSION ['user']->afficheNavBar ();
 		?>
 		<div class="container brown lighten-5">
 			<div class="card">
@@ -117,7 +123,7 @@ if (isset($_POST['new_projet'])) {
 									<th>Nom du Projet</th>
 								</tr>
 								<?php
-								$_SESSION['ens']->afficheMesProjets();
+								$_SESSION['user']->afficheMesProjets();
 								?>
 							</table>
 						</div>
@@ -159,6 +165,15 @@ if (isset($_POST['new_projet'])) {
 									<label for="details">Détails</label>
 									<textarea class="materialize-textarea" name="details" required></textarea>
 								</div>
+								<div class="switch">
+									<label>
+										1 Groupe
+										<input type="checkbox" name="nb_groupes">
+										<span class="lever"></span>
+										2 Groupes
+									</label>
+								</div>
+								<br/>
 								<div class="centre">
 									<button type="submit" name="new_projet" class="btn light-blue darken-2">
 										<span class="icon-save-floppy"></span> Enregistrer le nouveau Projet
@@ -170,38 +185,6 @@ if (isset($_POST['new_projet'])) {
 				</div>
 			</div>
 
-			<div class="card">
-				<div class="row">
-					<div class="col s12">
-						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
-							<i class="mdi-hardware-keyboard-arrow-down"></i>
-						</a>
-						<h5>Envoyer un mail au groupe du projet</h5>
-					</div>
-				</div>
-				<form class="hide" action="" method="post">
-					<label for="projet">Projet</label>
-					<select name="projet">
-						<option value="" disabled selected>Choose your option</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-					</select>
-					<div class="input-field">
-						<label for="sujet">Sujet</label>
-						<input type="text" name="sujet" class="form-control" required>
-					</div>
-					<div class="input-field">
-						<label for="message">Message</label>
-						<textarea class="materialize-textarea" name="message" required></textarea>
-					</div>
-					<div class="centre">
-						<button type="submit" name="envoi" class="btn light-blue darken-2">
-							<span class="mdi-communication-email"></span> Envoyer
-						</button>
-					</div>
-				</form>
-			</div>
 			<!--Import jQuery before materialize.js-->
 			<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 			<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>

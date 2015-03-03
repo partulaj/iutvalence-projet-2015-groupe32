@@ -19,3 +19,7 @@ p
 {
 	font-size: 1.2em;
 }
+label
+{
+	padding-right: 30px;
+}

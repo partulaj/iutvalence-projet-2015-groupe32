@@ -1,5 +1,5 @@
 <?php
-class Etudiant extends TableObject {
+class Etudiant extends Utilisateur {
 	static public $keyFieldsNames = array('login_etudiant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
@@ -27,12 +27,12 @@ class Etudiant extends TableObject {
 					<i class='mdi-navigation-menu'></i>
 				</a>
 				<ul id='nav-mobile' class='right hide-on-med-and-down'>
-					<li><a href='sass.html'>Sass</a></li>
+					<li><a href='message.php'>Message</a></li>
 					<li><a href='components.html'>Components</a></li>
 					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>
 				<ul class='side-nav' id='mobile-demo'>
-					<li><a href='sass.html'>Sass</span></a></li>
+					<li><a href='message.php'>Message</a></li>
 					<li><a href='components.html'>Components</a></li>
 					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>

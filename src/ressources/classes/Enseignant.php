@@ -1,5 +1,5 @@
 <?php
-class Enseignant extends TableObject {
+class Enseignant extends Utilisateur {
 	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
@@ -25,12 +25,12 @@ class Enseignant extends TableObject {
 					<i class='mdi-navigation-menu'></i>
 				</a>
 				<ul id='nav-mobile' class='right hide-on-med-and-down'>
-					<li><a href='sass.html'>Sass</a></li>
+					<li><a href='message.php'>Message</a></li>
 					<li><a href='components.html'>Components</a></li>
 					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>
 				<ul class='side-nav' id='mobile-demo'>
-					<li><a href='sass.html'>Sass</span></a></li>
+					<li><a href='message.php'>Message</a></li>
 					<li><a href='components.html'>Components</a></li>
 					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
 				</ul>
@@ -48,21 +48,59 @@ class Enseignant extends TableObject {
 		}
 	}
 	
-	/**
-	 * Fonction qui envoie un mail à tous les étudiants s'un groupe
-	 * Fonction qui permet d'envoyer un message à tous les étudiants d'un groupe
-	 * @param $no_groupe : le numéro d'un groupe
-	 * @param $subject : le sujet du message
-	 * @param $message : le message
-	 * @author Ihab, Jérémie
-	 */
-	public function mailToThisGroup($no_groupe, $subject, $message)
-	{	
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etuGroupe = $DAOtemporaire->getAllWithThisProject($no_groupe);
-		foreach ($etuGroupe as $etudiant)
+	public function afficheMail()
+	{
+		echo "
+				<form action='' method='post'>
+							<h6>Destinataire</h6>
+							
+							<select name='no_groupe'>";
+		$this->allMyGroupsToOptions();											
+		echo				"</select>
+
+							<div class='input-field'>
+								<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
+							</div>
+							<div class='input-field'>
+								<label for='message'>Message</label>
+								<textarea class='materialize-textarea' name='message' required></textarea>
+							</div>
+							<div class='input-field'>
+								<div class='centre'>
+									<button type='submit' name='envoi'class='btn light-blue darken-2'>
+										<span class='mdi-communication-email'></span> Envoyer
+									</button>
+								</div>
+							</div>
+						</form>
+				";
+	}
+	
+	public function allMyGroups()
+	{
+		$res = array();
+		$resTemp = array();
+		
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
+		$projets = $DAOtemporaire->getAllMyProjects($this->login_enseignant);
+		foreach ($projets as $projet)
 		{
-			mail($etudiant->mail_etudiant, $subject, $message);
+			$resTemp=$DAOtemporaire2->getAllGroupesOfThisProject($projet->no_projet);
+			foreach ($resTemp as $groupe)
+			{
+				$res[] = $groupe;
+			}
+		}
+		return $res;
+	}
+	
+	public function allMyGroupsToOptions()
+	{
+		$tab = $this->allMyGroups();
+		foreach ($tab as $groupe)
+		{
+			$groupe->toOption();
 		}
 	}
 }
