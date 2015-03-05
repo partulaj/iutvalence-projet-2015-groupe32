@@ -19,6 +19,7 @@ $param['reussi']=false;
 $param['message']=null;
 
 //Création des DAO
+$groupesDAO = new GroupesDAO(MaBD::getInstance());
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
@@ -112,7 +113,7 @@ if (isset($_POST['modifier_voeux']))
 function afficheProjet()
 {
 	global $projetDAO;
-	$lesProjets = $projetDAO->getAll(); // à changer pour ne pas afficher les projets déjà affectés
+	$lesProjets = $projetDAO->getAll();
 	foreach ($lesProjets as $projet)
 	{
 		if ($projet->affecter==0)
@@ -185,7 +186,18 @@ function afficheVoeux()
 							<th>Priorité du voeu</th>
 							<th>Fiche du Projet</th>
 						</tr> 
-						<?php afficheProjet(); ?>
+						<?php
+							if (!isset($_SESSION['user']->no_groupe))
+							{
+								afficheProjet();
+							} 
+							else 
+							{
+								$monGroupe=$groupesDAO->getOne($_SESSION['user']->no_projet);
+								$monProjet=$projetDAO->getOne($monGroupe->no_projet);
+								echo "Vous êtes déjà affecté sur le projet";
+							}
+						?>
 					</table><br/>
 					<div class="centre">
 						<button type="submit" name="enregistrer" class="btn light-blue darken-2">

@@ -30,7 +30,7 @@ class Projet extends TableObject {
 		<td>", $enseignant->nom_enseignant, " ", $enseignant->prenom_enseignant, "</td>
 		<td>
 			<p class='range-field'>
-				<input type='range' name='priorite[]' min='0' max='3'>
+				<input type='range' name='priorite[]' min='0' max='3' value='0'>
 			</p>
 		</td>
 		<td>
@@ -56,37 +56,69 @@ class Projet extends TableObject {
 			}
 		}
 		if (count ( $res ) >= $this->nb_etu_max) {
-			$bis = $this->affectationAuto ( $res );
-			return $bis;
+			$this->affectationAuto ( $res );
 		}
 	}
 	
 	/**
 	 * Fonction qui affecte automatiquement les étudiant au projet
 	 * Fonction qui permet d'affecter les étudiant au projet en cours ($this)
-	 *
-	 * @param $tab :
-	 *        	un tableau d'étudiants
+	 * @param $tab :un tableau d'étudiants
 	 * @author Jérémie
-	 * @version 0.3
+	 * @version 0.5
 	 */
 	private function affectationAuto($tab) {
-		// MaBD::getInstance()->beginTransaction();
+		MaBD::getInstance()->beginTransaction();
 		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
 		$DAOtemporaire2 = new VoeuxDAO ( MaBD::getInstance () );
 		$DAOtemporaire3 = new ProjetsDAO ( MaBD::getInstance () );
-		foreach ( $tab as $etudiant ) 
+		$DAOtemporaire4 = new GroupesDAO(MaBD::getInstance());
+		
+		$groupes = $DAOtemporaire4->getAll("WHERE no_projet='$this->no_projet'");
+		foreach ($groupes as $groupe)
 		{
-			$etudiant->no_groupe = $this->no_groupe;
-			$this->affecter = 1;
-			$DAOtemporaire->update ( $etudiant );
+			if ($groupe->plein==false and !empty($tab))
+			{
+				$i=0;
+				while ($i<$this->nb_etu_max)
+				{	
+					$etudiant = $tab[0];			
+					$etudiant->no_groupe = $groupe->no_groupe;
+					$DAOtemporaire->update ($etudiant );
+					$DAOtemporaire2->deleteAllMyWish ($etudiant->login_etudiant );
+					unset($tab[0]);
+					$tab = array_values($tab);
+					$i++;
+				}
+				$groupe->plein=true;
+				$DAOtemporaire4->update($groupe);
+			}
+		}
+		
+		$groupes = $DAOtemporaire4->getAll("WHERE no_projet='$this->no_projet'");
+		foreach ($groupes as $groupe)
+		{
+			if ($groupe->plein==true)
+			{
+				$this->affecter=1;
+			}
+			else 
+			{
+				$this->affecter=0;
+				break;
+			}
+		}
+		if($this->affecter==1)
+		{
 			$DAOtemporaire3->update ( $this );
-			$DAOtemporaire2->deleteAllMyWish ( $etudiant->login_etudiant );
 			$DAOtemporaire2->deleteAllWishForThisProject ( $this );
 		}
-		// MaBD::getInstance()->commit();
+		MaBD::getInstance()->commit();
 	}
 
+	/**
+	 * 
+	 */
 	public function toStudentCards()
 	{
 		echo 	"
@@ -109,6 +141,9 @@ class Projet extends TableObject {
 		";
 	}
 
+	/**
+	 * 
+	 */
 	public function toTeacherCards()
 	{
 		echo 	"

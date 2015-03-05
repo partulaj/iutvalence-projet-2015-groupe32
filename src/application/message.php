@@ -27,9 +27,34 @@ if (isset($_POST['envoi']))
 	$sujet = $_POST['sujet'];
 	$message = $_POST['message'];
 
-	if (isset($_POST['no_groupe'])) 
+	if (isset($_POST['groupe'])) 
 	{
-		$_SESSION['user']->mailToThisGroup($_POST['no_groupe'], $sujet, $message);
+		if ($_POST['no_groupe']=="sans_projet")
+		{
+			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef->mailToSansProjets($subject, $message);
+		}
+		else 
+		{
+			if ($_SESSION['user']->estEtudiant())
+			{
+				$_SESSION['user']->mailToThisGroup($_SESSION['user']->no_groupe, $sujet, $message);
+			}
+			else 
+			{
+				$_SESSION['user']->mailToThisGroup($_POST['no_groupe'], $sujet, $message);
+			}
+		}
+	}
+	if (isset($_POST['tuteur']))
+	{
+		$groupesDAO = new GroupesDAO(MaBD::getInstance());
+		$groupe = $groupesDAO->getOne($_POST['no_groupe']);
+		$_SESSION['user']->mailToTuteur($groupe->no_projet,$sujet,$message);
+	}
+	if (isset($_POST['chef']))
+	{
+		
 	}
 }
 ?>
@@ -66,21 +91,21 @@ if (isset($_POST['envoi']))
 						</a>
 						<ul id="nav-mobile" class="right hide-on-med-and-down">
 							<?php
-							if (isset($_SESSION['user']->login_etudiant))  
+							if ($_SESSION['user']->estEtudiant())  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_enseignant))  
+							if ($_SESSION['user']->estEnseignant())  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_chef))  
+							if ($_SESSION['user']->estChef())  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>
 						<ul class='side-nav' id='mobile-demo'>
 							<?php
-							if (isset($_SESSION['user']->login_etudiant))  
+							if ($_SESSION['user']->estEtudiant())  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_enseignant))  
+							if ($_SESSION['user']->estEnseignant())  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_chef))  
+							if ($_SESSION['user']->estChef())  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>

@@ -35,6 +35,7 @@ CREATE TABLE Groupes
 (
 no_groupe integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 no_projet integer NOT NULL,
+plein boolean DEFAULT 0,
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet)
 )ENGINE=INNODB;
 

@@ -54,9 +54,10 @@ class Enseignant extends Utilisateur {
 				<form action='' method='post'>
 							<h6>Destinataire</h6>
 							
-							<select name='groupe'>";
+							<select name='no_groupe'>";
 		$this->allMyGroupsToOptions();											
 		echo				"</select>
+							<input type='hidden' id='groupe' value='true' />
 
 							<div class='input-field'>
 								<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
@@ -83,10 +84,10 @@ class Enseignant extends Utilisateur {
 		
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAllMyProjects($this->login_enseignant);
+		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
 		foreach ($projets as $projet)
 		{
-			$resTemp=$DAOtemporaire2->getAllGroupesOfThisProject($projet->no_projet);
+			$resTemp=$DAOtemporaire2->getAll("WHERE no_projet=$projet->no_projet");
 			foreach ($resTemp as $groupe)
 			{
 				$res[] = $groupe;

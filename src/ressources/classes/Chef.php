@@ -41,15 +41,16 @@ class Chef extends Utilisateur {
 	/**
 	 * Fonction qui envoie un mail au élève sans projet
 	 * Fonction qui permet au chef des projet d'envoyer un mail à tous les étudiants sans projet.
-	 * @param 	$array : tableau des étudiants sans projet
-	 * 			$subject : sujet du mail
-	 * 			$message : message du mail
+	 * @param 	$subject : sujet du mail
+	 * @param	$message : message du mail
 	 * @author Jérémie
 	 * @version 1.0
 	 */
-	public function mailToSansProjets($array, $subject, $message)
+	public function mailToSansProjets($subject, $message)
 	{
-		foreach ($array as $etudiant)
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$res = $DAOtemporaire->getAllWithoutProjects();
+		foreach ($res as $etudiant)
 		{
 			mail($etudiant->mail_etudiant, $subject, $message);
 		}
@@ -60,18 +61,21 @@ class Chef extends Utilisateur {
 		echo "
 		<form action='' method='post' >
 			<h6>Destinataire</h6>
-			<div class='input-field'>
-			<select name='groupe'>";
-			$this->allGroupsToOptions();											
+			<div class='row'>
+				<div class='input-field col l4'>
+					<select name='no_groupe'>";
+						$this->allGroupsToOptions();											
 		echo				"
-			</select>
-
-    			<input type='checkbox' id='groupe' />
-    			<label for='groupe'>Groupe</label>
-    			<input type='checkbox' id='tuteur' />
-    			<label for='tuteur'>Tuteur</label>
-    			<input type='checkbox' id='chef' />
-    			<label for='chef'>Responsable des projets</label>
+					</select>
+				</div>			
+    			<div class='input-field col l8'>
+					<input type='checkbox' id='groupe' />
+    				<label for='groupe'>Groupe</label>
+    				<input type='checkbox' id='tuteur' />
+    				<label for='tuteur'>Tuteur</label>
+    				<input type='checkbox' id='chef' />
+    				<label for='chef'>Responsable des projets</label>
+				</div>
   			</div>
 			<div class='input-field'>
 				<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
@@ -112,6 +116,7 @@ class Chef extends Utilisateur {
 	
 	public function allGroupsToOptions()
 	{
+		echo "<option value='sans_projet'>Etudiants Sans Projet</option>";
 		$tab = $this->allGroups();
 		foreach ($tab as $groupe)
 		{

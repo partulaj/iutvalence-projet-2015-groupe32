@@ -25,7 +25,8 @@ $etudiantDAO = new EtudiantsDAO ( MaBD::getInstance () );
 $projetsDAO = new ProjetsDAO ( MaBD::getInstance () );
 
 // On vérifie que l'utilisateur est connecté
-if (! isset ( $_SESSION ['user']->login_enseignant )) {
+if (!$_SESSION ['user']->estEnseignant()) 
+{
 	header ( "Location:index.php" );
 	exit ();
 }
@@ -54,12 +55,13 @@ if (isset($_POST['new_projet'])) {
 		"login_enseignant" => $_SESSION['user']->login_enseignant
 		) );
 	$projetsDAO->insert($newProjet);
-	var_dump($newProjet);
+	
 	if (isset($_POST['nb_groupes']))
 	{
 		for ($i=0; $i < Groupe::NB_GROUPE_MAX; $i++) 
 		{ 
 			$newGroupe = new Groupe (array (
+				"plein"=>null,
 				"no_projet" => $newProjet->no_projet,
 				"no_groupe" => DAO::UNKNOWN_ID
 				) );
@@ -69,6 +71,7 @@ if (isset($_POST['new_projet'])) {
 	else
 	{
 		$newGroupe = new Groupe (array (
+			"plein"=>null,
 			"no_projet" => $newProjet->no_projet,
 			"no_groupe" => DAO::UNKNOWN_ID
 			) );

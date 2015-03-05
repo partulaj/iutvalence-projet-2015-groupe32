@@ -53,14 +53,35 @@ class Utilisateur extends TableObject {
 		mail($enseignant->mail_enseignant, $subject, $message);
 	}
 
-	public function afficheNavBar()
-	{
-		echo "navbar";
-	}
+	public function afficheNavBar(){}
 
-	public function afficheMail()
+	public function afficheMail(){}
+	
+	public function estEtudiant()
 	{
-		echo "mail";
+		if (isset($this->login_etudiant))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public function estEnseignant()
+	{
+		if (isset($this->login_enseignant))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public function estChef()
+	{
+		if (isset($this->login_chef))
+		{
+			return true;
+		}
+		return false;
 	}
 }
 ?>
