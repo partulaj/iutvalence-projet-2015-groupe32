@@ -139,7 +139,6 @@ function afficheVoeux()
 	}
 }
 
-
 //Fonction qui recupaire et affiche les taches du projet associer à l'etudiant
 function afficheTaches()
 {

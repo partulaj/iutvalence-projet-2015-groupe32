@@ -26,7 +26,6 @@ class Tache extends TableObject {
 						<span class=''></span>
 				</button>
 			</div>";
-		
 	}
 	
 }
