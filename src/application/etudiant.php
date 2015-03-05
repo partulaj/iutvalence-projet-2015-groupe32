@@ -139,6 +139,7 @@ function afficheVoeux()
 	}
 }
 
+
 //Fonction qui recupaire et affiche les taches du projet associer à l'etudiant
 function afficheTaches()
 {
@@ -153,18 +154,20 @@ function afficheTaches()
 //Ajout d'une tache à la liste de tache
 if (isset($_POST['ajouterTache']))
 {
-	$no_tache = ? ;//incrementation par raport au soutache
+	
 	$nom_tache = $_POST['nomTache'];
-	$avancement = ? ; 
+	$avancement = $_POST['avencement'] ; 
 	$no_projet = $_SESSION['etu']->no_projet;
 	$login_etudiant = $_SESSION['etu']->login_etudiant;
+	$id_tache_mere = "0"; // a modifier
 	
 	$tache = new Taches(array(
-			"no_tache" => $no_tache,
+			"no_tache" => DAO::UNKNOWN_ID,
 			"nom_tache" => $nom_tache,
 			"avancement" => $avancement,
 			"no_projet" => $no_projet,
-			"login_etudiant" => $login_etudiant
+			"login_etudiant" => $login_etudiant,
+			"no_tache_mere" => $id_tache_mere
 	) );
 	$tachesDAO->insert(tache);
 }
@@ -245,7 +248,7 @@ if (isset($_POST['ajouterTache']))
 						<th>Tuteur</th>
 						<th>Priorité du voeu</th>
 					</tr>
-					<?php afficheVoeux();?>
+					<?php //afficheVoeux();?>
 				</table>
 			</div>
 		</div>
