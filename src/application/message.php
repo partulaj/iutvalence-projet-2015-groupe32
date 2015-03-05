@@ -66,21 +66,21 @@ if (isset($_POST['envoi']))
 						</a>
 						<ul id="nav-mobile" class="right hide-on-med-and-down">
 							<?php
-							if (isset ( $_SESSION ['user']->login_etudiant ))
+							if (isset($_SESSION['user']->login_etudiant))  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset ( $_SESSION ['ens']->login_enseignant ))
+							if (isset($_SESSION['user']->login_enseignant))  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset ( $_SESSION ['chef']->login_chef ))
+							if (isset($_SESSION['user']->login_chef))  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>
 						<ul class='side-nav' id='mobile-demo'>
 							<?php
-							if (isset ( $_SESSION ['etu']->login_etudiant ))
+							if (isset($_SESSION['user']->login_etudiant))  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset ( $_SESSION ['ens']->login_enseignant ))
+							if (isset($_SESSION['user']->login_enseignant))  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset ( $_SESSION ['chef']->login_chef ))
+							if (isset($_SESSION['user']->login_chef))  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>
@@ -95,7 +95,6 @@ if (isset($_POST['envoi']))
 						<h5>Envoyer un message</h5>
 					</div>
 					<div class="col s12">
-
 						<?php 
 						if (isset($_SESSION['user']))
 						{
@@ -107,9 +106,9 @@ if (isset($_POST['envoi']))
 			</div>
 		</div>
 
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-	<script src="../ressources/js/ourJS.js"></script>
-</body>
-</html>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+		<script src="../ressources/js/ourJS.js"></script>
+	</body>
+	</html>

@@ -20,11 +20,37 @@ if (!isset($_SESSION))
 }
 
 //Création des DAO
-$projetsDAO = new projetsDAO(MaBD::getInstance());
+$projetsDAO = new ProjetsDAO(MaBD::getInstance());
 
 if (isset($_GET['no_projet'])) 
 {
 	$projet = $projetsDAO->getOne($_GET['no_projet']);
+}
+
+if (isset($_POST['update_projet']) and isset($projet)) 
+{
+	$no_projet = $projet->no_projet;
+	$name_project = trim ( $_POST ['projet_name'] );
+	$nb_min = trim ( $_POST ['nb_min'] );
+	$nb_max = trim ( $_POST ['nb_max'] );
+	$contexte = trim ( $_POST ['contexte'] );
+	$objectif = trim ( $_POST ['objectif'] );
+	$contrainte = trim ( $_POST ['contrainte'] );
+	$details = trim ( $_POST ['details'] );
+	$projet = new Projet(array(
+		"no_projet" =>$no_projet,
+		"nom_projet" => $name_project,
+		"nb_etu_min" => $nb_min,
+		"nb_etu_max" => $nb_max,
+		"contexte" => $contexte,
+		"objectif" => $objectif,
+		"contrainte" => $contrainte,
+		"details" => $details,
+		"login_enseignant" => $_SESSION['user']->login_enseignant
+		));
+	$projetsDAO->update($projet);
+	$param['reussi'] = true;
+	$param ['message'] = "La modification de votre projet à bien était prise en compte.";
 }
 
 ?>
@@ -61,21 +87,21 @@ if (isset($_GET['no_projet']))
 						</a>
 						<ul id="nav-mobile" class="right hide-on-med-and-down">
 							<?php
-							if (isset($_SESSION['etu']))  
+							if (isset($_SESSION['user']->login_etudiant))  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['ens']))  
+							if (isset($_SESSION['user']->login_enseignant))  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['chef']))  
+							if (isset($_SESSION['user']->login_chef))  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>
 						<ul class='side-nav' id='mobile-demo'>
 							<?php
-							if (isset($_SESSION['etu']))  
+							if (isset($_SESSION['user']->login_etudiant))  
 								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['ens']))  
+							if (isset($_SESSION['user']->login_enseignant))  
 								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['chef']))  
+							if (isset($_SESSION['user']->login_chef))  
 								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
 							?>
 						</ul>
@@ -87,11 +113,11 @@ if (isset($_GET['no_projet']))
 			<?php
 			if (isset($projet)) 
 			{
-				if (isset($_SESSION['etu'])) 
+				if (isset($_SESSION['user']->login_etudiant)) 
 				{
 					$projet->toStudentCards();				
 				}
-				if (isset($_SESSION['ens'])) 
+				if (isset($_SESSION['user']->login_enseignant)) 
 				{
 					$projet->toTeacherCards();
 				}
@@ -103,5 +129,11 @@ if (isset($_GET['no_projet']))
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
+		<?php 
+		if ($param['reussi']==true)
+		{
+			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
+		}
+		?>
 	</body>
 	</html>

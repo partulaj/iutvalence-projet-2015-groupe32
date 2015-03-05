@@ -54,7 +54,7 @@ class Enseignant extends Utilisateur {
 				<form action='' method='post'>
 							<h6>Destinataire</h6>
 							
-							<select name='no_groupe'>";
+							<select name='groupe'>";
 		$this->allMyGroupsToOptions();											
 		echo				"</select>
 

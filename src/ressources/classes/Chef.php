@@ -55,5 +55,69 @@ class Chef extends Utilisateur {
 		}
 	}
 
+		public function afficheMail()
+	{
+		echo "
+		<form action='' method='post' >
+			<h6>Destinataire</h6>
+			<div class='input-field'>
+			<select name='groupe'>";
+			$this->allGroupsToOptions();											
+		echo				"
+			</select>
+
+    			<input type='checkbox' id='groupe' />
+    			<label for='groupe'>Groupe</label>
+    			<input type='checkbox' id='tuteur' />
+    			<label for='tuteur'>Tuteur</label>
+    			<input type='checkbox' id='chef' />
+    			<label for='chef'>Responsable des projets</label>
+  			</div>
+			<div class='input-field'>
+				<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
+			</div>
+			<div class='input-field'>
+				<label for='message'>Message</label>
+				<textarea class='materialize-textarea' name='message' required></textarea>
+			</div>
+			<div class='input-field'>
+				<div class='centre'>
+					<button type='submit' name='envoi'class='btn light-blue darken-2'>
+						<span class='mdi-communication-email'></span> Envoyer
+					</button>
+				</div>
+			</div>
+		</form>
+		";
+	}
+
+		public function allGroups()
+	{
+		$res = array();
+		$resTemp = array();
+		
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
+		$projets = $DAOtemporaire->getAll();
+		foreach ($projets as $projet)
+		{
+			$resTemp=$DAOtemporaire2->getAllGroupesOfThisProject($projet->no_projet);
+			foreach ($resTemp as $groupe)
+			{
+				$res[] = $groupe;
+			}
+		}
+		return $res;
+	}
+	
+	public function allGroupsToOptions()
+	{
+		$tab = $this->allGroups();
+		foreach ($tab as $groupe)
+		{
+			$groupe->toOption();
+		}
+	}
+
 }
 ?>

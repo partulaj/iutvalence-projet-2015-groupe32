@@ -15,28 +15,28 @@ class Etudiant extends Utilisateur {
 	{
 		echo "
 		<nav>
-			<form name='formDeDeconnexion' method='post' action='index.php'>
-				<input type='hidden' name='deconnexion' value='deconnexion'>
-			</form>
-			<div class='nav-wrapper light-blue darken-2'>
-				<a href='#'' class='brand-logo'>
-					<span class='icon-student-school'></span>
-					$this->nom_etudiant $this->prenom_etudiant
-				</a>
-				<a href='#' data-activates='mobile-demo' class='button-collapse'>
-					<i class='mdi-navigation-menu'></i>
-				</a>
-				<ul id='nav-mobile' class='right hide-on-med-and-down'>
-					<li><a href='message.php'>Message</a></li>
-					<li><a href='components.html'>Components</a></li>
-					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
-				</ul>
-				<ul class='side-nav' id='mobile-demo'>
-					<li><a href='message.php'>Message</a></li>
-					<li><a href='components.html'>Components</a></li>
-					<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
-				</ul>
-			</div>
+		<form name='formDeDeconnexion' method='post' action='index.php'>
+		<input type='hidden' name='deconnexion' value='deconnexion'>
+		</form>
+		<div class='nav-wrapper light-blue darken-2'>
+		<a href='#'' class='brand-logo'>
+		<span class='icon-student-school'></span>
+		$this->nom_etudiant $this->prenom_etudiant
+		</a>
+		<a href='#' data-activates='mobile-demo' class='button-collapse'>
+		<i class='mdi-navigation-menu'></i>
+		</a>
+		<ul id='nav-mobile' class='right hide-on-med-and-down'>
+		<li><a href='message.php'>Message</a></li>
+		<li><a href='components.html'>Components</a></li>
+		<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
+		</ul>
+		<ul class='side-nav' id='mobile-demo'>
+		<li><a href='message.php'>Message</a></li>
+		<li><a href='components.html'>Components</a></li>
+		<li><a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'><span class='icon-off'></span></a></li>
+		</ul>
+		</div>
 		</nav>";
 	}
 
@@ -81,6 +81,39 @@ class Etudiant extends Utilisateur {
 	public function toListElement()
 	{
 		echo "<li>$this->nom_etudiant $this->prenom_etudiant</li>";
+	}
+
+	public function afficheMail()
+	{
+		echo "
+		<form action='' method='post'>
+			<h6>Destinataire</h6>
+
+			 <p>
+    			<input type='checkbox' id='groupe' />
+    			<label for='groupe'>Groupe</label>
+    			<input type='checkbox' id='tuteur' />
+    			<label for='tuteur'>Tuteur</label>
+    			<input type='checkbox' id='chef' />
+    			<label for='chef'>Responsable des projets</label>
+  			</p>
+
+			<div class='input-field'>
+				<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
+			</div>
+			<div class='input-field'>
+				<label for='message'>Message</label>
+				<textarea class='materialize-textarea' name='message' required></textarea>
+			</div>
+			<div class='input-field'>
+				<div class='centre'>
+					<button type='submit' name='envoi'class='btn light-blue darken-2'>
+						<span class='mdi-communication-email'></span> Envoyer
+					</button>
+				</div>
+			</div>
+		</form>
+		";
 	}
 
 }

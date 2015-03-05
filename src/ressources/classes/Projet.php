@@ -153,7 +153,7 @@ class Projet extends TableObject {
 				</div>
 			</div>
 			<div class='centre'>
-				<button type='submit' name='new_projet' class='btn light-blue darken-2'>
+				<button type='submit' name='update_projet' class='btn light-blue darken-2'>
 					<span class='icon-save-floppy'></span> Enregistrer les modifications
 				</button>
 			</div>
