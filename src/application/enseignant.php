@@ -116,6 +116,7 @@ if (isset($_POST['new_projet'])) {
 								<tr>
 									<th>Numéro de Projet</th>
 									<th>Nom du Projet</th>
+									<th><button type="submit" name="editer" class="icon-edit-floppy"><button type="submit" name="tableau" class="icon-calendar-floppy"><button type="submit" name="mail" class="icon-message-new"></th>
 								</tr>
 								<?php
 								$_SESSION['ens']->afficheMesProjets();
