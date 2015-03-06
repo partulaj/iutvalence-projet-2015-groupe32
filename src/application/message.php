@@ -36,14 +36,8 @@ if (isset($_POST['envoi']))
 		}
 		else 
 		{
-			if ($_SESSION['user']->estEtudiant())
-			{
-				$_SESSION['user']->mailToThisGroup($_SESSION['user']->no_groupe, $sujet, $message);
-			}
-			else 
-			{
-				$_SESSION['user']->mailToThisGroup($_POST['no_groupe'], $sujet, $message);
-			}
+			$_SESSION['user']->mailToThisGroup($_POST['no_groupe'], $sujet, $message);
+			echo "Envoie du mail";
 		}
 	}
 	if (isset($_POST['tuteur']))
@@ -54,7 +48,7 @@ if (isset($_POST['envoi']))
 	}
 	if (isset($_POST['chef']))
 	{
-		
+		$_SESSION['user']->mailToChef(Utilisateur::DEFAULT_CHEF,$sujet,$message);
 	}
 }
 ?>

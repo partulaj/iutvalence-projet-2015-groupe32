@@ -1,6 +1,8 @@
 <?php
 class Utilisateur extends TableObject {
 	
+	const DEFAULT_CHEF = "chef1";
+	
 	/**
 	 * Fonction qui envoie un mail à tous les étudiants s'un groupe
 	 * Fonction qui permet d'envoyer un message à tous les étudiants d'un groupe
@@ -31,8 +33,8 @@ class Utilisateur extends TableObject {
 	 */
 	public function mailToTuteur($no_projet, $subject, $message)
 	{
-		$DAOtemporaire = new ProjetDAO(MaBD::getInstance());
-		$DAOtemporaire2 = new EnseignantDAO(MaBD::getInstance());
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$DAOtemporaire2 = new EnseignantsDAO(MaBD::getInstance());
 		$projet = $DAOtemporaire->getOne($no_projet);
 		$enseignant = $DAOtemporaire2->getOne($projet->login_enseignant);
 		mail($enseignant->mail_enseignant, $subject, $message);
@@ -46,11 +48,9 @@ class Utilisateur extends TableObject {
 	 */
 	public function mailToChef($login_chef, $subject, $message)
 	{
-		$DAOtemporaire = new ProjetDAO(MaBD::getInstance());
-		$DAOtemporaire2 = new EnseignantDAO(MaBD::getInstance());
-		$projet = $DAOtemporaire->getOne($no_projet);
-		$enseignant = $DAOtemporaire2->getOne($projet->login_enseignant);
-		mail($enseignant->mail_enseignant, $subject, $message);
+		$DAOtemporaire = new ChefsDAO(MaBD::getInstance());
+		$chef= $DAOtemporaire->getOne($login_chef);
+		mail($chef->mail_chef, $subject, $message);
 	}
 
 	public function afficheNavBar(){}

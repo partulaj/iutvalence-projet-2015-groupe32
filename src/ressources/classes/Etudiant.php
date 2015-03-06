@@ -88,13 +88,13 @@ class Etudiant extends Utilisateur {
 		echo "
 		<form action='' method='post'>
 			<h6>Destinataire</h6>
-
+			<input type='hidden' value='$this->no_groupe' name='no_groupe'>
 			 <p>
-    			<input type='checkbox' id='groupe' />
+    			<input type='checkbox' name='groupe' id='groupe' />
     			<label for='groupe'>Groupe</label>
-    			<input type='checkbox' id='tuteur' />
+    			<input type='checkbox' name='tuteur' id='tuteur' />
     			<label for='tuteur'>Tuteur</label>
-    			<input type='checkbox' id='chef' />
+    			<input type='checkbox' name='chef' id='chef' />
     			<label for='chef'>Responsable des projets</label>
   			</p>
 

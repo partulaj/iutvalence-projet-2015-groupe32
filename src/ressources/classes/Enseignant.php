@@ -57,7 +57,7 @@ class Enseignant extends Utilisateur {
 							<select name='no_groupe'>";
 		$this->allMyGroupsToOptions();											
 		echo				"</select>
-							<input type='hidden' id='groupe' value='true' />
+							<input type='hidden' id='groupe' name='groupe' value='true' />
 
 							<div class='input-field'>
 								<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>

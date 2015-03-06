@@ -187,16 +187,7 @@ function afficheVoeux()
 							<th>Fiche du Projet</th>
 						</tr> 
 						<?php
-							if (!isset($_SESSION['user']->no_groupe))
-							{
 								afficheProjet();
-							} 
-							else 
-							{
-								$monGroupe=$groupesDAO->getOne($_SESSION['user']->no_projet);
-								$monProjet=$projetDAO->getOne($monGroupe->no_projet);
-								echo "Vous êtes déjà affecté sur le projet";
-							}
 						?>
 					</table><br/>
 					<div class="centre">

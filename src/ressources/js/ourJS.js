@@ -28,6 +28,8 @@
  	$(".button-collapse").sideNav();
  	$('select').material_select();
  	$('.hide').fadeOut("fast");
+ 	$(".dropdown-button").dropdown({hover:false});
+
  	/**
  * Fonction qui déplie un élément cacher
  */
