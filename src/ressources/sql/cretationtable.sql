@@ -57,7 +57,7 @@ CREATE TABLE Voeux
 no_projet integer,
 login_etudiant varchar(20),
 date date NOT NULL,
-priorité integer NOT NULL,
+priorite integer NOT NULL,
 PRIMARY KEY (no_projet,login_etudiant),
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
@@ -65,11 +65,19 @@ FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 
 CREATE TABLE Taches
 (
-no_tache integer NOT NULL PRIMARY KEY,
+no_tache integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 nom_tache varchar(50),
-avancement varchar(20),
-no_projet integer,
-login_etudiant varchar(20),
-FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
-FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
+etat_tache varchar(50),
+ordre_tache integer,
+no_groupe integer,
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;
+
+CREATE TABLE Realises
+(
+no_tache integer,
+login_etudiant varchar(20),
+PRIMARY KEY (no_tache,login_etudiant),
+FOREIGN KEY (no_tache) REFERENCES Taches(no_tache),
+FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
+)

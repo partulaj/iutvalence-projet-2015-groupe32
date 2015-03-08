@@ -13,7 +13,7 @@ class VoeuxDAO extends DAO {
 	public function getAllVoeuEtudiant($login)
 	{
 		$res = array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login_etudiant = ? ORDER BY priorité");
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login_etudiant = ? ORDER BY priorite");
 		$stmt->execute(array($login));
 		foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{

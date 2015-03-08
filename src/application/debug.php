@@ -3,11 +3,10 @@
  * Modèle de page php pour le projet
  * @package application
  */
-
-// Chargement des classes php
-function __autoload($class) {
-	require_once "../ressources/classes/$class.php";
-}
+//Autochargement des classes via un Autoloader
+require_once "../ressources/classes/MyAutoloader.php";
+//Ajout de PHPExcel
+require_once '../ressources/phpexcel/PHPExcel/IOFactory.php';
 
 ?>
 <!DOCTYPE html>
@@ -35,39 +34,18 @@ function __autoload($class) {
 	  <![endif]-->
 	</head>
 	<body>
-		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="projet.php">Projet</a></li>
-			<li><a href="message.php">Message</a></li>
-			<li><a href="voeux.php">Voeux</a></li>
-		</ul>
-		<nav>
-			<div class="nav-wrapper light-blue">
-				<a href="#!" class="brand-logo">Logo</a>
-				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-				<ul class="right hide-on-med-and-down">
-					<li>
-						<a class="dropdown-button" href="#!" data-activates="dropdown1">
-							Menu<i class="mdi-navigation-arrow-drop-down right"></i>
-						</a>
-					</li>
-					<li>
-						<a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'>
-							<span class='icon-off'></span>
-						</a>
-					</li>
-				</ul>
-				<ul class="side-nav" id="mobile-demo">
-					<li><a href="projet.php">Projet</a></li>
-					<li><a href="message.php">Message</a></li>
-					<li><a href="voeux.php">Voeux</a></li>
-					<li>
-						<a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'>
-							<span class='icon-off'></span>
-						</a>
-					</li>
-				</ul>
+		<div class="container">
+			<div class='card'>
+				<?php
+				$DAOtemporaire = new RealisesDAO(MaBD::getInstance());
+				$search = array("0","etu1");
+				$realise = $DAOtemporaire->getOne($search);
+				echo "<pre>";
+				print_r($realise);
+				echo "</pre>";
+				?>
 			</div>
-		</nav>
+		</div>
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

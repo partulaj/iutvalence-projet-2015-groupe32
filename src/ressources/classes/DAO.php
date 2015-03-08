@@ -59,9 +59,13 @@ class DAO {
             $this->stmtGetOne = $this->pdo->prepare($req);
         }
         if (is_array($key))
+        {
             $this->stmtGetOne->execute($key);
+        }
         else
+        {
             $this->stmtGetOne->execute(array($key));
+        }
         
         if ($row = $this->stmtGetOne->fetch(PDO::FETCH_ASSOC)) 
             return new $this->class($row);

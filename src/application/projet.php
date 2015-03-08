@@ -1,58 +1,51 @@
-<?php
+	<body class="brown lighten-5">
+		<div class="container brown lighten-5"><?php
 /**
  * Modèle de page php pour le projet
  * @package application
  */
+//Autochargement des classes via un Autoloader
+require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
-// Tableau de paramètres de la page
-$param ['erreur'] = false;
-$param['reussi'] = false;
-$param ['message'] = null;
-
-//Chargement des classes php
-function __autoload($class) { require_once "../ressources/classes/$class.php"; }
-
 //On vérifie que la personne qui accède à la page est un utilisateur authentifié
-if (!isset($_SESSION)) 
+if (!isset($_SESSION['user']->login_etudiant)) 
 {
 	header("Location:index.php");
+	exit();
 }
 
-//Création des DAO
-$projetsDAO = new ProjetsDAO(MaBD::getInstance());
-
-if (isset($_GET['no_projet'])) 
+function afficheProjet()
 {
-	$projet = $projetsDAO->getOne($_GET['no_projet']);
+	$projetsDAO = new ProjetsDAO(MaBD::getInstance());
+	$login=$_SESSION['user']->login_etudiant;
+	$lesProjets = $projetsDAO->getAll("WHERE no_projet NOT IN (SELECT no_projet FROM Voeux WHERE login_etudiant='$login')");
+	echo 	"
+	<div class='card'>
+		<div class='row'>
+			<div class='col s12'>
+				<h5>Liste des Projets</h5>
+				<p>Choisissez les projets qui vous interesse</p>
+			</div>
+		</div>
+		<table class='responsive-table bordered striped centered'>
+			<tr>
+				<th>Numéro Projet</th>
+				<th>Intitulé Projet</th>
+				<th>Details</th>
+			</tr>
+			";
+			foreach ($lesProjets as $projet)
+			{
+				if ($projet->affecter==0)
+				{
+					$projet->toTableRowForStudents();
+				}
+			}
+			echo "	
+		</table>
+	</div>";
 }
-
-if (isset($_POST['update_projet']) and isset($projet)) 
-{
-	$no_projet = $projet->no_projet;
-	$name_project = trim ( $_POST ['projet_name'] );
-	$nb_min = trim ( $_POST ['nb_min'] );
-	$nb_max = trim ( $_POST ['nb_max'] );
-	$contexte = trim ( $_POST ['contexte'] );
-	$objectif = trim ( $_POST ['objectif'] );
-	$contrainte = trim ( $_POST ['contrainte'] );
-	$details = trim ( $_POST ['details'] );
-	$projet = new Projet(array(
-		"no_projet" =>$no_projet,
-		"nom_projet" => $name_project,
-		"nb_etu_min" => $nb_min,
-		"nb_etu_max" => $nb_max,
-		"contexte" => $contexte,
-		"objectif" => $objectif,
-		"contrainte" => $contrainte,
-		"details" => $details,
-		"login_enseignant" => $_SESSION['user']->login_enseignant
-		));
-	$projetsDAO->update($projet);
-	$param['reussi'] = true;
-	$param ['message'] = "La modification de votre projet à bien était prise en compte.";
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -76,51 +69,15 @@ if (isset($_POST['update_projet']) and isset($projet))
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
 	</head>
-	<body>
-		<div class="navbar-fixed">
-			<nav>
-				<div class="nav-wrapper amber">
-					<div class="col s12">
-						<a href="#" class="brand-logo"><span class="mdi-action-book"></span>Projet</a>
-						<a href='#' data-activates='mobile-demo' class='button-collapse'>
-							<i class='mdi-navigation-menu'></i>
-						</a>
-						<ul id="nav-mobile" class="right hide-on-med-and-down">
-							<?php
-							if (isset($_SESSION['user']->login_etudiant))  
-								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_enseignant))  
-								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_chef))  
-								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							?>
-						</ul>
-						<ul class='side-nav' id='mobile-demo'>
-							<?php
-							if (isset($_SESSION['user']->login_etudiant))  
-								echo "<li><a class='navbar-link' href='etudiant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_enseignant))  
-								echo "<li><a class='navbar-link' href='enseignant.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							if (isset($_SESSION['user']->login_chef))  
-								echo "<li><a class='navbar-link' href='chef.php'><span class='mdi-navigation-arrow-back'></span> Retour</a></li>";
-							?>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</div>
-		<div class="container">
+	<body class="brown lighten-5">
+		<?php 
+		$_SESSION['user']->afficheNavBar("mdi-action-book","Projet");
+		?>
+		<div class="container brown lighten-5">
 			<?php
-			if (isset($projet)) 
+			if (isset($_SESSION['user']->login_etudiant)) 
 			{
-				if (isset($_SESSION['user']->login_etudiant)) 
-				{
-					$projet->toStudentCards();				
-				}
-				if (isset($_SESSION['user']->login_enseignant)) 
-				{
-					$projet->toTeacherCards();
-				}
+				afficheProjet();
 			}
 			?>
 		</div>
@@ -129,11 +86,5 @@ if (isset($_POST['update_projet']) and isset($projet))
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
-		<?php 
-		if ($param['reussi']==true)
-		{
-			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
-		}
-		?>
 	</body>
 	</html>

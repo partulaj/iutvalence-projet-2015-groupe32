@@ -13,13 +13,117 @@
 }
 p
 {
+	word-break: break-all;
 	word-wrap:break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	-o-hyphens: auto;
+	hyphens: auto;
 }
 .navbar-link
 {
 	font-size: 1.2em;
 }
-label
+label[for=chef],label[for=groupe],label[for=tuteur]
 {
 	padding-right: 30px;
+}
+label
+{
+	word-break: break-all;
+	word-wrap:break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	-o-hyphens: auto;
+	hyphens: auto;
+}
+.modal-container
+{
+	width: 99%;
+}
+.modal-content
+{
+	text-align: left;
+}
+input[class=number] {
+	background-color: transparent;
+	border-width: medium medium 1px;
+	border-style: none none solid;
+	border-color: -moz-use-text-color -moz-use-text-color #9E9E9E;
+	-moz-border-top-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	border-image: none;
+	outline: medium none;
+	height: 3rem;
+	width: 75%;
+	float: left;
+	font-size: 1rem;
+	margin: 0px 0px 15px;
+	padding: 0px;
+	box-shadow: none;
+	box-sizing: content-box;
+	transition: all 0.3s ease 0s;
+	text-align: center;
+}
+input[class=number]:focus
+{
+	border-bottom: 1px solid #26A69A;
+	box-shadow: 0px 1px 0px 0px #26A69A;
+}
+
+span.spinner {
+
+	position: relative;
+	height: 40px;
+	user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+}
+
+span.spinner > .sub,
+span.spinner > .add {
+	float: left;
+	display: block;
+	width: 9%;
+	height: 35px;
+	text-align: center;
+	font-family: Lato;
+	font-weight: 700;
+	font-size: 1.2em;
+	line-height: 33px;
+	color: #03a9f4;
+	cursor: pointer;
+	transition: 0.1s linear;
+	-o-transition: 0.1s linear;
+	-ms-transition: 0.1s linear;
+	-moz-transition: 0.1s linear;
+	-webkit-transition: 0.1s linear;
+}
+span.spinner > .add {
+	top: 0;
+	margin: 5px;
+	margin-left: 0px;
+}
+span.spinner > .sub
+{
+	margin: 5px;
+	margin-right: 0px;
+} 
+
+span.spinner > .sub:hover,
+span.spinner > .add:hover 
+{
+	background: #e1f5fe;
+	font-size:1.6em;
+	font-weight: bold;
+	color:#26A69A;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
 }

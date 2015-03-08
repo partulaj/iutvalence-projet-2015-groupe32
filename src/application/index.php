@@ -5,14 +5,15 @@
  * @author Jérémie
  * @version 1.0
  */
+//Autochargement des classes via un Autoloader
+require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
 //Tableau de paramètres de la page
 $param['erreur']=false;
 $param['message']=null;
 
-//Chargement des classes php
-function __autoload($class) { require_once "../ressources/classes/$class.php"; }
+
 
 //Création des DAO
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
@@ -23,6 +24,25 @@ $chefsDAO = new ChefsDAO(MaBD::getInstance());
 if (isset($_POST['deconnexion']))
 {
 	session_destroy();
+}
+if (isset($_SESSION['user'])) 
+{
+	if (isset($_SESSION['user']->login_etudiant)) 
+	{
+		header("Location:etudiant.php");
+		exit();	
+	}
+	if (isset($_SESSION['user']->login_enseignant))
+	{
+		header("Location:enseignant.php");
+		exit();	
+	}
+	if (isset($_SESSION['user']->login_chef)) 
+	{
+		header("Location:chef.php");
+		exit();	
+	}
+
 }
 
 //Connexion
@@ -90,7 +110,7 @@ if (isset($_POST['connexion']))
 	</head>
 	<body class="brown lighten-5">
 		<nav>
-			<div class="nav-wrapper light-blue darken-2">
+			<div class="nav-wrapper light-blue">
 				<a href="#" class="brand-logo">Accueil</a>
 			</div>
 		</nav>
@@ -117,7 +137,7 @@ if (isset($_POST['connexion']))
 					<div class="row">
 						<div class="input-field col s12">
 							<div class="centre">
-								<button type="submit" name="connexion" class="waves-effect waves-light btn light-blue darken-2">
+								<button type="submit" name="connexion" class="waves-effect waves-light btn light-blue">
 									<i class="mdi-action-account-circle"></i> Connexion
 								</button>
 							</div>

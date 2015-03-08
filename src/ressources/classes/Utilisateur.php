@@ -53,10 +53,26 @@ class Utilisateur extends TableObject {
 		mail($chef->mail_chef, $subject, $message);
 	}
 
+	/**
+	 * Fonction définie dans les classe héritière
+	 */
+	public function afficheAccueil(){}
+
+	/**
+	 * Fonction définie dans les classe héritière
+	 */
 	public function afficheNavBar(){}
 
+	/**
+	 * Fonction définie dans les classe héritière
+	 */
 	public function afficheMail(){}
-	
+
+	/**
+	 * Fonction pour savoir si l'utilisateur est un étudiant 
+	 * @author Jérémie
+	 * @version 0.2
+	 */
 	public function estEtudiant()
 	{
 		if (isset($this->login_etudiant))
@@ -65,7 +81,12 @@ class Utilisateur extends TableObject {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Fonction pour savoir si l'utilisateur est un enseignant 
+	 * @author Jérémie
+	 * @version 0.2
+	 */	
 	public function estEnseignant()
 	{
 		if (isset($this->login_enseignant))
@@ -75,6 +96,11 @@ class Utilisateur extends TableObject {
 		return false;
 	}
 	
+	/**
+	 * Fonction pour savoir si l'utilisateur est un chef 
+	 * @author Jérémie
+	 * @version 0.2
+	 */
 	public function estChef()
 	{
 		if (isset($this->login_chef))
