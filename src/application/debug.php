@@ -30,9 +30,6 @@ session_start();
 	  <![endif]-->
 	</head>
 	<body class="brown lighten-5">
-		<?php
-		$_SESSION ['user']->afficheNavBar ();
-		?>
 		<div class="container brown lighten-5">
 			<div class="card">
 				<div class="row">
@@ -40,15 +37,44 @@ session_start();
 						<h5>Liste des étudiants Sans Projet</h5>
 					</div>
 				</div>
-				<?php
-				$_SESSION['user']->afficheGestionEtudiants();
-				?>
+				<ul class="collection">
+					<li class="collection-item avatar">
+						<i class="mdi-social-school grey circle"></i>
+						<span class="title">Title</span>
+					</li>					
+				</ul>
 			</div>
 		</div>
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/ourJS.js"></script>
+		<script src="../ressources/js/jquery-color-min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function($) 
+			{
+				$(".avatar>i").click(function(event) 
+				{
+					$(this).toggle(function() {
+						$(this).css('background-color', '#f44336');
+						$(this).removeClass('red');
+						$(this).switchClass("mdi-content-clear","mdi-social-school",1000);
+						$(this).animate({backgroundColor:"#9e9e9e"},1000, function() {
+							$(this).addClass('grey');
+						});
+					}, function() {
+						$(this).css('background-color', '#9e9e9e');
+						$(this).removeClass('grey');
+						$(this).switchClass("mdi-social-school","mdi-content-clear",1000);
+						$(this).animate({backgroundColor:"#f44336"},1000, function() {
+							$(this).addClass('red');
+						});
+					});
+
+				});
+			});
+		</script>
 	</body>
 	</html>
