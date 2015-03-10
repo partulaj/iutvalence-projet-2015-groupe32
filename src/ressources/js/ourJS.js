@@ -31,10 +31,16 @@
  	$(".dropdown-button").dropdown({hover:false});
  	$('.modal-trigger').leanModal();
 
- 	(function($) {
- 		$.fn.spinner = function() {
- 			this.each(function() {
- 				var el = $(this);
+  $(".clickable-item").click(function()
+  {
+    $(this).toggleClass("grey mdi-social-school");
+    $(this).toggleClass("red mdi-content-clear");
+  });
+
+  (function($) {
+   $.fn.spinner = function() {
+    this.each(function() {
+     var el = $(this);
 
 	  // add elements
 	  el.wrap('<span class="spinner"></span>');     
@@ -53,9 +59,9 @@
 	  		el.val( function(i, oldval) { return ++oldval; });
 	  });
 	});
- 		};
- 	})(jQuery);
- 	$('input[class=number]').spinner();
+  };
+})(jQuery);
+$('input[type=number]').spinner();
 
 	/**
 	 * Fonction qui déplie un élément cacher
@@ -133,26 +139,26 @@
       var nb_groupes = "";
     }
 
-  	$.post('./ajax/createProjet.php', {
-  		project_name:project_name,
-  		nb_min:nb_min,
-  		nb_max:nb_max,
-  		contexte:contexte,
-  		objectif:objectif,
-  		contrainte:contrainte,
-  		details:details,
-  		nb_groupes:nb_groupes
-  	}, function(data) {
-  		if (data=="") 
-  		{
-  			toast('Votre projet à bien était créé',4000);
-  			document.location.reload(true);
-  		}
-  		else
-  		{
-  			toast('Un problème est survenu veuillez signaler le bug',4000)
-  		}
-  	});
+    $.post('./ajax/createProjet.php', {
+      project_name:project_name,
+      nb_min:nb_min,
+      nb_max:nb_max,
+      contexte:contexte,
+      objectif:objectif,
+      contrainte:contrainte,
+      details:details,
+      nb_groupes:nb_groupes
+    }, function(data) {
+      if (data=="") 
+      {
+       toast('Votre projet à bien était créé',4000);
+       document.location.reload(true);
+     }
+     else
+     {
+       toast('Un problème est survenu veuillez signaler le bug',4000)
+     }
+   });
   }
 
   /**
@@ -238,25 +244,25 @@
  	var etat = $("#etat_new_tache").get(0).value;
  	var ordre = $("#ordre_new_tache").get(0).value;
   var  groupe = no_groupe;
- 	var students = [];
- 	$("#list_new_tache").children("input").each(function(index, el) {
- 		if($(this).is(":checked"))
- 		{
- 			students[index]=$(this).get(0).value;
- 		}
- 	});
- 	$.post('./ajax/createTache.php', {nom_tache:nom,etat_tache:etat,ordre_tache:ordre,etudiants:students,no_groupe:groupe}, function(data) {
- 		if (data=="") 
- 		{
- 			toast('Votre tache à bien était ajouté',4000);
- 			document.location.reload(true);
- 		}
- 		else
- 		{
- 			toast('Un problème est survenu veuillez signaler le bug',4000)
- 		}
- 	});
- }
+  var students = [];
+  $("#list_new_tache").children("input").each(function(index, el) {
+   if($(this).is(":checked"))
+   {
+    students[index]=$(this).get(0).value;
+  }
+});
+  $.post('./ajax/createTache.php', {nom_tache:nom,etat_tache:etat,ordre_tache:ordre,etudiants:students,no_groupe:groupe}, function(data) {
+   if (data=="") 
+   {
+    toast('Votre tache à bien était ajouté',4000);
+    document.location.reload(true);
+  }
+  else
+  {
+    toast('Un problème est survenu veuillez signaler le bug',4000)
+  }
+});
+}
 /**
  * Modification d'une tache par requête Ajax
  */
@@ -267,26 +273,26 @@
  	var ordre = $("#ordre_tache"+num).get(0).value;
  	var students = [];
   var  groupe = no_groupe;
- 	var check =[]
- 	$("#list_tache"+num).children("input").each(function(index, el) {
- 		students[index]=$(this).get(0).value;
- 		if($(this).is(":checked"))
- 		{
- 			check[index]=true;
- 		}
- 	});
- 	$.post('./ajax/updateTache.php', {no_tache:num,nom_tache:nom,etat_tache:etat,ordre_tache:ordre,etudiants:students,change:check,no_groupe:groupe}, function(data) {
- 		if (data=="") 
- 		{
- 			toast('Votre tache à bien était modifié',4000);
- 			document.location.reload(true);
- 		}
- 		else
- 		{
- 			toast('Un problème est survenu veuillez signaler le bug',4000)
- 		}
- 	});
- }
+  var check =[]
+  $("#list_tache"+num).children("input").each(function(index, el) {
+   students[index]=$(this).get(0).value;
+   if($(this).is(":checked"))
+   {
+    check[index]=true;
+  }
+});
+  $.post('./ajax/updateTache.php', {no_tache:num,nom_tache:nom,etat_tache:etat,ordre_tache:ordre,etudiants:students,change:check,no_groupe:groupe}, function(data) {
+   if (data=="") 
+   {
+    toast('Votre tache à bien était modifié',4000);
+    document.location.reload(true);
+  }
+  else
+  {
+    toast('Un problème est survenu veuillez signaler le bug',4000)
+  }
+});
+}
 
 /**
  * Suppression d'une tache par requête Ajax
@@ -323,9 +329,9 @@
  	if (e.keyCode === konami[indiceKonami++]) {
  		if (indiceKonami === konami.length) {
  			var x = Math.floor((Math.random() * 13));
-			alert(message[x]);
-			indiceKonami = 0;
-		}
-	} else indiceKonami = 0
-});
+       alert(message[x]);
+       indiceKonami = 0;
+     }
+   } else indiceKonami = 0
+ });
 

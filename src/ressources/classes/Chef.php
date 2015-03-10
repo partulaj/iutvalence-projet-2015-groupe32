@@ -120,6 +120,18 @@ class Chef extends Utilisateur {
 		";
 	}
 
+	public function afficheGestionEtudiants()
+	{
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$etudiants = $DAOtemporaire->getAll();
+		echo "<ul id='list-etudiants' class='collection'>";
+		foreach ($etudiants as $etudiant) 
+		{
+			$etudiant->toListElemToDel();
+		}
+		echo "</ul>";
+	}
+
 	/**
 	 * Fonction qui récupère tous les groupes et les affiche dans un select
 	 * Fonction qui permet de récupérer tous les groupes et de les afficher dans une liste déroulante avec une option 

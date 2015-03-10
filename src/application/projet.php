@@ -1,5 +1,4 @@
-	<body class="brown lighten-5">
-		<div class="container brown lighten-5"><?php
+<?php
 /**
  * Modèle de page php pour le projet
  * @package application

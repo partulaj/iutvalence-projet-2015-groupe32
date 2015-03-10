@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Script de création de tache
+ * @package application/ajax
+ * @author Jérémie
+ * @version 0.2
+ */
 //Autochargement des classes via un Autoloader
 require_once "../../ressources/classes/MyAutoloader.php";
 session_start();

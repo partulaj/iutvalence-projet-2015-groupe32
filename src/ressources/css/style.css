@@ -47,11 +47,12 @@ label
 {
 	text-align: left;
 }
-input[class=number] {
+input[type=number] {
 	background-color: transparent;
 	border-width: medium medium 1px;
 	border-style: none none solid;
 	border-color: -moz-use-text-color -moz-use-text-color #9E9E9E;
+	-moz-appearance:textfield;
 	-moz-border-top-colors: none;
 	-moz-border-right-colors: none;
 	-moz-border-bottom-colors: none;
@@ -69,7 +70,7 @@ input[class=number] {
 	transition: all 0.3s ease 0s;
 	text-align: center;
 }
-input[class=number]:focus
+input[type=number]:focus
 {
 	border-bottom: 1px solid #26A69A;
 	box-shadow: 0px 1px 0px 0px #26A69A;
@@ -126,4 +127,18 @@ span.spinner > .add:hover
 }
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
+}
+.collection
+{
+	width: 99%;
+}
+.avatar>i
+{
+	padding: 10px;
+	font-size: 1.6em;
+	margin: 10px auto;
+}
+.title
+{
+	font-size: 1.4em;
 }

@@ -78,10 +78,10 @@ class Enseignant extends Utilisateur {
 				</div>
 				<div class='row'>
 					<div class='input-field col s6'>
-						<input id='nb_min' pattern='[0-9]{1,5} title='3<=nb_min<=4' class='number' max='4' min='3' value='3' required/>
+						<input id='nb_min' pattern='[0-9]{1,5} title='3<=nb_min<=4' type='number' max='4' min='3' value='3' required/>
 					</div>
 					<div class='input-field col s6'>
-						<input id='nb_max' pattern='[0-9]{1,5} title='3<=nb_max<=5' class='number' max='5' min='3' value='3' required/>
+						<input id='nb_max' pattern='[0-9]{1,5} title='3<=nb_max<=5' type='number' max='5' min='3' value='3' required/>
 					</div>
 				</div>
 				<div class='input-field'>
@@ -111,7 +111,7 @@ class Enseignant extends Utilisateur {
 				<br/>
 			</div>
 			<div class='modal-footer'>
-				<button href='#' class='waves-effect waves-green btn-flat modal-action modal-close'>Annuler</button>
+				<button href='#' class='waves-effect waves-red btn-flat modal-action modal-close'>Annuler</button>
 				<button onClick='newProject()' name='new_projet' class='waves-effect waves-green btn-flat modal-action modal-close'><span class='icon-save-floppy'></span> Enregistrer le nouveau Projet</button>
 			</div>
 		</div>
