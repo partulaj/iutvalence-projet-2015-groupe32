@@ -157,9 +157,6 @@ if (isset($_POST['connexion']))
 		echo 	"<script>toast('",$param['message'],"', 4000)</script>";
 	}
 	?>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+	<script src="../ressources/js/init.js"></script>
 </body>
 </html>

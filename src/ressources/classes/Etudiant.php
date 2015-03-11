@@ -133,7 +133,7 @@ class Etudiant extends Utilisateur {
 		<h6>Destinataire</h6>
 		<input type='hidden' value='$this->no_groupe' name='no_groupe'>
 		<p>";
-		if(!isset($this->no_groupe))
+		if(!is_null($this->no_groupe))
 		{
 			echo
 			"<input type='checkbox' name='groupe' id='groupe' />

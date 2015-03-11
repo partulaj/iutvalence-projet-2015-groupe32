@@ -11,6 +11,7 @@ session_start();
 
 //Création des DAO
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
+$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 
 //On vérifie que l'utilisateur est connecté 
 if (!isset($_SESSION['user']->login_etudiant))
@@ -80,6 +81,9 @@ foreach ($affectationProjet as $projetAAffecter)
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/ourJS.js"></script>
+		<script src="../ressources/js/init.js"></script>
+		<script src="../ressources/js/tache.js"></script>
+		<script src="../ressources/js/voeu.js"></script>
+		<script src="../ressources/js/projet.js"></script>
 	</body>
 	</html>
