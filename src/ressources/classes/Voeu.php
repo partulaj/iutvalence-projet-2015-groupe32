@@ -38,7 +38,7 @@ class Voeu extends TableObject {
 					</td>
 					<td class='col-xs-3'>
 						<p class='range-field'>
-							<input type='range' name='prioriteVoeuEdit' value='$this->priorité' min='1' max='3'>
+							<input type='range' name='prioriteVoeuEdit' value='$this->priorite' min='1' max='3'>
     					</p> 
 					</td>
 					<td>

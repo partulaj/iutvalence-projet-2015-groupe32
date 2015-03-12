@@ -54,7 +54,7 @@ class Etudiant extends TableObject {
 		$voeu = $DAOtemporaire->getOne(array($num,$this->login_etudiant));
 		foreach ($voeux as $voeuAComparer)
 		{
-			if ($voeuAComparer->priorité>$voeu->priorité)
+			if ($voeuAComparer->priorite>$voeu->priorite)
 			{
 				return true;
 			}

@@ -78,7 +78,7 @@ if (isset($_POST['enregistrer']))
 					$prioriteVoeu = $tabPriorite[$i];
 					$projet = $tabVoeux[$i];
 					$etudiant = $_SESSION['etu']->login_etudiant;
-					$voeu = new Voeu (array("date"=>$date,"priorité"=>$prioriteVoeu,"no_projet"=>$projet,"login_etudiant"=>$etudiant));
+					$voeu = new Voeu (array("date"=>$date,"priorite"=>$prioriteVoeu,"no_projet"=>$projet,"login_etudiant"=>$etudiant));
 					$voeuxDAO->insert($voeu);
 					$_SESSION['etu']->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant
 					$etudiantDAO->update($_SESSION['etu']);
@@ -103,7 +103,7 @@ if (isset($_POST['modifier_voeux']))
 {
 	$search = array($_POST['voeuToEdit'],$_SESSION['etu']->login_etudiant);
 	$voeuMod = $voeuxDAO->getOne($search);
-	$voeuMod->priorité = $_POST['prioriteVoeuEdit'];
+	$voeuMod->priorite = $_POST['prioriteVoeuEdit'];
 	$voeuxDAO->update($voeuMod);
 	$param['reussi']=true;
 	$param['message']="La modification de vos voeux à bien était faites";
@@ -140,7 +140,7 @@ function afficheVoeux()
 }
 
 //Fonction qui recupaire et affiche les taches du projet associer à l'etudiant
-function afficheTaches()
+function afficheToutesLesTaches()
 {
 	global $tachesDAO;
 	$lesTaches = $tachesDAO->getAllTacheEtudiant($_SESSION['etu']->no_projet);
@@ -149,7 +149,7 @@ function afficheTaches()
 		$tache->afficheTache();
 	}
 }
-
+/*
 //Ajout d'une tache à la liste de tache
 if (isset($_POST['ajouterTache']))
 {
@@ -172,8 +172,15 @@ if (isset($_POST['ajouterTache']))
 }
 
 //Modification d'une tache
+if (isset($_POST['modification_tache']))
+{
+}
 
-
+//suppression d'une tache
+if (isset($_POST['suppression_tache']))
+{
+}
+*/
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -247,17 +254,29 @@ if (isset($_POST['ajouterTache']))
 						<th>Tuteur</th>
 						<th>Priorité du voeu</th>
 					</tr>
-					<?php //afficheVoeux();?>
+					<?php afficheVoeux();?>
 				</table>
 			</div>
 		</div>
 		<div class="row">
 			<h5>Mon Projet</h5>
 			<form>
-				<?php afficheTaches(); ?>
-				<button type="submit" name="ajouterTache" class="btn">
-					<span class=""></span> Ajouter une tache
-				</button>
+				<?php //afficheToutesLesTaches(); ?>
+				<form action="" method="post">
+					<div class="input-field"> 
+						<label for="nomTache">Nom de la tache</label>
+						<input type="text" name="nomTache" required>
+					</div>
+					<div class="input-field">
+						<label for="avencement">Nombre representent l'avancement</label>
+						<input type="text" name="avencement" required>
+					</div>
+					<div class="">
+						<button type="submit" name="ajouterTache" class="btn">
+							<span class=""></span> Ajouter une tache
+						</button>
+					</div>
+				</form>
 			</form>
 		</div>
 		

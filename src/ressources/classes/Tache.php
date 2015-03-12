@@ -13,7 +13,7 @@ class Tache extends TableObject {
 				<div class='progress-bar' role='progressbar' aria-valuenow='0' aria-valuemin='$this->avancement' aria-valuemax='100' style='width: $this->$avancement%;'>
 				", $this->avancement,"%
 				</div>
-			</div>
+			</div> 
 			<input id='tache_1'  type='text' readonly='' value=", $this->nom_tache,">
 			<div class='interaction'>
 				<button type='submit' name='modifier_Tache' class='btn'>
