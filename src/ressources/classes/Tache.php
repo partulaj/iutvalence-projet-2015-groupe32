@@ -3,7 +3,6 @@ class Tache extends TableObject {
 	static public $keyFieldsNames = array('no_tache'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = true;
 	
-	
 	/**
 	 * fonction qui affiche le nom, l'avencement (par une barre) et les soutaches associé de la tache du projet
 	 * 

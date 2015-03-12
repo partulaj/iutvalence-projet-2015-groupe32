@@ -11,6 +11,7 @@ class Voeu extends TableObject {
 	public $hasAutoIncrementedKey = false;
 	
 	// Fonction d'affichage d'un voeux sous forme de ligne d'un tableau
+	
 	/**
 	 * Fonction qui permet d'afficher un voeu dans une ligne d'un tableau
 	 * Fonction qui permet d'afficher un voeu sous la forme d'une ligne d'un tableau. Ligne avec 5 colonnes

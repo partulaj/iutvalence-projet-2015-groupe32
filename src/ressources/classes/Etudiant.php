@@ -60,7 +60,6 @@ class Etudiant extends TableObject {
 		return false;
 	}
 	
-	
 
 	/**
 	 * Fonction qui permet d'afficher un étudiant dans une ligne d'un tableua

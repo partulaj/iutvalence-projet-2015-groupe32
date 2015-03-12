@@ -3,7 +3,6 @@ class VoeuxDAO extends DAO {
 	protected $table = "Voeux";
 	protected $class = "Voeu";
 	
-	
 	/**
 	 * Fonction qui récupère tous les voeux d'un étudiant
 	 * Fonction qui permet de récupérer tous les voeux de l'étudiant dont le login est passé en paramètre.

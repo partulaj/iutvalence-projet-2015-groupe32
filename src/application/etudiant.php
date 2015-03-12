@@ -263,7 +263,7 @@ if (isset($_POST['suppression_tache']))
 			<h5>Mon Projet</h5>
 			<form>
 				<?php //afficheToutesLesTaches(); ?>
-				<form action="ajouterUneTache" method="post">
+				<form action="" method="post">
 					<div class="input-field"> 
 						<label for="nomTache">Nom de la tache</label>
 						<input type="text" name="nomTache" required>
