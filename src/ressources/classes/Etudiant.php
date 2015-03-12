@@ -2,8 +2,6 @@
 class Etudiant extends TableObject {
 	static public $keyFieldsNames = array('login_etudiant'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
-	
-
 
 	/**
 	 * Fonction d'affichage de la barre de navigation
