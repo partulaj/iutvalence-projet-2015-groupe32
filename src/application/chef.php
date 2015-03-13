@@ -153,7 +153,7 @@ if (isset($_FILES['fichier_import']))
 							<input type="file" name="fichier_import"/>
 						</div>
 					</div>
-					<div class=""
+					<div class="centre">
 					<button type="submit" class="btn light-blue darken-2">
 						<span class="glyphicon glyphicon-open"></span> Importer
 					</button>

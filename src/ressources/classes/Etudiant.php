@@ -60,7 +60,6 @@ class Etudiant extends TableObject {
 		return false;
 	}
 	
-
 	/**
 	 * Fonction qui permet d'afficher un étudiant dans une ligne d'un tableua
 	 * Fonction qui permet d'afficher un étudiant sous forme d'une ligne d'un tableau. Ligne avec 3 colonnes : le nom de l'étudiant, le prénom de l'étudiant, un lien pour lui envoyer un mail

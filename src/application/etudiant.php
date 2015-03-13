@@ -181,8 +181,8 @@ if (isset($_POST['suppression_tache']))
 {
 }
 */
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
