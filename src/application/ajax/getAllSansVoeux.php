@@ -13,7 +13,7 @@ session_start();
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 
 //récupération des étudiants sans Voeux
-$etudiants = $etudiantsDAO->getAll("WHERE login_etudiant NOT IN(SELECT login_etudiant FROM Voeux)");
+$etudiants = $etudiantsDAO->getAll("WHERE no_groupe IS NULL AND login_etudiant NOT IN(SELECT login_etudiant FROM Voeux)");
 
 //création du tableau à retourner
 $res = array();

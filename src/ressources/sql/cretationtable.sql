@@ -79,6 +79,6 @@ CREATE TABLE Realises
 no_tache integer,
 login_etudiant varchar(20),
 PRIMARY KEY (no_tache,login_etudiant),
-FOREIGN KEY (no_tache) REFERENCES Taches(no_tache) ON DELETE CASCADE,
+FOREIGN KEY (no_tache) REFERENCES Taches(no_tache) ON UPDATE CASCADE ON DELETE CASCADE,
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 )ENGINE=INNODB;

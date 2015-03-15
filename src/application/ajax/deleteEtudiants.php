@@ -22,11 +22,11 @@ if (isset($_POST['array']))
 		//suppression de l'étudiant
 		$etudiantsDAO->delete($etudiantASupprimer);
 	}
-	return json_encode(true);
+	echo json_encode(true);
 }
 else
 {
-	return json_encode("Veuillez sélectionner des étudiants à supprimer");
+	echo json_encode("Veuillez sélectionner des étudiants à supprimer");
 }
 
 ?>

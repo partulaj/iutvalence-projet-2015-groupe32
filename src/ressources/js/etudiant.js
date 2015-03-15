@@ -27,7 +27,7 @@ function delStudent()
 		}
 		else
 		{
-			toast("Les étudiants sélectionné ont bien étaient supprimé");
+			toast("Les étudiants sélectionné ont bien étaient supprimé",4000);
 			document.location.reload(true);
 		}
 	},'json');
