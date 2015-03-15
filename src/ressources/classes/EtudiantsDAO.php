@@ -12,7 +12,7 @@ class EtudiantsDAO extends DAO {
 	public function getAllWithoutProjects()
 	{
 		$res=array();
-		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE nom_groupe IS NULL");
+		$stmt = $this->pdo->query("SELECT * FROM $this->table WHERE no_groupe IS NULL");
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) 
 		{
 			$res[] = new $this->class ($row);
@@ -28,11 +28,11 @@ class EtudiantsDAO extends DAO {
 	 * @author Ihab, Jérémie
 	 * @version 1.2
 	 */
-	public function getAllWithThisProject($nom_groupe)
+	public function getAllWithThisProject($no_groupe)
 	{	
 		$res=array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE nom_groupe = ?");
-		$stmt ->execute(array($nom_groupe));
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE no_groupe = ?");
+		$stmt ->execute(array($no_groupe));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
 			$res[] = new $this->class ($row);
@@ -46,12 +46,12 @@ class EtudiantsDAO extends DAO {
 	 * @param $num : un numéro de projet
 	 * @return $res : un tableau d'étudiants
 	 * @author Jérémie
-	 * @version 1.0
+	 * @version 1.4
 	 */
 	public function getAllWithThisWish($num)
 	{
 		$res = array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login_etudiant IN (SELECT login_etudiant FROM Voeux WHERE no_projet = ? ORDER BY date)");
+		$stmt = $this->pdo->prepare("SELECT Etudiants.* FROM Etudiants NATURAL JOIN Voeux WHERE Voeux.no_projet=? ORDER BY date Asc, classement");
 		$stmt->execute(array($num));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{

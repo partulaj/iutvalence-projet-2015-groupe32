@@ -5,14 +5,15 @@
  * @author Jérémie
  * @version 1.0
  */
+//Autochargement des classes via un Autoloader
+require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
 //Tableau de paramètres de la page
 $param['erreur']=false;
 $param['message']=null;
 
-//Chargement des classes php
-function __autoload($class) { require_once "../ressources/classes/$class.php"; }
+
 
 //Création des DAO
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
@@ -23,6 +24,25 @@ $chefsDAO = new ChefsDAO(MaBD::getInstance());
 if (isset($_POST['deconnexion']))
 {
 	session_destroy();
+}
+if (isset($_SESSION['user'])) 
+{
+	if (isset($_SESSION['user']->login_etudiant)) 
+	{
+		header("Location:etudiant.php");
+		exit();	
+	}
+	if (isset($_SESSION['user']->login_enseignant))
+	{
+		header("Location:enseignant.php");
+		exit();	
+	}
+	if (isset($_SESSION['user']->login_chef)) 
+	{
+		header("Location:chef.php");
+		exit();	
+	}
+
 }
 
 //Connexion
@@ -36,7 +56,7 @@ if (isset($_POST['connexion']))
 	$moi=$etudiantsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_etudiant==$mdp))
 	{
-		$_SESSION['etu']=$moi;
+		$_SESSION['user']=$moi;
 		header("Location:etudiant.php");
 		exit();	
 	}
@@ -45,7 +65,7 @@ if (isset($_POST['connexion']))
 	$moi=$enseignantsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_enseignant==$mdp))
 	{
-		$_SESSION['ens']=$moi;
+		$_SESSION['user']=$moi;
 		header("Location:enseignant.php");
 		exit();	
 	}
@@ -54,7 +74,7 @@ if (isset($_POST['connexion']))
 	$moi=$chefsDAO->getOne($login);
 	if (($moi!=null) and ($moi->mdp_chef==$mdp))
 	{
-		$_SESSION['chef']=$moi;
+		$_SESSION['user']=$moi;
 		header("Location:chef.php");
 		exit();	
 	}
@@ -90,8 +110,8 @@ if (isset($_POST['connexion']))
 	</head>
 	<body class="brown lighten-5">
 		<nav>
-			<div class="nav-wrapper light-blue darken-2">
-				<a href="#" class="brand-logo">Accueil</a>
+			<div class="nav-wrapper light-blue">
+				<a href="#" class="brand-logo"><i class="mdi-action-home"></i>Accueil</a>
 			</div>
 		</nav>
 		<div class="container brown lighten-5">
@@ -117,7 +137,7 @@ if (isset($_POST['connexion']))
 					<div class="row">
 						<div class="input-field col s12">
 							<div class="centre">
-								<button type="submit" name="connexion" class="waves-effect waves-light btn light-blue darken-2">
+								<button type="submit" name="connexion" class="waves-effect waves-light btn light-blue">
 									<i class="mdi-action-account-circle"></i> Connexion
 								</button>
 							</div>
@@ -137,6 +157,9 @@ if (isset($_POST['connexion']))
 		echo 	"<script>toast('",$param['message'],"', 4000)</script>";
 	}
 	?>
-	<script src="../ressources/js/ourJS.js"></script>
+		<script src="../ressources/js/init.js"></script>
+		<script src="../ressources/js/tache.js"></script>
+		<script src="../ressources/js/voeu.js"></script>
+		<script src="../ressources/js/projet.js"></script>
 </body>
 </html>

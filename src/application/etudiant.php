@@ -5,27 +5,22 @@
  * @author Audrey, Jérémie
  * @version 1.3
  */
+//Autochargement des classes via un Autoloader
+require_once "../ressources/classes/MyAutoloader.php";
 session_start();
-
-//pour le debug
-//print_r($_POST);
-
-//Chargement des classes php
-function __autoload($class) { require_once "../ressources/classes/$class.php"; }
-
-//Tableau de parammètres de la page
-$param['erreur']=false;
-$param['reussi']=false;
-$param['message']=null;
 
 //Création des DAO
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
+<<<<<<< HEAD
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
 $tachesDAO = new TachesDAO(MaBD::getInstance());
+=======
+$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+>>>>>>> refs/remotes/origin/jeremie
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['etu']->login_etudiant))
+if (!isset($_SESSION['user']->login_etudiant))
 {
 	header("Location:index.php");
 	exit();
@@ -36,8 +31,10 @@ $affectationProjet=$projetDAO->getAll();
 foreach ($affectationProjet as $projetAAffecter)
 {
 	$projetAAffecter->initAffectationAuto();
+	$_SESSION['user']=$etudiantsDAO->getOne($_SESSION['user']->login_etudiant);
 }
 
+<<<<<<< HEAD
 //Enregistrement du ou des voeux
 if (isset($_POST['enregistrer']))
 {
@@ -138,6 +135,8 @@ function afficheVoeux()
 		$voeux->afficheVoeu();
 	}
 }
+=======
+>>>>>>> refs/remotes/origin/jeremie
 
 //Fonction qui recupaire et affiche les taches du projet associer à l'etudiant
 function afficheToutesLesTaches()
@@ -206,58 +205,30 @@ if (isset($_POST['suppression_tache']))
 	</head>
 	<body class="brown lighten-5">
 		<?php 
-		$_SESSION['etu']->afficheNavBar();
+		$_SESSION['user']->afficheNavBar();
 		?>
 		<div class="container brown lighten-5">
-			<div class="card">
-				<div class="row">
-					<div class="col s12">
-						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
-							<i class="mdi-hardware-keyboard-arrow-down"></i>
-						</a>
-						<h5>Liste des Projets</h5>
-						<p>Choisissez jusqu'a 5 projets parmis la liste des projets proposé en dessou</p>
+			<?php
+			if ($_SESSION['user']->no_groupe!=null) 
+			{
+				$_SESSION['user']->afficheAccueil();
+			}
+			else
+			{
+				echo "
+				<div class='card'>
+					<div class='row'>
+						<div class='col s12'>
+							<h5>404 Error</h5>
+							<p>Vous n'êtes pas encore affecter à un groupe, l'interface de gestion des tâches n'est 
+							donc pas disponible pour le moment.
+							Veuillez aller dans l'onglet Projet pour faire un ou plusieurs Voeux, ou attendre que 
+							vous soyez affecté si cela est déjà fait.</p>
+						</div>
 					</div>
-				</div>
-				<form class="hide" method="post" action="">
-					<table class="responsive-table bordered striped ">
-						<tr>
-							<th>Numero de projet</th>
-							<th>Nom du Projet</th>
-							<th>Tuteur</th>
-							<th>Priorité du voeu</th>
-							<th>Fiche du Projet</th>
-						</tr> 
-						<?php afficheProjet(); ?>
-					</table><br/>
-					<div class="centre">
-						<button type="submit" name="enregistrer" class="btn light-blue darken-2">
-							<span class="icon-ok"></span> Enregistrer
-						</button>
-					</div>
-				</form>
-			</div>
-
-			<div class="card">
-				<div class="row">
-					<div class="col s12">
-						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
-							<i class="mdi-hardware-keyboard-arrow-down"></i>
-						</a>
-						<h5>Recapitulatif des voeux choisi:</h5>
-						<p>Voici la liste des voeux que vous avez fait ordonner par priorité</p>
-					</div>
-				</div>
-				<table class="responsive-table bordered striped centered hide">
-					<tr>
-						<th>Numero de projet</th>
-						<th>Nom du projet</th>
-						<th>Tuteur</th>
-						<th>Priorité du voeu</th>
-					</tr>
-					<?php afficheVoeux();?>
-				</table>
-			</div>
+				</div>";
+			}
+			?>
 		</div>
 		<div class="row">
 			<h5>Mon Projet</h5>
@@ -284,16 +255,9 @@ if (isset($_POST['suppression_tache']))
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/ourJS.js"></script>
-		<?php 
-		if ($param['erreur']!=false)
-		{
-			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
-		}
-		if ($param['reussi']==true)
-		{
-			echo 	"<script>toast('",$param['message'],"', 4000)</script>";
-		}
-		?>
+		<script src="../ressources/js/init.js"></script>
+		<script src="../ressources/js/tache.js"></script>
+		<script src="../ressources/js/voeu.js"></script>
+		<script src="../ressources/js/projet.js"></script>
 	</body>
 	</html>

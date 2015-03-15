@@ -33,11 +33,10 @@ FOREIGN KEY (login_enseignant) REFERENCES Enseignants(login_enseignant)
 
 CREATE TABLE Groupes
 (
-nom_groupe varchar(20) NOT NULL,
+no_groupe integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 no_projet integer NOT NULL,
-INDEX (nom_groupe,no_projet),
-FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
-PRIMARY KEY (no_projet, nom_groupe)
+plein boolean DEFAULT 0,
+FOREIGN KEY (no_projet) REFERENCES Projets(no_projet)
 )ENGINE=INNODB;
 
 CREATE TABLE Etudiants
@@ -47,11 +46,11 @@ nom_etudiant varchar(20),
 prenom_etudiant varchar(20),
 mdp_etudiant varchar(50),
 mail_etudiant varchar(150),
-nom_groupe varchar(20),
-no_projet integer,
+no_groupe integer DEFAULT null,
 nb_voeux integer DEFAULT 0,
-INDEX (nom_groupe,no_projet),
-FOREIGN KEY (nom_groupe,no_projet) REFERENCES Groupes(nom_groupe,no_projet)
+ajac boolean,
+classement integer UNIQUE,
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;
 
 CREATE TABLE Voeux
@@ -59,19 +58,27 @@ CREATE TABLE Voeux
 no_projet integer,
 login_etudiant varchar(20),
 date date NOT NULL,
-priorité integer NOT NULL,
+priorite integer NOT NULL,
 PRIMARY KEY (no_projet,login_etudiant),
-FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
+FOREIGN KEY (no_projet) REFERENCES Projets(no_projet) ON DELETE CASCADE,
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 )ENGINE=INNODB;
 
 CREATE TABLE Taches
 (
-no_tache integer NOT NULL PRIMARY KEY,
+no_tache integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
 nom_tache varchar(50),
-avancement varchar(20),
-no_projet integer,
+etat_tache varchar(50),
+ordre_tache integer,
+no_groupe integer,
+FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
+)ENGINE=INNODB;
+
+CREATE TABLE Realises
+(
+no_tache integer,
 login_etudiant varchar(20),
-FOREIGN KEY (no_projet) REFERENCES Projets(no_projet),
+PRIMARY KEY (no_tache,login_etudiant),
+FOREIGN KEY (no_tache) REFERENCES Taches(no_tache) ON DELETE CASCADE,
 FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
 )ENGINE=INNODB;
