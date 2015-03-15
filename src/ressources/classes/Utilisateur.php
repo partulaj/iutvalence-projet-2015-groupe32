@@ -75,7 +75,7 @@ class Utilisateur extends TableObject {
 	 */
 	public function estEtudiant()
 	{
-		if (isset($this->login_etudiant))
+		if (!empty($this->login_etudiant))
 		{
 			return true;
 		}
@@ -89,7 +89,7 @@ class Utilisateur extends TableObject {
 	 */	
 	public function estEnseignant()
 	{
-		if (isset($this->login_enseignant))
+		if (!empty($this->login_enseignant))
 		{
 			return true;
 		}
@@ -103,7 +103,7 @@ class Utilisateur extends TableObject {
 	 */
 	public function estChef()
 	{
-		if (isset($this->login_chef))
+		if (!empty($this->login_chef))
 		{
 			return true;
 		}

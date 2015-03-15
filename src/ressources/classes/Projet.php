@@ -15,16 +15,32 @@ class Projet extends TableObject {
 	 * @author Jérémie
 	 * @version 1.2
 	 */
-	public function initAffectationAuto() {
+	public function initAffectationAuto() 
+	{
 		$res = array ();
 		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
 		$etudiantsATrier = $DAOtemporaire->getAllWithThisWish ( $this->no_projet );
+		$nb_ajac=0;
 		foreach ( $etudiantsATrier as $etudiant ) {
-			if ($etudiant->aUnMeilleurVoeu ( $this->no_projet ) == false) {
-				$res [] = $etudiant;
+			if ($etudiant->aUnMeilleurVoeu ( $this->no_projet ) == false) 
+			{
+
+				if ($etudiant->ajac==true) 
+				{
+					if ($nb_ajac<2) 
+					{
+						$res [] = $etudiant;
+						$nb_ajac++;
+					}	
+				}
+				else
+				{
+					$res [] = $etudiant;
+				}
 			}
 		}
-		if (count ( $res ) >= $this->nb_etu_max) {
+		if (count ($res) >= $this->nb_etu_max) 
+		{
 			$this->affectationAuto ( $res );
 		}
 	}
@@ -34,19 +50,21 @@ class Projet extends TableObject {
 	 * Fonction qui permet d'affecter les étudiant au projet en cours ($this)
 	 * @param $tab :un tableau d'étudiants
 	 * @author Jérémie
-	 * @version 0.6
+	 * @version 1.0
 	 */
-	private function affectationAuto($tab) {
+	private function affectationAuto($tab) 
+	{
 		MaBD::getInstance()->beginTransaction();
 		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
 		$DAOtemporaire2 = new VoeuxDAO ( MaBD::getInstance () );
 		$DAOtemporaire3 = new ProjetsDAO ( MaBD::getInstance () );
 		$DAOtemporaire4 = new GroupesDAO(MaBD::getInstance());
-		
+		$DAOtemporaire5 = new EnseignantsDAO (MaBD::getInstance());
+
 		$groupes = $DAOtemporaire4->getAll("WHERE no_projet='$this->no_projet'");
 		foreach ($groupes as $groupe)
 		{
-			if ($groupe->plein==false and !empty($tab))
+			if ($groupe->plein==false and !empty($tab) and count($tab)>= $this->nb_etu_max)
 			{
 				$i=0;
 				while ($i<$this->nb_etu_max)
@@ -140,13 +158,16 @@ class Projet extends TableObject {
 
 	/**
 	 * Fonction qui affiche un projet sous forme dde ligne pour les enseignants
-	 * Fonction qui permet d'afficher un projet sous forme de ligne html avec une modal pour modifier le projet 
-	 * et un bouton pour accéder à l'interface d'administration du projet
+	 * Fonction qui permet d'afficher un projet sous forme de ligne html avec une modal pour modifier le projet, 
+	 * un bouton pour accéder à l'interface d'administration du projet et un bouton pour afficher la liste des 
+	 * étudiants interessé par ce projet 
 	 * @author Jérémie
-	 * @version 0.2
+	 * @version 0.6
 	 */
 	public function toTableRowForTeachers()
 	{
+		$DAOtemporaire = new VoeuxDAO(MaBD::getInstance());
+		$voeux = $DAOtemporaire->getAll("WHERE no_projet=$this->no_projet");
 		echo 
 		"
 		<tr>
@@ -160,13 +181,13 @@ class Projet extends TableObject {
 							<label for='projet_name$this->no_projet'>Nom du Projet</label>
 							<input type='text' id='project_name$this->no_projet' name='project_name' value='$this->nom_projet' >
 						</div>
-						<div class='input-field'>
-							<label for='nb_min$this->no_projet'>Nombre d'étudiants minimum</label>
-							<input type='text' id='nb_min$this->no_projet' name='nb_min' value='$this->nb_etu_min'>
-						</div>
-						<div class='input-field'>
-							<label for='nb_max$this->no_projet'>Nombre d'étudiants maximum</label>
-							<input type='text' id='nb_max$this->no_projet' name='nb_max' value='$this->nb_etu_max'>
+						<div class='row'>
+							<div class='input-field col s6'>
+								<input id='nb_min$this->no_projet' name='nb_min' value='$this->nb_etu_min' type='number' max='4' min='3' required/>
+							</div>
+							<div class='input-field col s6'>
+								<input id='nb_max$this->no_projet' name='nb_max' value='$this->nb_etu_max' type='number' max='5' min='3'required/>
+							</div>
 						</div>
 						<div class='input-field'>
 							<label for='contexte$this->no_projet'>Contexte</label>
@@ -188,7 +209,8 @@ class Projet extends TableObject {
 					</div>
 					<div class='modal-footer'>
 						<button href='#' class='waves-effect waves-green btn-flat modal-action modal-close'>Annuler</button>
-						<button onClick='editProject(\"$this->no_projet\")' name='edit_projet' class='waves-effect waves-green btn-flat modal-action modal-close'><span class='icon-save-floppy'></span> Enregistrer les Modifications</button>
+						<button onClick='editProject(\"$this->no_projet\")' name='edit_projet' class='waves-effect waves-green btn-flat modal-action modal-close'><span class='icon-save-floppy'></span> Enregistrer</button>
+						<button onClick='delProject(\"$this->no_projet\")' name='del_projet' class='waves-effect waves-green btn-flat modal-action modal-close'><span class='mdi-action-delete'></span> Supprimer</button>
 					</div>
 				</div>
 			</td>
@@ -198,8 +220,25 @@ class Projet extends TableObject {
 				</form>
 				<button class='btn light-blue' onClick='javascript:document.formProjet$this->no_projet.submit();'>Administrer le Projet</button>
 			</td>
-		</tr>
-		";
+		</tr>";
+		if ($this->affecter==false)
+		{
+			echo"
+			<tr class='hidden-element-block'>
+				<td colspan='3'>
+					<a class='waves-effect waves-grey btn-flat slide-link'>Etudiant interessé</a>
+					<ul class='collection hide'>
+						";
+						foreach ($voeux as $voeu) 
+						{
+							$voeu->toListElem();	
+						}
+						echo"
+					</ul>
+				</td>
+			</tr>
+			";
+		}
 	}
 }
 ?>

@@ -24,6 +24,11 @@ if (isset($_POST['envoi']))
 			$chef = new Chef($_SESSION['user']->getAllFields());
 			$chef->mailToSansProjets($subject, $message);
 		}
+		elseif ($_POST['no_groupe']=="tous") 
+		{
+			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef->mailToAll($subject, $message);
+		}
 		else 
 		{
 			$_SESSION['user']->mailToThisGroup($_POST['no_groupe'], $sujet, $message);

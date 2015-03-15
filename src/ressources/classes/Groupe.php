@@ -45,7 +45,7 @@ class Groupe extends TableObject {
 		$DAOtemporaire = new TachesDAO(MaBD::getInstance());
 		$taches = $DAOtemporaire->getAll("WHERE no_groupe = '$this->no_groupe' ORDER BY ordre_tache");
 		echo "
-		<div class='card'>
+		<div class='card hidden-element-block'>
 			<div class='row'>
 				<div class='col s12'>
 					<a class='btn-floating btn-large waves-effect waves-light red arrow-link slide-link'>

@@ -137,10 +137,15 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	padding: 10px;
 	font-size: 1.6em;
 	margin: 10px auto;
+	margin-right: 1.6em;
 }
 .title
 {
 	font-size: 1.4em;
+}
+.tabs .indicator
+{
+	background-color:#ffc107; 
 }
 @media only screen and (max-width : 992px) {
 .responsive-table>tbody>tr>td>.btn
@@ -149,4 +154,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	left: -12.5em;
 	margin-top: 2em;
 }
+.clickable-item
+{
+	cursor: pointer;
 }

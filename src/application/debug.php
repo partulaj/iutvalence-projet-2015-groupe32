@@ -30,6 +30,9 @@ session_start();
 	  <![endif]-->
 	</head>
 	<body class="brown lighten-5">
+		<?php
+		$_SESSION['user']->afficheNavBar();
+		?>
 		<div class="container brown lighten-5">
 			<div class="card">
 				<div class="row">
@@ -37,53 +40,20 @@ session_start();
 						<h5>Liste des étudiants Sans Projet</h5>
 					</div>
 				</div>
-				<ul class="collection">
-					<li class="collection-item avatar">
-						<i class="mdi-social-school grey circle"></i>
-						<i class="mdi-content-clear red circle" style="display:none"></i>
-						<span class="title">Title</span>
-					</li>
-					<li class="collection-item avatar">
-						<i class="mdi-social-school grey circle"></i>
-						<i class="mdi-content-clear red circle" style="display:none"></i>
-						<span class="title">Title</span>
-					</li>						
-				</ul>
+				<?php
+				$_SESSION['user']->afficheGestionEtudiants();
+				?>
 			</div>
 		</div>
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/init.js"></script>
 		<script src="../ressources/js/tache.js"></script>
 		<script src="../ressources/js/voeu.js"></script>
 		<script src="../ressources/js/projet.js"></script>
+		<script src="../ressources/js/etudiant.js"></script>
 		<script src="../ressources/js/jquery-color-min.js"></script>
-		<script type="text/javascript">
-		$(document).ready(function($) 
-		{
-			$(".avatar>i").click(function(event) 
-			{
-				$(this).css('background-color', '#f44336');
-				$(this).removeClass('red');
-
-				$(this).animate({backgroundColor:"#9e9e9e"},1000, function() {
-					$(this).addClass('grey');
-					$(this).switchClass("mdi-content-clear","mdi-social-school");
-				});
-			});
-			$(".avatar>.mdi-content-clear").click(function(event) {
-				$(this).css('background-color', '#9e9e9e');
-				$(this).removeClass('grey');
-
-				$(this).animate({backgroundColor:"#f44336"},1000, function() {
-					$(this).addClass('red');
-					$(this).switchClass("mdi-social-school","mdi-content-clear",);
-				});
-			});
-		});
-		</script>
 	</body>
 	</html>

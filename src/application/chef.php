@@ -18,21 +18,6 @@ if (! isset ( $_SESSION ['user']->login_chef )) {
 $etudiantsDAO = new EtudiantsDAO ( MaBD::getInstance () );
 // Ajout du module d'importation
 require_once "./import.php";
-$etudiantsSansProjets = $etudiantsDAO->getAllWithoutProjects ();
-/**
- * Fonction d'affichage des étudiant
- * Fonction qui affiche le tableau des étudiants que l'on passe en paramètre
- * $array : un tableau d'étudiants
- * 
- * @author Jérémie
- * @version 1.0
- */
-function afficheTab($array) {
-	foreach ( $array as $etudiant ) {
-		$etudiant->toTableRow ();
-	}
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -50,7 +35,6 @@ function afficheTab($array) {
 	<link rel="stylesheet" href="../whhg/css/whhg.css">
 	<!-- Style Personnel -->
 	<link href="../ressources/css/style.css" rel="stylesheet">
-	<link rel="import" href="../ressources/component.html">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -63,30 +47,10 @@ function afficheTab($array) {
 		$_SESSION ['user']->afficheNavBar ();
 		?>
 		<div class="container brown lighten-5">
-			<div class="card">
-				<div class="row">
-					<div class="col s12">
-						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
-							<i class="mdi-hardware-keyboard-arrow-down"></i>
-						</a>
-						<h5>Liste des étudiants Sans Projet</h5>
-						<p>Voici la liste des étudiants qui n'ont pas encore de projet</p>
-					</div>
-				</div>
-				<div class="col s12 hide">
-					<table class="responsive-table bordered hoverable">
-						<tr>
-							<th>Nom</th>
-							<th>Prénom</th>
-						</tr>
-						<?php
-						afficheTab ( $etudiantsSansProjets );
-						?>
-					</table>
-				</div>
-			</div>
-
-			<div class="card">
+			<?php
+			$_SESSION['user']->afficheAccueil();
+			?>
+			<div class="card hidden-element-block">
 				<div class="row">
 					<div class="col s12">
 						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
@@ -117,12 +81,11 @@ function afficheTab($array) {
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
 		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+		<script src="../ressources/js/etudiant.js"></script>
+
 		<?php 
 		if ($param['reussi']==true)
 		{

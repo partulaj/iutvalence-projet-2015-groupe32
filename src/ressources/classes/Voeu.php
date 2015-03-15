@@ -43,5 +43,21 @@ class Voeu extends TableObject {
 			</td>
 		</tr>";
 	}
+
+	/**
+	 * Affiche le nom et prénom de l'étudiant ayant fait ce voeu
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	public function toListElem()
+	{
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$etudiant = $DAOtemporaire->getOne($this->login_etudiant);
+		echo "
+		<li class='collection-item'>
+			$etudiant->nom_etudiant $etudiant->prenom_etudiant
+		</li>
+		";
+	}
 }
 ?>

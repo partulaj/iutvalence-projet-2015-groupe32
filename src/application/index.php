@@ -111,7 +111,7 @@ if (isset($_POST['connexion']))
 	<body class="brown lighten-5">
 		<nav>
 			<div class="nav-wrapper light-blue">
-				<a href="#" class="brand-logo">Accueil</a>
+				<a href="#" class="brand-logo"><i class="mdi-action-home"></i>Accueil</a>
 			</div>
 		</nav>
 		<div class="container brown lighten-5">

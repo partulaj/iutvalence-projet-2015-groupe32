@@ -46,12 +46,12 @@ class EtudiantsDAO extends DAO {
 	 * @param $num : un numéro de projet
 	 * @return $res : un tableau d'étudiants
 	 * @author Jérémie
-	 * @version 1.0
+	 * @version 1.4
 	 */
 	public function getAllWithThisWish($num)
 	{
 		$res = array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login_etudiant IN (SELECT login_etudiant FROM Voeux WHERE no_projet = ? ORDER BY date)");
+		$stmt = $this->pdo->prepare("SELECT Etudiants.* FROM Etudiants NATURAL JOIN Voeux WHERE Voeux.no_projet=? ORDER BY date Asc, classement");
 		$stmt->execute(array($num));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{

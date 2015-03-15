@@ -68,13 +68,30 @@ class Chef extends Utilisateur {
 	public function mailToSansProjets($subject, $message)
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$res = $DAOtemporaire->getAllWithoutProjects();
-		foreach ($res as $etudiant)
+		$etudiants = $DAOtemporaire->getAllWithoutProjects();
+		foreach ($etudiants as $etudiant)
 		{
 			mail($etudiant->mail_etudiant, $subject, $message);
 		}
 	}
 
+	/**
+	 * Fonction qui envoie un mail à tous les étudiants
+	 * 
+	 * @param 	$subject : sujet du mail
+	 * @param	$message : message du mail
+	 * @author Jérémie
+	 * @version 1.0
+	 */
+	public function mailToAll($subject, $message)
+	{
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$etudiants = $DAOtemporaire->getAll();
+		foreach ($etudiants as $etudiant)
+		{
+			mail($etudiant->mail_etudiant, $subject, $message);
+		}
+	}
 	/**
 	 * Fonction qui affiche le formulaire d'envoie de mail
 	 * Fonction qui permet d'afficher un formulaire d'envoie de message spéciale pour le chef
@@ -120,34 +137,99 @@ class Chef extends Utilisateur {
 		";
 	}
 
-	public function afficheGestionEtudiants()
-	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $DAOtemporaire->getAll();
-		echo "<ul id='list-etudiants' class='collection'>";
-		foreach ($etudiants as $etudiant) 
-		{
-			$etudiant->toListElemToDel();
-		}
-		echo "</ul>";
-	}
-
 	/**
 	 * Fonction qui récupère tous les groupes et les affiche dans un select
 	 * Fonction qui permet de récupérer tous les groupes et de les afficher dans une liste déroulante avec une option 
 	 * supplémentaire pour les étudiants sans projet
 	 * @author Jérémie
-	 * @version 0.2
+	 * @version 0.4
 	 */
 	public function allGroupsToOptions()
 	{
 		$DAOtemporaire = new GroupesDAO(MaBD::getInstance());
 		$tab=$DAOtemporaire->getAll();
-		echo "<option value='sans_projet'>Etudiants Sans Projet</option>";
+		echo "
+		<option value='tous'>Tous les étudiants</option>
+		<option value='sans_projet'>Etudiants Sans Projet</option>";
 		foreach ($tab as $groupe)
 		{
 			$groupe->toOption();
 		}
+	}
+
+	/**
+	 * Fonction d'affichage des étudiant
+	 * Fonction qui affiche le tableau des étudiants que l'on passe en paramètre
+	 * $array : un tableau d'étudiants
+	 * 
+	 * @author Jérémie
+	 * @version 1.2
+	 */
+	public function afficheTab($array) 
+	{
+		echo "
+		<table class='responsive-table bordered hoverable'>
+			<tr><th>Login</th><th>Nom</th><th>Prenom</th><th>Groupe</th><th>Mail</th></tr>";
+			foreach ( $array as $row ) 
+			{
+				$row->toTableRow (true);
+			}
+			echo "
+		</table>";
+	}
+
+	/**
+	 * Fonction qui affiche la page d'accueil du chef des projet
+	 * @author Jérémie
+	 * @version 1.0
+	 */
+	public function afficheAccueil()
+	{
+		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		echo "
+		<div class='card hidden-element-block'>
+			<div class='row'>
+				<div class='col s12'>
+					<ul class='tabs'>
+						<li class='tab col s3'><a class='active amber-text' href='#all' onclick='refreshAll()'>Tous les Etudiants</a></li>
+						<li class='tab col s3'><a class='amber-text' href='#sp' onClick='refreshSP()'>Sans Projet</a></li>
+						<li class='tab col s3'><a class='amber-text' href='#sv' onClick='refreshSV()'>Sans Voeux</a></li>
+						<li class='tab col s3'><a class='amber-text' href='#se' onClick='refreshSE()'>Supprimer étudiants</a></li>
+					</ul>
+				</div>
+				<div id='all' class='col s12'>";
+					$this->afficheTab($DAOtemporaire->getAll("ORDER BY no_groupe"));
+					echo
+					"
+					<div class='center'>
+						<a class='waves-effect waves-grey btn-flat slide-link col s12'>Changement de Groupe</a>
+					</div>
+					<div class='row hide'>
+						<div class='input-field col s5'>
+							<label for='switchEtu1'>Etudiant 1</label>
+							<input type='text' id='switchEtu1'>
+						</div>
+						<div class='input-field col s2 centre'>
+							<button class='btn-floating btn-large waves-effect waves-light indigo' onClick='switchGroup()'><i class='mdi-av-loop'></i></button>
+						</div>
+						<div class='input-field col s5'>
+							<label for='switchEtu2'>Etudiant 2</label>
+							<input type='text' id='switchEtu2'>
+						</div>
+					</div>
+				</div>
+				<div id='sp' class='col s12'></div>
+				<div id='sv' class='col s12'></div>
+				<div id='se' class='col s12'>
+					<ul id='list-etudiants' class='collection'>
+					</ul>
+					<div class='centre'>
+						<button class='btn waves-effect waves-light red' onclick='delStudent()'><i class='mdi-action-delete'></i>Supprimer les étudiants</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		";
 	}
 
 }

@@ -15,28 +15,33 @@
 		$(this).toggleClass("red mdi-content-clear");
 	});
 
-	(function($) {
-		$.fn.spinner = function() {
-			this.each(function() {
+	(function($) 
+	{
+		$.fn.spinner = function() 
+		{
+			this.each(function() 
+			{
 				var el = $(this);
 
-	  // add elements
-	  el.wrap('<span class="spinner"></span>');     
-	  el.before('<span class="sub">-</span>');
-	  el.after('<span class="add">+</span>');
+				// add elements
+				el.wrap('<span class="spinner"></span>');     
+				el.before('<span class="sub">-</span>');
+				el.after('<span class="add">+</span>');
 
-	  // substract
-	  el.parent().on('click', '.sub', function () {
-		if (el.val() > parseInt(el.attr('min')))
-			el.val( function(i, oldval) { return --oldval; });
-	  });
+				// substract
+				el.parent().on('click', '.sub', function () 
+				{
+					if (el.val() > parseInt(el.attr('min')))
+						el.val( function(i, oldval) { return --oldval; });
+				});
 
-	  // increment
-	  el.parent().on('click', '.add', function () {
-		if (el.val() < parseInt(el.attr('max')))
-			el.val( function(i, oldval) { return ++oldval; });
-	  });
-	});
+				// increment
+				el.parent().on('click', '.add', function () 
+				{
+					if (el.val() < parseInt(el.attr('max')))
+						el.val( function(i, oldval) { return ++oldval; });
+				});
+			});
 		};
 	})(jQuery);
 	$('input[type=number]').spinner();
@@ -63,7 +68,7 @@
 		{
 			$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-down')
 		}
-		$hidden = $elem.parent().parent().parent().children(".hide");
+		$hidden = $elem.closest(".hidden-element-block").find('.hide');
 		deplier($hidden);
 	  });
 	});

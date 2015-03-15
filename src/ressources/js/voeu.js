@@ -8,22 +8,18 @@
  function ajoutVoeu(num)
  {
  	var p = $("#priorite"+num).val();
- 	if (p=="0")
- 	{
- 		return toast("Vous ne pouvez pas ajouter un voeu avec une priorité de 0", 4000);
- 	}
  	$.post('./ajax/createVoeu.php', {no_projet: num, priorite:p}, function(data) 
  	{
- 		if (data=="") 
+ 		if (data!=true) 
+ 		{
+ 			toast(data,4000);
+ 		}
+ 		else
  		{
  			toast('Le projet a était ajouté à vos Voeux',4000);
  			document.location.reload(true);
  		}
- 		else
- 		{
- 			toast('Un problème est survenu veuillez signaler le bug',4000)
- 		}
- 	});
+ 	},'json');
  }
 /**
  * Modification d'un Voeu par requête Ajax
@@ -33,16 +29,16 @@
  	var priorite = $("#priorite"+num).val();
  	$.post('./ajax/updateVoeu.php', {priorite: priorite,no_projet: num, login:login}, function(data) 
  	{
- 		if (data=="") 
+ 		if (data!=true) 
  		{
- 			toast('Votre projet à bien était modifié',4000);
- 			document.location.reload(true);
+ 			toast(data,4000);
  		}
  		else
  		{
- 			toast('Un problème est survenu veuillez signaler le bug',4000)
+ 			toast('Votre voeu à bien était modifié',4000);
+ 			document.location.reload(true);
  		}
- 	});
+ 	},'json');
  }
 
  /**
@@ -53,14 +49,14 @@
   	var test = ""+num+" "+login;
   	$.post('./ajax/deleteVoeu.php', {no_projet: num,login:login}, function(data, textStatus, xhr) 
   	{
-  		if (data=="") 
-  		{
-  			toast('Votre voeu à bien était suprimé',4000);
+		if (data!=true) 
+		{
+			toast(data,4000);
+		}
+		else
+		{
+  			toast('Votre voeu à bien était supprimé',4000);
   			document.location.reload(true);
   		}
-  		else
-  		{
-  			toast('Un problème est survenu veuillez signaler le bug',4000)
-  		}
-  	});
+  	},'json');
   }

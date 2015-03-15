@@ -72,7 +72,8 @@ if(!empty($_POST))
 							"mail_etudiant"=>$array[$i][4],
 							"no_groupe"=>null,
 							"nb_voeux"=>0,
-							"ajac"=>$ajac);
+							"ajac"=>$ajac,
+							"classement"=>$array[$i][6]);
 						$etudiant = new Etudiant($res[$i]);
 						$etudiantsDAO->insert($etudiant);
 					}

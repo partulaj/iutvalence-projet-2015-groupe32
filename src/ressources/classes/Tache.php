@@ -38,7 +38,7 @@ class Tache extends TableObject {
 			</td>
 			<td>
 				<div class='input-field'>
-					<input id='ordre_tache$this->no_tache' pattern='[0-9]{1,5} title='< 5 chiffres' type='number' max='10000' min='1' value='$this->ordre_tache'/>
+					<input id='ordre_tache$this->no_tache' type='number' max='10000' min='1' value='$this->ordre_tache'/>
 				</div>
 			</td>
 			<td>

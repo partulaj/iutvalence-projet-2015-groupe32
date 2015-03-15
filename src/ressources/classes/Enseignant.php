@@ -64,7 +64,7 @@ class Enseignant extends Utilisateur {
 	 * Fonction d'affichage de la fenêtre modal de création d'un nouveau projet
 	 *
 	 * @author Jérémie
-	 * @version 0.2
+	 * @version 0.4
 	 */
 	private function NewProjectModal()
 	{
@@ -78,10 +78,10 @@ class Enseignant extends Utilisateur {
 				</div>
 				<div class='row'>
 					<div class='input-field col s6'>
-						<input id='nb_min' pattern='[0-9]{1,5} title='3<=nb_min<=4' type='number' max='4' min='3' value='3' required/>
+						<input id='nb_min' type='number' max='4' min='3' value='3' required/>
 					</div>
 					<div class='input-field col s6'>
-						<input id='nb_max' pattern='[0-9]{1,5} title='3<=nb_max<=5' type='number' max='5' min='3' value='3' required/>
+						<input id='nb_max' type='number' max='5' min='3' value='3' required/>
 					</div>
 				</div>
 				<div class='input-field'>
