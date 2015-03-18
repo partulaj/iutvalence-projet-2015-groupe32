@@ -54,19 +54,24 @@ class Utilisateur extends TableObject {
 	}
 
 	/**
-	 * Fonction définie dans les classe héritière
+	 * Fonction définie dans les classes héritière
 	 */
 	public function afficheAccueil(){}
 
 	/**
-	 * Fonction définie dans les classe héritière
+	 * Fonction définie dans les classes héritière
 	 */
 	public function afficheNavBar(){}
 
 	/**
-	 * Fonction définie dans les classe héritière
+	 * Fonction définie dans les classes héritière
 	 */
 	public function afficheMail(){}
+
+	/**
+	 * Fonction définie dans les classes héritière
+	 */
+	public function afficheProjets(){}
 
 	/**
 	 * Fonction pour savoir si l'utilisateur est un étudiant 

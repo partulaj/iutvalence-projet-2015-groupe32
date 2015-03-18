@@ -11,6 +11,8 @@ session_start();
 
 if (isset($_POST)) 
 {
+	$projetsDAO = new ProjetsDAO(MaBD::getInstance());
+	
 	//récupération du projet à modifié
 	$projet = $projetsDAO->getOne($_POST['no_projet']);
 

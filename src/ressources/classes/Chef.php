@@ -23,6 +23,7 @@ class Chef extends Utilisateur {
 		<ul id='dropdown1' class='dropdown-content'>
 			<li><a href='chef.php'>Accueil</a></li>
 			<li><a href='message.php'>Message</a></li>
+			<li><a href='projet.php'>Projet</a></li>
 		</ul>
 		<nav>
 			<form name='formDeDeconnexion' method='post' action='index.php'>
@@ -46,6 +47,7 @@ class Chef extends Utilisateur {
 				<ul class='side-nav' id='mobile-demo'>
 					<li><a href='chef.php'>Accueil</a></li>
 					<li><a href='message.php'>Message</a></li>
+					<li><a href='projet.php'>Projet</a></li>
 					<li>
 						<a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'>
 							<span class='icon-off'></span>
@@ -232,5 +234,37 @@ class Chef extends Utilisateur {
 		";
 	}
 
+	public function afficheProjets()
+	{
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$projets = $DAOtemporaire->getAll();
+		echo 
+		"
+		<div class='card hidden-element-block'>
+			<div class='row'>
+				<div class='col s12'>
+					<a class='btn-floating btn-large waves-effect waves-light red arrow-link slide-link'>
+						<i class='mdi-hardware-keyboard-arrow-down'></i>
+					</a>
+					<h5>Liste des Projets</h5>
+					<p>Voici la liste des Projets</p>
+				</div>
+			</div>
+			<table class='responsive-table bordered striped centered hide'>
+				<tr>
+					<th>Intitulé Projet</th>
+					<th>Modifier</th>
+					<th>Interface de Gestion</th>
+				</tr>";
+				foreach ($projets as $projet) 
+				{
+					$projet->toTableRowForTeachers();	
+				}
+				echo"
+			</table>
+			<button class='btn-floating btn-large waves-effect waves-light indigo'><i class='mdi-action-get-app'></i> </button>
+		</div>
+		";
+	}
 }
 ?>

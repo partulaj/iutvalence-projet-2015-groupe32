@@ -18,12 +18,14 @@
  *          static public $keyFieldsNames = array(liste_des_champs_de_la_clé_primaire);
  *          public $hasAutoIncrementedKey = false;
  *      }
+ * On implémente JsonSerializable pour ne sérialiser que les champs.
  */
-class TableObject {
+class TableObject implements JsonSerializable {
 
     // Liste des champs et leur valeur
     protected $fields = array();
     public function getAllFields() { return $this->fields; }
+    public function jsonSerialize() { return $this->fields; }
 
     // Champs composant la clé primaire : tableau avec les noms des champs 
     // Statiques, car nécessaires avant de créer une instance (voir DAO::__construct)

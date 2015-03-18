@@ -16,41 +16,41 @@ class Tache extends TableObject {
 		$DAOtemporaire = new GroupesDAO(MaBD::getInstance());
 		$groupe = $DAOtemporaire->getOne($this->no_groupe);
 		echo 
-		"
+		'
 		<tr>
 			<td>
-				<div class='input-field'>
-					<label for='nom_tache$this->no_tache'>Nom de la Tache</label>
-					<input type='text' id='nom_tache$this->no_tache' value='$this->nom_tache'>
+				<div class="input-field">
+					<label for="nom_tache$this->no_tache">Nom de la Tache</label>
+					<input type="text" id="nom_tache', $this->no_tache, '" value="',htmlspecialchars($this->nom_tache),'">
 				</div>
 			</td>
 			<td>
-				<div class='input-field'>
-					<select id='etat_tache$this->no_tache'>";
+				<div class="input-field">
+					<select id="etat_tache', $this->no_tache, '">';
 						$this->statusToOption();
-						echo "
+						echo '
 					</select>
 				</div>
 			</td>
-			<td id='list_tache$this->no_tache'>";
+			<td id="list_tache', $this->no_tache, '">';
 				$groupe->listMembers($this->no_tache);
-				echo "
+				echo '
 			</td>
 			<td>
-				<div class='input-field'>
-					<input id='ordre_tache$this->no_tache' type='number' max='10000' min='1' value='$this->ordre_tache'/>
+				<div class="input-field">
+					<input id="ordre_tache', $this->no_tache, '" type="number" max="10000" min="1" value="', $this->ordre_tache, '"/>
 				</div>
 			</td>
 			<td>
-				<button type='submit' onClick='editTask(\"$this->no_tache\",\"$this->no_groupe\")' class='btn amber'>
-					<span class='mdi-image-edit'></span>  
+				<button type="submit" onClick="editTask(', $this->no_tache, ', ', $this->no_groupe, ')" class="btn amber">
+					<span class="mdi-image-edit"></span>  
 				</button>
-				<button type='submit' onClick='delTask(\"$this->no_tache\")' class='btn red'>
-					<span class='mdi-action-delete'></span>
+				<button type="submit" onClick="delTask(', $this->no_tache, ')" class="btn red">
+					<span class="mdi-action-delete"></span>
 				</button>
 			</td>
 		</tr>
-		";
+		';
 	}
 
 	/**

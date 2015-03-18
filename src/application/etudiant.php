@@ -68,8 +68,8 @@ foreach ($affectationProjet as $projetAAffecter)
 					<div class='row'>
 						<div class='col s12'>
 							<h5>404 Error</h5>
-							<p>Vous n'êtes pas encore affecter à un groupe, l'interface de gestion des tâches n'est 
-							donc pas disponible pour le moment.
+							<p>Vous n'êtes pas encore affecté à un groupe, l'interface de gestion des tâches n'est 
+							donc pas disponible pour le moment.<br/>
 							Veuillez aller dans l'onglet Projet pour faire un ou plusieurs Voeux, ou attendre que 
 							vous soyez affecté si cela est déjà fait.</p>
 						</div>

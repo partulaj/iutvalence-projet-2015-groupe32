@@ -244,5 +244,43 @@ class Etudiant extends Utilisateur {
 		";
 	}
 
+
+	/**
+	 * Affichage de l'interface de choix du projet pour l'étudiant
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	function afficheProjets()
+	{
+		$projetsDAO = new ProjetsDAO(MaBD::getInstance());
+		$login=$_SESSION['user']->login_etudiant;
+		$lesProjets = $projetsDAO->getAll("WHERE no_projet NOT IN (SELECT no_projet FROM Voeux WHERE login_etudiant='$login')");
+		echo 	"
+		<div class='card'>
+			<div class='row'>
+				<div class='col s12'>
+					<h5>Liste des Projets</h5>
+					<p>Choisissez les projets qui vous interesse</p>
+				</div>
+			</div>
+			<table class='responsive-table bordered striped centered'>
+				<tr>
+					<th>Numéro Projet</th>
+					<th>Intitulé Projet</th>
+					<th>Details</th>
+				</tr>
+				";
+				foreach ($lesProjets as $projet)
+				{
+					if ($projet->affecter==0)
+					{
+						$projet->toTableRowForStudents();
+					}
+				}
+				echo "	
+			</table>
+		</div>";
+	}
+
 }
 ?>

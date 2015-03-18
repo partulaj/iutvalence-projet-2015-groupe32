@@ -3,25 +3,25 @@
  */
  $(document).ready(function () 
  {
-	$(".button-collapse").sideNav();
-	$('select').material_select();
-	$('.hide').fadeOut("fast");
-	$(".dropdown-button").dropdown({hover:false});
-	$('.modal-trigger').leanModal();
+ 	$(".button-collapse").sideNav();
+ 	$('select').material_select();
+ 	$('.hide').fadeOut("fast");
+ 	$(".dropdown-button").dropdown({hover:false});
+ 	$('.modal-trigger').leanModal();
 
-	$(".clickable-item").click(function()
-	{
-		$(this).toggleClass("grey mdi-social-school");
-		$(this).toggleClass("red mdi-content-clear");
-	});
+ 	$(".clickable-item").click(function()
+ 	{
+ 		$(this).toggleClass("grey mdi-social-school");
+ 		$(this).toggleClass("red mdi-content-clear");
+ 	});
 
-	(function($) 
-	{
-		$.fn.spinner = function() 
-		{
-			this.each(function() 
-			{
-				var el = $(this);
+ 	(function($) 
+ 	{
+ 		$.fn.spinner = function() 
+ 		{
+ 			this.each(function() 
+ 			{
+ 				var el = $(this);
 
 				// add elements
 				el.wrap('<span class="spinner"></span>');     
@@ -42,33 +42,33 @@
 						el.val( function(i, oldval) { return ++oldval; });
 				});
 			});
-		};
-	})(jQuery);
-	$('input[type=number]').spinner();
+ 		};
+ 	})(jQuery);
+ 	$('input[type=number]').spinner();
 
 	/**
 	 * Fonction qui déplie un élément cacher
 	 */
 	 function deplier(el)
 	 {
-		el.slideToggle("slow");
+	 	el.slideToggle("slow");
 	 }
 
 	 /**
 	  * Lien dépliant
 	  */
 	  $(".slide-link").click(function(event) {
-		$elem=$(this);
-		var nom =$elem.children().attr('class'); 
-		if (nom=="mdi-hardware-keyboard-arrow-down") 
-		{
-			$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-up')
-		}
-		if(nom=='mdi-hardware-keyboard-arrow-up')
-		{
-			$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-down')
-		}
-		$hidden = $elem.closest(".hidden-element-block").find('.hide');
-		deplier($hidden);
+	  	$elem=$(this);
+	  	var nom =$elem.children().attr('class'); 
+	  	if (nom=="mdi-hardware-keyboard-arrow-down") 
+	  	{
+	  		$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-up')
+	  	}
+	  	if(nom=='mdi-hardware-keyboard-arrow-up')
+	  	{
+	  		$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-down')
+	  	}
+	  	$hidden = $elem.closest(".hidden-element-block").find('.hide').first();
+	  	deplier($hidden);
 	  });
 	});

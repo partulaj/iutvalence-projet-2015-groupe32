@@ -8,7 +8,7 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
 //On vérifie que la personne qui accède à la page est un utilisateur authentifié
-if (!isset($_SESSION['user']->login_etudiant)) 
+if (!isset($_SESSION['user'])) 
 {
 	header("Location:index.php");
 	exit();
@@ -74,16 +74,14 @@ function afficheProjet()
 		?>
 		<div class="container brown lighten-5">
 			<?php
-			if (isset($_SESSION['user']->login_etudiant)) 
-			{
-				afficheProjet();
-			}
+			$_SESSION['user']->afficheProjets();
 			?>
 		</div>
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../ressources/js/init.js"></script>
 		<script src="../ressources/js/tache.js"></script>
 		<script src="../ressources/js/voeu.js"></script>

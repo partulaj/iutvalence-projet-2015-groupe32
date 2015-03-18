@@ -59,17 +59,24 @@ class DAO {
             $this->stmtGetOne = $this->pdo->prepare($req);
         }
         if (is_array($key))
-        {
             $this->stmtGetOne->execute($key);
-        }
         else
-        {
             $this->stmtGetOne->execute(array($key));
-        }
         
         if ($row = $this->stmtGetOne->fetch(PDO::FETCH_ASSOC)) 
             return new $this->class($row);
         return NULL;
+    }
+
+    // Construction d'un tableau d'objets à partir d'un statement supposé contenir le résultat d'une requête,
+    // donc après un query, ou un execute sur une requête préparée
+    // Pas d'intérêt réel ici, mais très pratique dans les classes dérivées, ou on écrit fréquemment des getAll
+    // améliorés qui vont utiliser cette fonction
+    protected function toObjectArray($stmt) {
+        $res = array();
+        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
+            $res[] = new $this->class($row);
+        return $res;
     }
 
     // Récupération de tous les objets dans une table (peut être vide)
@@ -77,11 +84,8 @@ class DAO {
     //      ORDER BY champ;
     //      WHERE champ = 'valeur';
     public function getAll($complementRequete = "") {
-        $res = array();
         $stmt = $this->pdo->query("SELECT * FROM $this->table $complementRequete");
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
-            $res[] = new $this->class($row);
-        return $res;
+        return $this->toObjectArray($stmt);
     }
 
     // Insertion de l'objet
