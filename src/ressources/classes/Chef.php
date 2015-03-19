@@ -262,7 +262,9 @@ class Chef extends Utilisateur {
 				}
 				echo"
 			</table>
-			<button class='btn-floating btn-large waves-effect waves-light indigo'><i class='mdi-action-get-app'></i> </button>
+			<div class='centre' style='padding-top:10px;'>
+				<a href='export.php'><button class='btn btn-large waves-effect waves-light indigo centre'><span>Exporter la liste</span></button></a>
+			</div>
 		</div>
 		";
 	}
