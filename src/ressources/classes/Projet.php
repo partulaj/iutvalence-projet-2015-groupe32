@@ -102,6 +102,11 @@ class Projet extends TableObject {
 		MaBD::getInstance()->commit();
 	}
 
+	public function toOption()
+	{
+		echo "<option value='$this->no_projet'>$this->nom_projet</option>";
+	}
+
 	/**
 	 * Fonction qui affiche un projet sous forme de ligne pour les étudiants
 	 * Fonction qui permet d'afficher un projet sous la forme d'une ligne de tableau html avec un bouton qui ouvre une 

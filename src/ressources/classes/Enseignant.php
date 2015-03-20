@@ -228,5 +228,36 @@ class Enseignant extends Utilisateur {
 			$groupe->toOption();
 		}
 	}
+
+	public function allMyProjectsToOptions()
+	{
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$projets = $DAOtemporaire->getAll("WHERE login_enseignant = '$this->login_enseignant'");
+		foreach ($projets as $projet) 
+		{
+			$projet->toOption();
+		}
+	}
+
+	public function afficheProjets()
+	{
+
+		echo 
+		"
+		<div class='card'>
+			<div class='row'>
+				<div class='col s12'>
+					<h5>Vos Projets</h5>
+					<p>Choisissez le projet que vous souhaitez administrer</p>
+				</div>
+			</div>
+			<select id='select-projet'>";
+			$this->allMyProjectsToOptions();
+				echo
+				"
+			</select>
+		</div>
+		";
+	}
 }
 ?>

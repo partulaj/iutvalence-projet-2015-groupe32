@@ -51,12 +51,16 @@ function afficheGestionProjet($no_projet)
 		$_SESSION ['user']->afficheNavBar ();
 		?>
 		<div class="container brown lighten-5">
-			<?php 
-				if (isset($_POST)) 
-				{
-					afficheGestionProjet($_POST['projet']);
-				}
-			?>
+			<div class='card'>
+				<!-- Dropdown Trigger -->
+				<select>
+					<option value="" disabled selected>Groupe</option>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+				</select>
+
+			</div>
 		</div>
 
 		<!--Import jQuery before materialize.js-->

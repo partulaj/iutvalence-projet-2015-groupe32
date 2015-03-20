@@ -8,6 +8,7 @@
  	$('.hide').fadeOut("fast");
  	$(".dropdown-button").dropdown({hover:false});
  	$('.modal-trigger').leanModal();
+ 	$('#select-projet').
 
  	$(".clickable-item").click(function()
  	{

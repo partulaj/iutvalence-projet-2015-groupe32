@@ -26,7 +26,7 @@ foreach ($groupes as $groupe)
 	$champ3 = "";
 	foreach ($etudiants as $etudiant) 
 	{
-		$champ3 = $champ3.$etudiant->nom_etudiant." ".$etudiant->prenom_etudiant.", ";
+		$champ3 = $champ3.$etudiant->nom_etudiant." ".$etudiant->prenom_etudiant."/";
 	}
 	$champ4 = $enseignant->nom_enseignant." ".$enseignant->prenom_enseignant;
 

@@ -14,37 +14,6 @@ if (!isset($_SESSION['user']))
 	exit();
 }
 
-function afficheProjet()
-{
-	$projetsDAO = new ProjetsDAO(MaBD::getInstance());
-	$login=$_SESSION['user']->login_etudiant;
-	$lesProjets = $projetsDAO->getAll("WHERE no_projet NOT IN (SELECT no_projet FROM Voeux WHERE login_etudiant='$login')");
-	echo 	"
-	<div class='card'>
-		<div class='row'>
-			<div class='col s12'>
-				<h5>Liste des Projets</h5>
-				<p>Choisissez les projets qui vous interesse</p>
-			</div>
-		</div>
-		<table class='responsive-table bordered striped centered'>
-			<tr>
-				<th>Numéro Projet</th>
-				<th>Intitulé Projet</th>
-				<th>Details</th>
-			</tr>
-			";
-			foreach ($lesProjets as $projet)
-			{
-				if ($projet->affecter==0)
-				{
-					$projet->toTableRowForStudents();
-				}
-			}
-			echo "	
-		</table>
-	</div>";
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -80,7 +49,7 @@ function afficheProjet()
 
 		<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+		<script type="text/javascript" src="../materialize/js/materialize.js"></script>
 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../ressources/js/init.js"></script>
 		<script src="../ressources/js/tache.js"></script>
