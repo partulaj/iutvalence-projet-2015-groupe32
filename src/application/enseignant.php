@@ -45,17 +45,22 @@ if (!isset($_SESSION ['user']->login_enseignant))
 		$_SESSION ['user']->afficheNavBar ();
 		?>
 		<div class="container brown lighten-5">
-		<?php 
-		$_SESSION['user']->afficheAccueil();
-		?>
+			<?php 
+			$_SESSION['user']->afficheAccueil();
+			?>
 		</div>
 
-		<!--Import jQuery before materialize.js-->
+<!--Import jQuery before materialize.js-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+		<script type="text/javascript" src="../ressources/autosize/autosize.js"></script>
 		<script src="../ressources/js/init.js"></script>
+		<script src="../ressources/js/etudiant.js"></script>
 		<script src="../ressources/js/tache.js"></script>
 		<script src="../ressources/js/voeu.js"></script>
 		<script src="../ressources/js/projet.js"></script>
+		<script src="../ressources/js/easteregg.js"></script>
+
 	</body>
 	</html>

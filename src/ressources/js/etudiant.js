@@ -141,6 +141,8 @@ function refreshSE()
 					<span class="title prenom_etudiant col s3">'+current.prenom_etudiant+'</span>\
 					<span class="login_etudiant col s3">'+current.login_etudiant+'</span>\
 					</li>');
+				$("#se>ul>li").css('width', '100%');
+				$(".container .row").css('margin-left', '0px');
 			};
 			$(".clickable-item").click(function()
 			{
@@ -169,6 +171,26 @@ function switchGroup()
 		else
 		{
 			toast('Le changement de groupe a bien été fait',4000);
+			document.location.reload(true);
+		}
+	},'json');
+}
+
+var groupe = null;
+function affecterEtu()
+{
+	var etu = $("#affecterEtu").val()
+	//alert(etu);
+	//alert(groupe);
+	$.post('./ajax/affecterEtudiant.php', {login_etudiant:etu,no_groupe:groupe}, function(data) 
+	{
+		if (data!=true) 
+		{
+			toast(data,4000);
+		}
+		else
+		{
+			toast("L'étudiant saisie à bien été affecté'",4000);
 			document.location.reload(true);
 		}
 	},'json');

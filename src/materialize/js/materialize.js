@@ -2277,34 +2277,6 @@ else {
     	}
     }
 
-
-    // Textarea Auto Resize
-    if ($('.hiddendiv').length === 0) {
-    	var hiddenDiv = $('<div class="hiddendiv common"></div>'),
-    	content = null;
-    	$('body').append(hiddenDiv);
-    }
-    var text_area_selector = '.materialize-textarea';
-    $('.hiddendiv').css('width', $(text_area_selector).width());
-
-    $(text_area_selector).each(function () {
-    	if ($(this).val().length) {
-    		content = $(this).val();
-    		content = content.replace(/\n/g, '<br>');
-    		hiddenDiv.html(content + '<br>');
-    		$(this).css('height', hiddenDiv.height());
-    	}
-    });
-    $('body').on('keyup keydown',text_area_selector , function () {
-        // console.log($(this).val());
-        content = $(this).val();
-        content = content.replace(/\n/g, '<br>');
-        hiddenDiv.html(content + '<br>');
-        // console.log(hiddenDiv.html());
-        $(this).css('height', hiddenDiv.height());
-    });
-
-
     // File Input Path
     $('.file-field').each(function() {
     	var path_input = $(this).find('input.file-path');
@@ -2401,16 +2373,9 @@ else {
           return; // Continue to next (return false breaks out of entire loop)
       }
 
-      var oldID = $select.attr("id")
-      if (oldID==undefined) 
-      {
-      	var uniqueID = guid();
-      	var options = $('<ul id="select-options-' + uniqueID+'" class="dropdown-content select-dropdown"></ul>');
-      }
-      else
-      {
-      	var options = $('<ul id="'+ oldID+'" class="dropdown-content select-dropdown"></ul>');	
-      }
+      var uniqueID = guid();
+      var options = $('<ul id="select-options-' + uniqueID+'" class="dropdown-content select-dropdown"></ul>');
+      
       var wrapper = $('<div class="select-wrapper"></div>');
       var selectOptions = $select.children('option');
       if ($select.find('option:selected') !== undefined) {
@@ -2446,8 +2411,12 @@ else {
         // Wrap Elements
         $select.wrap(wrapper);
         // Add Select Display Element
+
         var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '')
         	+ ' data-activates="select-options-' + uniqueID +'" value="'+ label.html() +'"/><i class="mdi-navigation-arrow-drop-down">');
+
+
+        
         $select.before($newSelect);
         $('body').append(options);
         // Check if section element is disabled

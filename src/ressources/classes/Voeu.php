@@ -20,28 +20,28 @@ class Voeu extends TableObject {
 		$projet = $DAOtemporaire->getOne ( $this->no_projet );
 		$enseignant = $DAOtemporaire2->getOne($projet->login_enseignant);
 		
-		echo "
+		echo '
 		<tr>
 			<td>
-				$projet->nom_projet
+				',$projet->nom_projet,'
 			</td>
 			<td>
-				$enseignant->nom_enseignant $enseignant->prenom_enseignant
+				',$enseignant->nom_enseignant,' ',$enseignant->prenom_enseignant,'
 			</td>
-			<td class='col-xs-3'>
-				<p class='range-field'>
-					<input type='range' id='priorite$this->no_projet' value='$this->priorite' min='1' max='3'>
+			<td class="col-xs-3">
+				<p class="range-field">
+					<input type="range" id="priorite',$this->no_projet,'" value="',$this->priorite,'" min="1" max="3">
 				</p> 
 			</td>
 			<td>
-				<button type='submit' onClick='editVoeu(\"$this->no_projet\",\"$this->login_etudiant\")' class='btn amber'>
-					<span class='mdi-image-edit'></span>  
+				<button type="submit" onClick="editVoeu(',$this->no_projet,',',$this->login_etudiant,')" class="btn amber">
+					<span class="mdi-image-edit"></span>  
 				</button>
-				<button type='submit' onClick='delVoeu(\"$this->no_projet\",\"$this->login_etudiant\")' class='btn red'>
-					<span class='mdi-action-delete'></span>
+				<button type="submit" onClick="delVoeu(',$this->no_projet,',',$this->login_etudiant,')" class="btn red">
+					<span class="mdi-action-delete"></span>
 				</button>
 			</td>
-		</tr>";
+		</tr>';
 	}
 
 	/**
@@ -53,11 +53,11 @@ class Voeu extends TableObject {
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
 		$etudiant = $DAOtemporaire->getOne($this->login_etudiant);
-		echo "
-		<li class='collection-item'>
-			$etudiant->nom_etudiant $etudiant->prenom_etudiant
+		echo '
+		<li class="collection-item">
+			',$etudiant->nom_etudiant,' ',$etudiant->prenom_etudiant,'
 		</li>
-		";
+		';
 	}
 }
 ?>

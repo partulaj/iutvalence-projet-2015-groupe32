@@ -116,17 +116,11 @@
    	});
    }
 
-   function switchProjet(num)
+   function selectChange(no_groupe)
    {
-   	$.get('./ajax/getDisplay.php',{no_projet:num},function(data) 
+   	$.get('./ajax/getGroupeDisplay.php',{no_groupe:no_groupe},function(html)
    	{
-   		if (data!=false) 
-   		{
-   			$(".card").append('data');
-   		}
-   		else
-   		{
-   			toast('Une erreur est survenu si celle-ci persiste veuillez la signaler',4000);
-   		}
+   		$("#current-group").empty();
+   		$("#current-group").append(html);
    	},'html');
    }

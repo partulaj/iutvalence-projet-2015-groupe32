@@ -3,12 +3,13 @@
  */
  $(document).ready(function () 
  {
+ 	autosize(document.querySelectorAll('textarea'));
  	$(".button-collapse").sideNav();
  	$('select').material_select();
  	$('.hide').fadeOut("fast");
  	$(".dropdown-button").dropdown({hover:false});
  	$('.modal-trigger').leanModal();
- 	$('#select-projet').
+// 	$('#select-projet').
 
  	$(".clickable-item").click(function()
  	{
@@ -47,14 +48,6 @@
  	})(jQuery);
  	$('input[type=number]').spinner();
 
-	/**
-	 * Fonction qui déplie un élément cacher
-	 */
-	 function deplier(el)
-	 {
-	 	el.slideToggle("slow");
-	 }
-
 	 /**
 	  * Lien dépliant
 	  */
@@ -70,6 +63,6 @@
 	  		$elem.children().switchClass(nom,'mdi-hardware-keyboard-arrow-down')
 	  	}
 	  	$hidden = $elem.closest(".hidden-element-block").find('.hide').first();
-	  	deplier($hidden);
+	  	$hidden.slideToggle('slow')  	
 	  });
 	});

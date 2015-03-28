@@ -83,8 +83,13 @@ require_once "./import.php";
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+		<script type="text/javascript" src="../ressources/autosize/autosize.js"></script>
 		<script src="../ressources/js/init.js"></script>
 		<script src="../ressources/js/etudiant.js"></script>
+		<script src="../ressources/js/tache.js"></script>
+		<script src="../ressources/js/voeu.js"></script>
+		<script src="../ressources/js/projet.js"></script>
+		<script src="../ressources/js/easteregg.js"></script>
 
 		<?php 
 		if ($param['reussi']==true)
