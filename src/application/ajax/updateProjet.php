@@ -26,22 +26,29 @@ if (isset($_POST))
 	$contrainte = trim ( $_POST ['contrainte'] );
 	$details = trim ( $_POST ['details'] );
 
+	if(!empty($name_project) and !empty($contexte) and !empty($objectif) and !empty($contrainte) and !empty($details))
+	{
 	//modification du projet
-	$projet = new Projet(array(
-		"no_projet" =>$no_projet,
-		"nom_projet" => $name_project,
-		"nb_etu_min" => $nb_min,
-		"nb_etu_max" => $nb_max,
-		"contexte" => $contexte,
-		"objectif" => $objectif,
-		"contrainte" => $contrainte,
-		"details" => $details,
-		"login_enseignant" => $_SESSION['user']->login_enseignant
-		));
+		$projet = new Projet(array(
+			"no_projet" =>$no_projet,
+			"nom_projet" => $name_project,
+			"nb_etu_min" => $nb_min,
+			"nb_etu_max" => $nb_max,
+			"contexte" => $contexte,
+			"objectif" => $objectif,
+			"contrainte" => $contrainte,
+			"details" => $details,
+			"login_enseignant" => $_SESSION['user']->login_enseignant
+			));
 
 	//validation des modifications du projet 
-	$projetsDAO->update($projet);
-	echo json_encode(true);
+		$projetsDAO->update($projet);
+		echo json_encode(true);
+	}
+	else
+	{
+		echo json_encode("Veuillez remplir tous les champs");
+	}	
 }
 else
 {

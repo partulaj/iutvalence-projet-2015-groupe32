@@ -129,13 +129,13 @@ class Projet extends TableObject {
 					<div class="modal-content">
 						<h4>',$this->nom_projet,'</h4><h6>Projet pour ',$this->nb_etu_min,' à ',$this->nb_etu_max,' étudiants</h6>
 						<span class="card-title black-text">Contexte</span>
-						<p>',$this->contexte,'</p>
+						<p>',nl2br($this->contexte),'</p>
 						<span class="card-title black-text">Objectif</span>
-						<p>',$this->objectif,'</p>
+						<p>',nl2br($this->objectif),'</p>
 						<span class="card-title black-text">Contrainte</span>
-						<p>',$this->contrainte,'</p>
+						<p>',nl2br($this->contrainte),'</p>
 						<span class="card-title black-text">Details</span>
-						<p>',$this->details,'</p>
+						<p>',nl2br($this->details),'</p>
 					</div>
 					<div class="modal-footer">
 						<div class="modal-container">
@@ -177,7 +177,7 @@ class Projet extends TableObject {
 		'
 		<tr class="row">
 			<td id="projet',$this->no_projet,'"> ',$this->nom_projet,'</td>
-			<td><p>',$this->objectif,'</p></td>
+			<td><p>',nl2br($this->objectif),'</p></td>
 			<td>
 				<button class="btn light-blue modal-trigger" href="#editprojet',$this->no_projet,'">Modifier</button>
 				
