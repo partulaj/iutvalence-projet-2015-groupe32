@@ -10,12 +10,13 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start ();
 
 // On vérifie que l'utilisateur est connecté
-if (! isset ( $_SESSION ['user']->login_chef )) {
+if (!$_SESSION ['user']->estChef()) 
+{
 	header ( "Location:index.php" );
 	exit ();
 }
 
-$etudiantsDAO = new EtudiantsDAO ( MaBD::getInstance () );
+$etudiantsDAO = new UtilisateursDAO ( MaBD::getInstance () );
 // Ajout du module d'importation
 require_once "./import.php";
 ?>
@@ -48,7 +49,7 @@ require_once "./import.php";
 		?>
 		<div class="container brown lighten-5">
 			<?php
-			$_SESSION['user']->afficheAccueil();
+			$_SESSION['user']->afficheInterfaceChef();
 			?>
 			<div class="card hidden-element-block">
 				<div class="row">

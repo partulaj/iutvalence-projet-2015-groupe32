@@ -10,7 +10,7 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['user']->login_etudiant))
+if (!$_SESSION['user']->estEtudiant())
 {
 	header("Location:index.php");
 	exit();
@@ -24,7 +24,7 @@ if (!isset($_SESSION['user']->login_etudiant))
 function afficheVoeux()
 {
 	$voeuxDAO = new VoeuxDAO(MaBD::getInstance());
-	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['user']->login_etudiant);
+	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['user']->login);
 	echo	"
 	<div class='card'>
 		<div class='row'>

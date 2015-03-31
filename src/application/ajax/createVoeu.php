@@ -22,10 +22,10 @@ if (isset($_POST) and isset ( $_SESSION ['user']))
 
 	//création des DAO
 	$voeuxDAO = new VoeuxDAO(MaBD::getInstance());
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 	//création du voeu
-	$voeu = new Voeu (array("date"=>$date,"priorite"=>$priorite,"no_projet"=>$projet,"login_etudiant"=>$etudiant->login_etudiant));
+	$voeu = new Voeu (array("date"=>$date,"priorite"=>$priorite,"no_projet"=>$projet,"login"=>$etudiant->login));
 	//insertion du voeu
 	$voeuxDAO->insert($voeu);
 	$etudiant->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant

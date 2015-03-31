@@ -6,7 +6,8 @@
 //Autochargement des classes via un Autoloader
 require_once "../ressources/classes/MyAutoloader.php";
 session_start();
-if (!isset($_SESSION['user'])) 
+
+if (!$_SESSION['user']->estChef()) 
 {
 	header("Location:index.php");
 	exit();
@@ -18,7 +19,7 @@ if (!isset($_SESSION['user']))
 <head>
 	<meta charset="utf-8">
 
-	<title>Modele de page</title>
+	<title>Choix</title>
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<!--Import materialize.css-->
@@ -36,13 +37,13 @@ if (!isset($_SESSION['user']))
 	  <![endif]-->
 	</head>
 	<body>
-		<?php
-			$_SESSION['user']->afficheNavBar();
-		?>
+	<?php
+		$_SESSION['user']->afficheNavBar();
+	?>
 		<div class="container">
-			<?php
-			$_SESSION['user']->afficheReunion();
-			?>	
+		<?php
+		$_SESSION['user']->afficheProjetsAvancer();
+		?>
 		</div>
 
 		<!--Import jQuery before materialize.js-->

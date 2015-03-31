@@ -1,21 +1,3 @@
-CREATE TABLE Chefs
-(
-login_chef varchar(20) NOT NULL PRIMARY KEY,
-nom_chef varchar(20),
-prenom_chef varchar(20),
-mdp_chef varchar(50),
-mail_chef varchar(150)
-)ENGINE=INNODB;
-
-CREATE TABLE Enseignants
-(
-login_enseignant varchar(20) NOT NULL PRIMARY KEY,
-nom_enseignant varchar(20),
-prenom_enseignant varchar(20),
-mdp_enseignant varchar(50),
-mail_enseignant varchar(150)
-)ENGINE=INNODB;
-
 CREATE TABLE Projets
 (
 no_projet integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -26,9 +8,8 @@ contexte text,
 objectif text,
 contrainte text,
 details text,
-login_enseignant varchar(20),
-affecter boolean DEFAULT false,
-FOREIGN KEY (login_enseignant) REFERENCES Enseignants(login_enseignant)
+login varchar(20),
+affecter boolean DEFAULT false
 )ENGINE=INNODB;
 
 CREATE TABLE Groupes
@@ -39,29 +20,30 @@ plein boolean DEFAULT 0,
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet)
 )ENGINE=INNODB;
 
-CREATE TABLE Etudiants
+CREATE TABLE Utilisateurs
 (
-login_etudiant varchar(20) NOT NULL PRIMARY KEY,
-nom_etudiant varchar(20),
-prenom_etudiant varchar(20),
-mdp_etudiant varchar(50),
-mail_etudiant varchar(150),
+login varchar(20) NOT NULL PRIMARY KEY,
+nom varchar(20),
+prenom varchar(20),
+mdp varchar(50),
+mail varchar(150),
 no_groupe integer DEFAULT null,
 nb_voeux integer DEFAULT 0,
 ajac boolean,
 classement integer UNIQUE,
+role varchar(20),
 FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;
 
 CREATE TABLE Voeux
 (
 no_projet integer,
-login_etudiant varchar(20),
+login varchar(20),
 date date NOT NULL,
 priorite integer NOT NULL,
-PRIMARY KEY (no_projet,login_etudiant),
+PRIMARY KEY (no_projet,login),
 FOREIGN KEY (no_projet) REFERENCES Projets(no_projet) ON DELETE CASCADE,
-FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
+FOREIGN KEY (login) REFERENCES Utilisateurs(login)
 )ENGINE=INNODB;
 
 CREATE TABLE Taches
@@ -77,8 +59,12 @@ FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 CREATE TABLE Realises
 (
 no_tache integer,
-login_etudiant varchar(20),
-PRIMARY KEY (no_tache,login_etudiant),
+login varchar(20),
+PRIMARY KEY (no_tache,login),
 FOREIGN KEY (no_tache) REFERENCES Taches(no_tache) ON UPDATE CASCADE ON DELETE CASCADE,
-FOREIGN KEY (login_etudiant) REFERENCES Etudiants(login_etudiant)
+FOREIGN KEY (login) REFERENCES Utilisateurs(login)
 )ENGINE=INNODB;
+
+ALTER TABLE Projets
+ADD FOREIGN KEY (login)
+REFERENCES Utilisateurs(login)

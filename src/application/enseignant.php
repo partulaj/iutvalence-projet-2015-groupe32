@@ -10,7 +10,7 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start ();
 
 // On vérifie que l'utilisateur est connecté
-if (!isset($_SESSION ['user']->login_enseignant))
+if (!$_SESSION ['user']->estEnseignant() and !$_SESSION ['user']->estChef())
 {
 	header ( "Location:index.php" );
 	exit ();

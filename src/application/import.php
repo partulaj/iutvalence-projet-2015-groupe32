@@ -8,7 +8,7 @@ $param['reussi'] = false;
 $param ['message'] = null;
 
 //Création du DAO
-$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 //Définition des variables globales
 define('TARGET', './doc/'); // Repertoire cible
@@ -65,13 +65,12 @@ if(!empty($_POST))
 							$ajac=false;
 						}
 						$res[$i]= array( 
-							"login_etudiant" => $array[$i][0],
-							"nom_etudiant"=>$array[$i][1],
-							"prenom_etudiant"=>$array[$i][2],
-							"mdp_etudiant"=>$array[$i][3],
-							"mail_etudiant"=>$array[$i][4],
+							"login" => $array[$i][0],
+							"nom"=>$array[$i][1],
+							"prenom"=>$array[$i][2],
+							"mdp"=>$array[$i][3],
+							"mail"=>$array[$i][4],
 							"no_groupe"=>null,
-							"nb_voeux"=>0,
 							"ajac"=>$ajac,
 							"classement"=>$array[$i][6]);
 						$etudiant = new Etudiant($res[$i]);
@@ -105,6 +104,6 @@ if(!empty($_POST))
 		$param ['erreur'] = true;
 		$param ['message'] = "Veuillez remplir le formulaire";
 	}
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$utilisateursDAO = new UtilisateursDAO(MaBD::getInstance());
 }
 ?>

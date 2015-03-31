@@ -18,10 +18,11 @@ class Projet extends TableObject {
 	public function initAffectationAuto() 
 	{
 		$res = array ();
-		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
+		$DAOtemporaire = new UtilisateursDAO ( MaBD::getInstance () );
 		$etudiantsATrier = $DAOtemporaire->getAllWithThisWish ( $this->no_projet );
 		$nb_ajac=0;
 		foreach ( $etudiantsATrier as $etudiant ) {
+			$etudiant = new Etudiant ($etudiant->getAllFields());
 			if ($etudiant->aUnMeilleurVoeu ( $this->no_projet ) == false) 
 			{
 
@@ -55,11 +56,10 @@ class Projet extends TableObject {
 	private function affectationAuto($tab) 
 	{
 		MaBD::getInstance()->beginTransaction();
-		$DAOtemporaire = new EtudiantsDAO ( MaBD::getInstance () );
+		$DAOtemporaire = new UtilisateursDAO ( MaBD::getInstance () );
 		$DAOtemporaire2 = new VoeuxDAO ( MaBD::getInstance () );
 		$DAOtemporaire3 = new ProjetsDAO ( MaBD::getInstance () );
 		$DAOtemporaire4 = new GroupesDAO(MaBD::getInstance());
-		$DAOtemporaire5 = new EnseignantsDAO (MaBD::getInstance());
 
 		$groupes = $DAOtemporaire4->getAll("WHERE no_projet='$this->no_projet'");
 		foreach ($groupes as $groupe)
@@ -71,8 +71,8 @@ class Projet extends TableObject {
 				{	
 					$etudiant = $tab[0];			
 					$etudiant->no_groupe = $groupe->no_groupe;
-					$DAOtemporaire->update ($etudiant );
-					$DAOtemporaire2->deleteAllMyWish ($etudiant->login_etudiant );
+					$DAOtemporaire->update ($etudiant);
+					$DAOtemporaire2->deleteAllMyWish ($etudiant->login );
 					unset($tab[0]);
 					$tab = array_values($tab);
 					$i++;
@@ -116,12 +116,13 @@ class Projet extends TableObject {
 	 */
 	public function toTableRowForStudents() 
 	{
-		$DAOtemporaire = new EnseignantsDAO ( MaBD::getInstance () );
-		$enseignant = $DAOtemporaire->getOne ( $this->login_enseignant );
+		$DAOtemporaire = new UtilisateursDAO ( MaBD::getInstance () );
+		$enseignant = $DAOtemporaire->getOne ( $this->login );
 		echo '
 		<tr>
 			<td>', $this->no_projet,'</td>
 			<td>', $this->nom_projet,'</td>
+			<td>',$enseignant->nom,' ',$enseignant->prenom,'</td>
 			<td>
 				<button class="btn light-blue modal-trigger" href="#projet',$this->no_projet,'">En savoir plus</button>
 

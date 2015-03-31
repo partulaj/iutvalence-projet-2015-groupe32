@@ -56,11 +56,11 @@ function refreshAll()
 					current.no_groupe='';
 				}
 				$("#all>table>tbody").append(	'<tr>\
-												<td>'+current.login_etudiant+'</td>\
-												<td>'+current.nom_etudiant+'</td>\
-												<td>'+current.prenom_etudiant+'</td>\
+												<td>'+current.login+'</td>\
+												<td>'+current.nom+'</td>\
+												<td>'+current.prenom+'</td>\
 												<td>'+current.no_groupe+'</td>\
-												<td><a href="mailto:'+current.mail_etudiant+'">Lui écrire</a></td>\
+												<td><a href="mailto:'+current.mail+'">Lui écrire</a></td>\
 												</tr>');
 			};
 			
@@ -86,7 +86,7 @@ function refreshSP()
 			for (var i = 0; i < json.length; i++) 
 			{
 				var current = json[i];
-				$("#sp>table>tbody").append('<tr><td>'+current.nom_etudiant+'</td><td>'+current.prenom_etudiant+'</td><td><a href="mailto:'+current.mail_etudiant+'">Lui écrire</a></td></tr>');
+				$("#sp>table>tbody").append('<tr><td>'+current.nom+'</td><td>'+current.prenom+'</td><td><a href="mailto:'+current.mail+'">Lui écrire</a></td></tr>');
 			};
 			$("#sp>table").removeClass('hide');
 		}
@@ -111,7 +111,7 @@ function refreshSV()
 			for (var i = 0; i < json.length; i++) 
 			{
 				var current = json[i];
-				$("#sv>table>tbody").append('<tr><td>'+current.nom_etudiant+'</td><td>'+current.prenom_etudiant+'</td><td><a href="mailto:'+current.mail_etudiant+'">Lui écrire</a></td></tr>');
+				$("#sv>table>tbody").append('<tr><td>'+current.nom+'</td><td>'+current.prenom+'</td><td><a href="mailto:'+current.mail+'">Lui écrire</a></td></tr>');
 			};
 			$("#sv>table").removeClass('hide');
 		}
@@ -137,9 +137,9 @@ function refreshSE()
 				var current = json[i];
 				$("#se>ul").append('<li class="collection-item avatar row">\
 					<i class="mdi-social-school grey circle clickable-item"></i>\
-					<span class="title nom_etudiant col s3">'+current.nom_etudiant+'</span>\
-					<span class="title prenom_etudiant col s3">'+current.prenom_etudiant+'</span>\
-					<span class="login_etudiant col s3">'+current.login_etudiant+'</span>\
+					<span class="title nom col s3">'+current.nom+'</span>\
+					<span class="title prenom col s3">'+current.prenom+'</span>\
+					<span class="login col s3">'+current.login+'</span>\
 					</li>');
 				$("#se>ul>li").css('width', '100%');
 				$(".container .row").css('margin-left', '0px');
@@ -182,7 +182,7 @@ function affecterEtu()
 	var etu = $("#affecterEtu").val()
 	//alert(etu);
 	//alert(groupe);
-	$.post('./ajax/affecterEtudiant.php', {login_etudiant:etu,no_groupe:groupe}, function(data) 
+	$.post('./ajax/affecterEtudiant.php', {login:etu,no_groupe:groupe}, function(data) 
 	{
 		if (data!=true) 
 		{

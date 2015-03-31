@@ -1,6 +1,6 @@
 <?php
 class Enseignant extends Utilisateur {
-	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
+	static public $keyFieldsNames = array('login'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
 	/**
@@ -17,7 +17,7 @@ class Enseignant extends Utilisateur {
 		}
 		if ($titre==null) 
 		{
-			$titre="$this->nom_enseignant $this->prenom_enseignant";
+			$titre="$this->nom $this->prenom";
 		}
 		echo '
 		<ul id="dropdown1" class="dropdown-content">
@@ -70,7 +70,7 @@ class Enseignant extends Utilisateur {
 	 * @author Jérémie
 	 * @version 0.4
 	 */
-	private function NewProjectModal()
+	protected function NewProjectModal()
 	{
 		echo '
 		<div id="newprojet" class="modal">
@@ -167,7 +167,7 @@ class Enseignant extends Utilisateur {
 	public function afficheAccueil()
 	{
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
 		echo 
 		'
 		<div class="card">
@@ -206,7 +206,7 @@ class Enseignant extends Utilisateur {
 
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
 		foreach ($projets as $projet)
 		{
 			$resTemp=$DAOtemporaire2->getAll("WHERE no_projet=$projet->no_projet");
@@ -225,7 +225,7 @@ class Enseignant extends Utilisateur {
 
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
 		foreach ($projets as $projet)
 		{
 			$resTemp=$DAOtemporaire2->getAll("WHERE no_projet=$projet->no_projet AND plein=TRUE");
@@ -297,8 +297,8 @@ class Enseignant extends Utilisateur {
 				<form method="get" action="http://doodle.com/polls/wizard.html">
 					<input type="hidden" name="type" value="date">
 					<input type="hidden" name="locale" value="fr">
-					<input type="hidden" name="name" value="',$this->nom_enseignant," ",$this->prenom_enseignant,'">
-					<input type="hidden" name="eMailAddress" value="',$this->mail_enseignant,'">
+					<input type="hidden" name="name" value="',$this->nom," ",$this->prenom,'">
+					<input type="hidden" name="eMailAddress" value="',$this->mail,'">
 
 					<div class="input-field">
 						<label for="title">Titre de la réunion</label>

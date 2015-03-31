@@ -45,7 +45,7 @@ if (isset($_POST))
 				{
 					$realise = new Realise (array(
 						"no_tache"=>$newTache,
-						"login_etudiant"=>$etudiants[$i]));
+						"login"=>$etudiants[$i]));
 					$realisesDAO->insert($realise);
 					$realise=null;
 				}

@@ -15,7 +15,7 @@ class ProjetsDAO extends DAO {
 	public function getAllMyProjects($login)
 	{
 		$res=array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE Projets.login_enseignant = ?");
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE Projets.login = ?");
 		$stmt->execute(array($login));
 		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{

@@ -4,7 +4,7 @@
  * Classe qui représente un voeu
  */
 class Voeu extends TableObject {
-	public static $keyFieldsNames = array ('no_projet','login_etudiant'); // par défaut un seul champ
+	public static $keyFieldsNames = array ('no_projet','login'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 
 	/**
@@ -16,9 +16,9 @@ class Voeu extends TableObject {
 	 */
 	public function toTableRow() {
 		$DAOtemporaire = new ProjetsDAO ( MaBD::getInstance () );
-		$DAOtemporaire2 = new EnseignantsDAO ( MaBD::getInstance () );
+		$DAOtemporaire2 = new UtilisateursDAO ( MaBD::getInstance () );
 		$projet = $DAOtemporaire->getOne ( $this->no_projet );
-		$enseignant = $DAOtemporaire2->getOne($projet->login_enseignant);
+		$enseignant = $DAOtemporaire2->getOne($projet->login);
 		
 		echo '
 		<tr>
@@ -26,7 +26,7 @@ class Voeu extends TableObject {
 				',$projet->nom_projet,'
 			</td>
 			<td>
-				',$enseignant->nom_enseignant,' ',$enseignant->prenom_enseignant,'
+				',$enseignant->nom,' ',$enseignant->prenom,'
 			</td>
 			<td class="col-xs-3">
 				<p class="range-field">
@@ -34,10 +34,10 @@ class Voeu extends TableObject {
 				</p> 
 			</td>
 			<td>
-				<button type="submit" onClick="editVoeu(',$this->no_projet,',',$this->login_etudiant,')" class="btn amber">
+				<button type="submit" onClick="editVoeu(',$this->no_projet,',',$this->login,')" class="btn amber">
 					<span class="mdi-image-edit"></span>  
 				</button>
-				<button type="submit" onClick="delVoeu(',$this->no_projet,',',$this->login_etudiant,')" class="btn red">
+				<button type="submit" onClick="delVoeu(',$this->no_projet,',',$this->login,')" class="btn red">
 					<span class="mdi-action-delete"></span>
 				</button>
 			</td>
@@ -52,10 +52,10 @@ class Voeu extends TableObject {
 	public function toListElem()
 	{
 		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiant = $DAOtemporaire->getOne($this->login_etudiant);
+		$etudiant = $DAOtemporaire->getOne($this->login);
 		echo '
 		<li class="collection-item">
-			',$etudiant->nom_etudiant,' ',$etudiant->prenom_etudiant,'
+			',$etudiant->nom,' ',$etudiant->prenom,'
 		</li>
 		';
 	}

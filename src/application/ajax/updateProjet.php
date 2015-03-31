@@ -38,7 +38,7 @@ if (isset($_POST))
 			"objectif" => $objectif,
 			"contrainte" => $contrainte,
 			"details" => $details,
-			"login_enseignant" => $_SESSION['user']->login_enseignant
+			"login" => $_SESSION['user']->login
 			));
 
 	//validation des modifications du projet 

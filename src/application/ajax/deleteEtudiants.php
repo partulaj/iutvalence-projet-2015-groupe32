@@ -12,7 +12,7 @@ session_start();
 if (isset($_POST['array']))
 {
 	//création du DAO
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 	//récupération des données
 	$etudiantsASupprimer = $_POST['array'];
 	foreach ($etudiantsASupprimer as $login) 

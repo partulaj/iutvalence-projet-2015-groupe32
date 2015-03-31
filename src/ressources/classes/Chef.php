@@ -1,7 +1,5 @@
 <?php
-class Chef extends Utilisateur {
-	static public $keyFieldsNames = array('login_chef'); // par défaut un seul champ
-	public $hasAutoIncrementedKey = false;
+class Chef extends Enseignant {
 	
 	/**
 	 * Fonction d'affichage de la barre de navigation
@@ -17,13 +15,17 @@ class Chef extends Utilisateur {
 		}
 		if ($titre==null) 
 		{
-			$titre=" $this->nom_chef $this->prenom_chef";
+			$titre=" $this->nom $this->prenom";
 		}
 		echo '
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="chef.php">Accueil</a></li>
+			<li><a href="enseignant.php">Accueil</a></li>
+			<li><a href="chef.php">Interface Chef</a></li>
+			<li><a href="projet.php">Gérer mes Projets</a></li>
+			<li><a href="reunion.php">Réunion</a></li>
+			<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 			<li><a href="message.php">Message</a></li>
-			<li><a href="projet.php">Projet</a></li>
+			<li><a href="projet_avancer.php">Projet</a></li>
 		</ul>
 		<nav>
 			<form name="formDeDeconnexion" method="post" action="index.php">
@@ -45,9 +47,13 @@ class Chef extends Utilisateur {
 					</li>
 				</ul>
 				<ul class="side-nav" id="mobile-demo">
-					<li><a href="chef.php">Accueil</a></li>
+					<li><a href="enseignant.php">Accueil</a></li>
+					<li><a href="chef.php">Interface Chef</a></li>
+					<li><a href="projet.php">Gérer mes Projets</a></li>
+					<li><a href="reunion.php">Réunion</a></li>
+					<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 					<li><a href="message.php">Message</a></li>
-					<li><a href="projet.php">Projet</a></li>
+					<li><a href="projet_avancer.php">Projet</a></li>
 					<li>
 						<a class="navbar-link" href="javascript:document.formDeDeconnexion.submit();">
 							<span class="icon-off"></span>
@@ -57,6 +63,7 @@ class Chef extends Utilisateur {
 			</div>
 		</nav>	
 		';
+		$this->NewProjectModal();
 	}
 
 	/**
@@ -69,11 +76,11 @@ class Chef extends Utilisateur {
 	 */
 	public function mailToSansProjets($subject, $message)
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $DAOtemporaire->getAllWithoutProjects();
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
+		$etudiants = $DAOtemporaire->getAll("WHERE role='etudiant' AND ISNULL(no_groupe)");
 		foreach ($etudiants as $etudiant)
 		{
-			mail($etudiant->mail_etudiant, $subject, $message);
+			mail($etudiant->mail, $subject, $message);
 		}
 	}
 
@@ -87,11 +94,11 @@ class Chef extends Utilisateur {
 	 */
 	public function mailToAll($subject, $message)
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
 		$etudiants = $DAOtemporaire->getAll();
 		foreach ($etudiants as $etudiant)
 		{
-			mail($etudiant->mail_etudiant, $subject, $message);
+			mail($etudiant->mail, $subject, $message);
 		}
 	}
 	/**
@@ -188,9 +195,9 @@ class Chef extends Utilisateur {
 	 * @author Jérémie
 	 * @version 1.0
 	 */
-	public function afficheAccueil()
+	public function afficheInterfaceChef()
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
 		echo '
 		<div class="card">
 			<div class="row">
@@ -203,49 +210,49 @@ class Chef extends Utilisateur {
 					</ul>
 				</div>
 				<div id="all" class="col s12">';
-					$this->afficheTab($DAOtemporaire->getAll("ORDER BY no_groupe"));
+					$this->afficheTab($DAOtemporaire->getAll("WHERE role='etudiant' ORDER BY no_groupe"));
 					echo
 					'
-				<div class="hidden-element-block">
-					<div class="center">
-						<a class="waves-effect waves-grey btn-flat slide-link col s12">Changement de Groupe</a>
+					<div class="hidden-element-block">
+						<div class="center">
+							<a class="waves-effect waves-grey btn-flat slide-link col s12">Changement de Groupe</a>
+						</div>
+						<div class="row hide">
+							<div class="input-field col s5">
+								<label for="switchEtu1">Etudiant 1</label>
+								<input type="text" id="switchEtu1">
+							</div>
+							<div class="input-field col s2 centre">
+								<button class="btn-floating btn-large waves-effect waves-light indigo" onClick="switchGroup()"><i class="mdi-av-loop"></i></button>
+							</div>
+							<div class="input-field col s5">
+								<label for="switchEtu2">Etudiant 2</label>
+								<input type="text" id="switchEtu2">
+							</div>
+						</div>
 					</div>
-					<div class="row hide">
-						<div class="input-field col s5">
-							<label for="switchEtu1">Etudiant 1</label>
-							<input type="text" id="switchEtu1">
+					<div class="hidden-element-block">
+						<div class="center">
+							<a class="waves-effect waves-grey btn-flat slide-link col s12">Affecter un Etudiant</a>
 						</div>
-						<div class="input-field col s2 centre">
-							<button class="btn-floating btn-large waves-effect waves-light indigo" onClick="switchGroup()"><i class="mdi-av-loop"></i></button>
-						</div>
-						<div class="input-field col s5">
-							<label for="switchEtu2">Etudiant 2</label>
-							<input type="text" id="switchEtu2">
-						</div>
-					</div>
-				</div>
-				<div class="hidden-element-block">
-					<div class="center">
-						<a class="waves-effect waves-grey btn-flat slide-link col s12">Affecter un Etudiant</a>
-					</div>
-					<div class="row hide">
-						<div class="input-field col s5">
-							<label for="affecterEtu">Etudiant</label>
-							<input type="text" id="affecterEtu">
-						</div>
-						<div class="input-field col s2 centre">
-							<button class="btn-floating btn-large waves-effect waves-light indigo" onClick="affecterEtu()"><i class="mdi-action-trending-neutral"></i></button>
-						</div>
-						<div class="input-field col s5">
-							<select onChange="groupe=this.value">
-								<option value="" disabled selected>Choisir un Groupe</option>';
+						<div class="row hide">
+							<div class="input-field col s5">
+								<label for="affecterEtu">Etudiant</label>
+								<input type="text" id="affecterEtu">
+							</div>
+							<div class="input-field col s2 centre">
+								<button class="btn-floating btn-large waves-effect waves-light indigo" onClick="affecterEtu()"><i class="mdi-action-trending-neutral"></i></button>
+							</div>
+							<div class="input-field col s5">
+								<select onChange="groupe=this.value">
+									<option value="" disabled selected>Choisir un Groupe</option>';
 									$this->allGroupsToOptions(false);
 									echo'
 								</select>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 				<div id="sp" class="col s12"></div>
 				<div id="sv" class="col s12"></div>
 				<div id="se" class="col s12">
@@ -260,7 +267,7 @@ class Chef extends Utilisateur {
 		';
 	}
 
-	public function afficheProjets()
+	public function afficheProjetsAvancer()
 	{
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$projets = $DAOtemporaire->getAll();

@@ -9,13 +9,13 @@
 require_once "../../ressources/classes/MyAutoloader.php";
 session_start();
 
-if (isset($_POST['login_etudiant']))
+if (isset($_POST['login']))
 {
 	//création du DAO
 	$groupesDAO = new GroupesDAO(MaBD::getInstance());
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 	//récupération des données
-	$etudiant = $etudiantsDAO->getOne($_POST['login_etudiant']);
+	$etudiant = $etudiantsDAO->getOne($_POST['login']);
 	$groupe = $groupesDAO->getOne($_POST['no_groupe']);
 	if($etudiant!=null)
 	{

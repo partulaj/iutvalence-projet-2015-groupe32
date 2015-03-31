@@ -18,9 +18,7 @@ $param['message']=null;
 
 
 //Création des DAO
-$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
-$enseignantsDAO = new EnseignantsDAO(MaBD::getInstance());
-$chefsDAO = new ChefsDAO(MaBD::getInstance());
+$utilisateursDAO = new UtilisateursDAO(MaBD::getInstance());
 
 //Déconnexion
 if (isset($_POST['deconnexion']))
@@ -29,21 +27,21 @@ if (isset($_POST['deconnexion']))
 }
 if (isset($_SESSION['user'])) 
 {
-	if (isset($_SESSION['user']->login_etudiant)) 
+	if ($_SESSION['user']->estEtudiant()) 
 	{
 		header("Location:etudiant.php");
 		exit();	
 	}
-	if (isset($_SESSION['user']->login_enseignant))
+	if ($_SESSION['user']->estEnseignant() or $_SESSION['user']->estChef())
 	{
 		header("Location:enseignant.php");
 		exit();	
 	}
-	if (isset($_SESSION['user']->login_chef)) 
-	{
-		header("Location:chef.php");
-		exit();	
-	}
+	// if ($_SESSION['user']->estChef()) 
+	// {
+	// 	header("Location:chef.php");
+	// 	exit();	
+	// }
 
 }
 
@@ -57,29 +55,26 @@ if (isset($_POST['connexion']))
 	//if($info!=null)
 	//{
 		// Redirection si l'utilisateur est un Etudiant
-		$moi=$etudiantsDAO->getOne($login);
-		if ($moi!=null)
+		$moi=$utilisateursDAO->getOne($login);
+		if ($moi->estEtudiant())
 		{
-			$_SESSION['user']=$moi;
+			$_SESSION['user']= new Etudiant ($moi->getAllFields());
 			header("Location:etudiant.php");
 			exit();	
 		}
 
-		// Redirection si l'utilisateur est un Enseignant	
-		$moi=$enseignantsDAO->getOne($login);
-		if ($moi!=null)
+		if ($moi->estEnseignant())
 		{
-			$_SESSION['user']=$moi;
+			$_SESSION['user']= new Enseignant ($moi->getAllFields());
 			header("Location:enseignant.php");
 			exit();	
 		}
 
 		// Redirection si l'utilisateur est le Chef des projets
-		$moi=$chefsDAO->getOne($login);
-		if ($moi!=null)
+		if ($moi->estChef())
 		{
-			$_SESSION['user']=$moi;
-			header("Location:chef.php");
+			$_SESSION['user']= new Chef ($moi->getAllFields());
+			header("Location:enseignant.php");
 			exit();	
 		}
 	//}

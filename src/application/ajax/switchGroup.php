@@ -13,7 +13,7 @@ session_start();
 if (isset($_POST['etudiant1']) and isset($_POST['etudiant2']))
 {
 	//création du DAO
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 	//récupération des étudiants
 	$etudiant1 = $etudiantsDAO->getOne($_POST['etudiant1']);

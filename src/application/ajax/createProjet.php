@@ -39,7 +39,7 @@ if (isset($_POST))
 			"objectif" => $objectif,
 			"contrainte" => $contrainte,
 			"details" => $details,
-			"login_enseignant" => $_SESSION['user']->login_enseignant
+			"login" => $_SESSION['user']->login
 			) );
 		//insertion du nouveau projet
 		$projetsDAO->insert($newProjet);

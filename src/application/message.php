@@ -21,12 +21,12 @@ if (isset($_POST['envoi']))
 	{
 		if ($_POST['no_groupe']=="sans_projet")
 		{
-			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef = $_SESSION['user'];
 			$chef->mailToSansProjets($subject, $message);
 		}
 		elseif ($_POST['no_groupe']=="tous") 
 		{
-			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef =$_SESSION['user'];
 			$chef->mailToAll($subject, $message);
 		}
 		else 

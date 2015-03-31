@@ -11,10 +11,11 @@ session_start();
 
 //Création des DAO
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
-$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['user']->login_etudiant))
+
+if (!isset($_SESSION['user']) or !$_SESSION['user']->estEtudiant())
 {
 	header("Location:index.php");
 	exit();
@@ -25,9 +26,8 @@ $affectationProjet=$projetDAO->getAll();
 foreach ($affectationProjet as $projetAAffecter)
 {
 	$projetAAffecter->initAffectationAuto();
-	$_SESSION['user']=$etudiantsDAO->getOne($_SESSION['user']->login_etudiant);
+	$_SESSION['user']= new Etudiant ($etudiantsDAO->getOne($_SESSION['user']->login)->getAllFields());
 }
-
 
 ?>
 <!DOCTYPE html>

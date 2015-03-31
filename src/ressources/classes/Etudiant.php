@@ -1,6 +1,6 @@
 <?php
 class Etudiant extends Utilisateur {
-	static public $keyFieldsNames = array('login_etudiant'); // par défaut un seul champ
+	static public $keyFieldsNames = array('login'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 
 	/**
@@ -17,7 +17,7 @@ class Etudiant extends Utilisateur {
 		}
 		if ($titre==null) 
 		{
-			$titre=" $this->nom_etudiant $this->prenom_etudiant";
+			$titre=" $this->nom $this->prenom";
 		}
 		echo '
 		<ul id="dropdown1" class="dropdown-content">
@@ -92,8 +92,8 @@ class Etudiant extends Utilisateur {
 	public function aUnMeilleurVoeu($num)
 	{
 		$DAOtemporaire = new VoeuxDAO(MaBD::getInstance());
-		$voeux = $DAOtemporaire->getAllVoeuEtudiant($this->login_etudiant);
-		$voeu = $DAOtemporaire->getOne(array($num,$this->login_etudiant));
+		$voeux = $DAOtemporaire->getAllVoeuEtudiant($this->login);
+		$voeu = $DAOtemporaire->getOne(array($num,$this->login));
 		foreach ($voeux as $voeuAComparer)
 		{
 			if ($voeuAComparer->priorite>$voeu->priorite)
@@ -103,32 +103,7 @@ class Etudiant extends Utilisateur {
 		}
 		return false;
 	}
-	
-	
 
-	/**
-	 * Fonction qui permet d'afficher un étudiant dans une ligne d'un tableau
-	 * Fonction qui permet d'afficher un étudiant sous forme d'une ligne d'un tableau. 
-	 * Ligne avec 3 colonnes ou 4 (si $groupe=true): le nom de l'étudiant, le prénom de l'étudiant,
-	 * un lien pour lui envoyer un mail et le numéro de groupe
-	 * @author Jérémie
-	 * @version 1.2
-	 */
-	public function toTableRow($groupe=false)
-	{
-		echo '
-		<tr>
-			<td>',$this->login_etudiant,'</td>
-			<td>',$this->nom_etudiant,'</td>
-			<td>',$this->prenom_etudiant,'</td>';
-			if ($groupe==true) 
-			{
-				echo '<td>',$this->no_groupe,'</td>';
-			}
-			echo '
-			<td><a href="mailto:',$this->mail_etudiant,'">Lui écrire</a></td>
-		</tr>';
-	}
 	
 	/**
 	 * Fonction qui affiche le formulaire d'envoie de mail
@@ -175,42 +150,6 @@ class Etudiant extends Utilisateur {
 	}
 
 	/**
-	 * Fonction qui affiche une checkbox pour l'étudiant
-	 * Fonction qui permet d'afficher une checkbox avec un id et comme valeur le login de l'étudiant ainsi que le 
-	 * nom et prénom de celui-ci comme label.
-	 * @author Jérémie
-	 * @version 0.2
-	 */
-	public function toCheckBox($no_tache=null)
-	{
-		if ($no_tache==null) {
-			echo '
-			<input type="checkbox" id="',$this->login_etudiant,'" value="',$this->login_etudiant,'"/>
-			<label for="',$this->login_etudiant,'">',$this->nom_etudiant,' ',$this->prenom_etudiant,'</label><br/>';
-		}
-		else
-		{
-			$DAOtemporaire = new RealisesDAO(MaBD::getInstance());
-			$search = array($no_tache,$this->login_etudiant);
-			$realise = $DAOtemporaire->getOne($search);
-			if ($realise==null) 
-			{
-				echo '
-				<input type="checkbox" id="',$this->login_etudiant,$no_tache,'" value="',$this->login_etudiant,'" ',$realise,'/>
-				<label for="',$this->login_etudiant,$no_tache,'">',$this->nom_etudiant,' ',$this->prenom_etudiant,'</label><br/>
-				';
-			}
-			else
-			{
-				echo '  
-				<input type="checkbox" id="',$this->login_etudiant,$no_tache,'" value="',$this->login_etudiant,'" checked="checked"/>
-				<label for="',$this->login_etudiant,$no_tache,'">',$this->nom_etudiant,' ',$this->prenom_etudiant,'</label><br/>
-				';	
-			}
-		}
-	}
-
-	/**
 	 * Fonction d'affichage de la page d'accueil pour un étudiant
 	 * Fonction qui permet d'afficher l'accueil avec l'interface de gestion des taches
 	 * @author Jérémie
@@ -245,7 +184,7 @@ class Etudiant extends Utilisateur {
 					"nom_tache"=>null,
 					"etat_tache"=>null,
 					"ordre_tache"=>null,
-					"login_etudiant"=>null,
+					"login"=>null,
 					"no_groupe"	=> $this->no_groupe							
 					));
 				$newTache->toAddingTableRow();
@@ -264,8 +203,8 @@ class Etudiant extends Utilisateur {
 	function afficheProjets()
 	{
 		$projetsDAO = new ProjetsDAO(MaBD::getInstance());
-		$login=$_SESSION['user']->login_etudiant;
-		$lesProjets = $projetsDAO->getAll("WHERE no_projet NOT IN (SELECT no_projet FROM Voeux WHERE login_etudiant='$login')");
+		$login=$_SESSION['user']->login;
+		$lesProjets = $projetsDAO->getAll("WHERE no_projet NOT IN (SELECT no_projet FROM Voeux WHERE login='$login')");
 		echo'
 		<div class="card">
 			<div class="row">
@@ -307,8 +246,8 @@ class Etudiant extends Utilisateur {
 				<form method="get" action="http://doodle.com/polls/wizard.html">
 					<input type="hidden" name="type" value="date">
 					<input type="hidden" name="locale" value="fr">
-					<input type="hidden" name="name" value="',$this->nom_etudiant," ",$this->prenom_etudiant,'">
-					<input type="hidden" name="eMailAddress" value="',$this->mail_etudiant,'">
+					<input type="hidden" name="name" value="',$this->nom," ",$this->prenom,'">
+					<input type="hidden" name="eMailAddress" value="',$this->mail,'">
 
 					<div class="input-field">
 						<label for="title">Titre de la réunion</label>

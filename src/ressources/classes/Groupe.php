@@ -27,8 +27,8 @@ class Groupe extends TableObject {
 	 */
 	public function listMembers($no_tache=null)
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $DAOtemporaire->getAll("WHERE no_groupe='$this->no_groupe'");
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
+		$etudiants = $DAOtemporaire->getAll("WHERE role='etudiant' AND no_groupe='$this->no_groupe'");
 		foreach ($etudiants as $etudiant) 
 		{
 			$etudiant->toCheckBox($no_tache);
@@ -69,7 +69,7 @@ class Groupe extends TableObject {
 					"nom_tache"=>null,
 					"etat_tache"=>null,
 					"ordre_tache"=>null,
-					"login_etudiant"=>null,
+					"login"=>null,
 					"no_groupe"	=> $this->no_groupe							
 					));
 				$newTache->toAddingTableRow();
