@@ -30,7 +30,7 @@ function afficheVoeux()
 		<div class='row'>
 			<div class='col s12'>
 				<h5>Vos Voeux</h5>
-				<p>Voici les voeux que vous avez fait, vous pouvez les modifier ou les supprimer</p>
+				<p>Voici les voeux que vous avez faits, vous pouvez les modifier ou les supprimer</p>
 			</div>
 		</div>
 		<table class='responsive-table bordered striped centered'>

@@ -27,12 +27,12 @@ if (isset($_POST))
 	}
 	else
 	{
-		echo json_encode('Désolée une erreur est survenu si celle-ci persiste veuillez la signaler');
+		echo json_encode('Désolé une erreur est survenue si celle-ci persiste veuillez la signaler');
 	}
 
 }
 else
 {
-	echo json_encode('Désolée une erreur est survenu si celle-ci persiste veuillez la signaler');
+	echo json_encode('Désolé une erreur est survenue si celle-ci persiste veuillez la signaler');
 }
 ?>

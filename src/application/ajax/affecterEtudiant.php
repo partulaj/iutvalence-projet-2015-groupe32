@@ -12,23 +12,30 @@ session_start();
 if (isset($_POST['login_etudiant']))
 {
 	//création du DAO
+	$groupesDAO = new GroupesDAO(MaBD::getInstance());
 	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 	//récupération des données
 	$etudiant = $etudiantsDAO->getOne($_POST['login_etudiant']);
+	$groupe = $groupesDAO->getOne($_POST['no_groupe']);
 	if($etudiant!=null)
 	{
-		$etudiant->no_groupe=$_POST['no_groupe'];
+		$etudiant->no_groupe=$groupe->no_groupe;
 		$etudiantsDAO->update($etudiant);
+		if ($groupe->plein!=true) 
+		{
+			$groupe->plein=true;
+			$groupesDAO->update($groupe);
+		}
 		echo json_encode(true);
 	}
 	else
 	{
-		echo json_encode("Aucun étudiant avec ce login n'a était trouvé dans la base de données");
+		echo json_encode("Aucun étudiant avec ce login n'a été trouvé dans la base de données");
 	}
 }
 else
 {
-	echo json_encode("Veuillez saisir le login d'un étudiant à affecté");
+	echo json_encode("Veuillez saisir le login d'un étudiant a affecter");
 }
 
 ?>

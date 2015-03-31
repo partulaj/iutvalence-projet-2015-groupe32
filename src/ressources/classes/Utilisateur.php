@@ -1,7 +1,7 @@
 <?php
 class Utilisateur extends TableObject {
 	
-	const DEFAULT_CHEF = "chef1";
+	const DEFAULT_CHEF = "chef1"; // a remplacer par le login du chef des projets
 	
 	/**
 	 * Fonction qui envoie un mail à tous les étudiants s'un groupe
@@ -72,6 +72,11 @@ class Utilisateur extends TableObject {
 	 * Fonction définie dans les classes héritière
 	 */
 	public function afficheProjets(){}
+
+	/**
+	 * Fonction définie dans les classes héritière
+	 */
+	public function afficheReunion(){} 
 
 	/**
 	 * Fonction pour savoir si l'utilisateur est un étudiant 

@@ -190,7 +190,7 @@ function affecterEtu()
 		}
 		else
 		{
-			toast("L'étudiant saisie à bien été affecté'",4000);
+			toast("L'étudiant saisie à bien été affecté",4000);
 			document.location.reload(true);
 		}
 	},'json');

@@ -22,13 +22,18 @@ class Etudiant extends Utilisateur {
 		echo '
 		<ul id="dropdown1" class="dropdown-content">
 			<li><a href="etudiant.php">Accueil</a></li>';
-
-			if (is_null($this->no_groupe)) {
+			if (is_null($this->no_groupe)) 
+			{
 				echo '
 				<li><a href="projet.php">Projet</a></li>
 				<li><a href="voeu.php">Voeux</a></li>';
 			}
-
+			if (!is_null($this->no_groupe)) 
+			{
+				echo '
+				<li><a href="reunion.php">Réunion</a></li>
+				';
+			}
 			echo '
 			<li><a href="message.php">Message</a></li>
 		</ul>
@@ -57,6 +62,12 @@ class Etudiant extends Utilisateur {
 						echo '
 						<li><a href="projet.php">Projet</a></li>
 						<li><a href="voeu.php">Voeux</a></li>';
+					}
+					if (!is_null($this->no_groupe)) 
+					{
+						echo '
+						<li><a href="reunion.php">Réunion</a></li>
+						';
 					}
 					echo'
 					<li><a href="message.php">Message</a></li>
@@ -260,7 +271,7 @@ class Etudiant extends Utilisateur {
 			<div class="row">
 				<div class="col s12">
 					<h5>Liste des Projets</h5>
-					<p>Choisissez les projets qui vous interesse</p>
+					<p>Choisissez les projets qui vous intéressent</p>
 				</div>
 			</div>
 			<table class="responsive-table bordered striped centered">
@@ -280,6 +291,46 @@ class Etudiant extends Utilisateur {
 				echo '	
 			</table>
 		</div>';
+	}
+
+	/**
+	 * Fonction d'affichage de l'interface pour demander une réunion pour les étudiants
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	public function afficheReunion()
+	{
+		echo '
+		<div class="row">
+			<div class="card col s12">
+				<h5>Réunion</h5>
+				<form method="get" action="http://doodle.com/polls/wizard.html">
+					<input type="hidden" name="type" value="date">
+					<input type="hidden" name="locale" value="fr">
+					<input type="hidden" name="name" value="',$this->nom_etudiant," ",$this->prenom_etudiant,'">
+					<input type="hidden" name="eMailAddress" value="',$this->mail_etudiant,'">
+
+					<div class="input-field">
+						<label for="title">Titre de la réunion</label>
+						<input type="text" name="title" id="title" required>
+					</div>
+
+					<div class="input-field">
+						<label for="location">Lieu de la réunion</label>
+						<input type="text" name="location" id="location" required>
+					</div>
+
+					<div class="input-field">
+						<label for="description">Sujet(s) de la réunion</label>
+						<textarea class="materialize-textarea" type="text" name="description" id="description" required></textarea>
+					</div>
+
+				<div class="centre">
+					<input class="btn light-blue" type="submit" value="Demander réunion">
+				</div>
+			</form>
+		</div>
+		';
 	}
 
 }

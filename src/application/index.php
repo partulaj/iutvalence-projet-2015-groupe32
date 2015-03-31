@@ -7,6 +7,8 @@
  */
 //Autochargement des classes via un Autoloader
 require_once "../ressources/classes/MyAutoloader.php";
+require_once "../ressources/LDAPAuth/LDAPAuth.php";
+
 session_start();
 
 //Tableau de paramètres de la page
@@ -51,34 +53,36 @@ if (isset($_POST['connexion']))
 	// On enlève les espace en début et fin 
 	$login=trim($_POST['login']);
 	$mdp=trim($_POST['mdp']);
+	//$info= LDAPAuthentification($login, $mdp);
+	//if($info!=null)
+	//{
+		// Redirection si l'utilisateur est un Etudiant
+		$moi=$etudiantsDAO->getOne($login);
+		if ($moi!=null)
+		{
+			$_SESSION['user']=$moi;
+			header("Location:etudiant.php");
+			exit();	
+		}
 
-	// Redirection si l'utilisateur est un Etudiant
-	$moi=$etudiantsDAO->getOne($login);
-	if (($moi!=null) and ($moi->mdp_etudiant==$mdp))
-	{
-		$_SESSION['user']=$moi;
-		header("Location:etudiant.php");
-		exit();	
-	}
+		// Redirection si l'utilisateur est un Enseignant	
+		$moi=$enseignantsDAO->getOne($login);
+		if ($moi!=null)
+		{
+			$_SESSION['user']=$moi;
+			header("Location:enseignant.php");
+			exit();	
+		}
 
-	// Redirection si l'utilisateur est un Enseignant	
-	$moi=$enseignantsDAO->getOne($login);
-	if (($moi!=null) and ($moi->mdp_enseignant==$mdp))
-	{
-		$_SESSION['user']=$moi;
-		header("Location:enseignant.php");
-		exit();	
-	}
-
-	// Redirection si l'utilisateur est le Chef des projets
-	$moi=$chefsDAO->getOne($login);
-	if (($moi!=null) and ($moi->mdp_chef==$mdp))
-	{
-		$_SESSION['user']=$moi;
-		header("Location:chef.php");
-		exit();	
-	}
-
+		// Redirection si l'utilisateur est le Chef des projets
+		$moi=$chefsDAO->getOne($login);
+		if ($moi!=null)
+		{
+			$_SESSION['user']=$moi;
+			header("Location:chef.php");
+			exit();	
+		}
+	//}
 	// Message d'erreur en cas d'utilisateur introuvable ou mod de passe invalide
 	else
 	{

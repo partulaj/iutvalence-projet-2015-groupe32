@@ -24,6 +24,7 @@ class Enseignant extends Utilisateur {
 			<li><a href="enseignant.php">Accueil</a></li>
 			<li><a href="message.php">Message</a></li>
 			<li><a href="projet.php">Gérer mes Projets</a></li>
+			<li><a href="reunion.php">Réunion</a></li>
 			<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 		</ul>
 		<nav>
@@ -49,6 +50,7 @@ class Enseignant extends Utilisateur {
 					<li><a href="enseignant.php">Accueil</a></li>
 					<li><a href="message.php">Message</a></li>
 					<li><a href="projet.php">Gérer mes Projets</a></li>
+					<li><a href="reunion.php">Réunion</a></li>
 					<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 					<li>
 						<a class="navbar-link" href="javascript:document.formDeDeconnexion.submit();">
@@ -272,13 +274,53 @@ class Enseignant extends Utilisateur {
 				</div>
 			</div>
 			<select id="select-projet" onChange="selectChange(this.value)">
-			<option value="" disabled selected>Choisir un Groupe</option>';
-			$this->allMyGroupsToOptionsFiltred();
+				<option value="" disabled selected>Choisir un Groupe</option>';
+				$this->allMyGroupsToOptionsFiltred();
 				echo
 				'
 			</select>
 		</div>
 		';
 	}
-}
-?>
+
+	/**
+	 * Fonction d'affichage de l'interface pour demander une réunion pour les enseignants
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	public function afficheReunion()
+	{
+		echo '
+		<div class="row">
+			<div class="card col s12">
+			<h5>Réunion</h5>
+				<form method="get" action="http://doodle.com/polls/wizard.html">
+					<input type="hidden" name="type" value="date">
+					<input type="hidden" name="locale" value="fr">
+					<input type="hidden" name="name" value="',$this->nom_enseignant," ",$this->prenom_enseignant,'">
+					<input type="hidden" name="eMailAddress" value="',$this->mail_enseignant,'">
+
+					<div class="input-field">
+						<label for="title">Titre de la réunion</label>
+						<input type="text" name="title" id="title" required>
+					</div>
+
+					<div class="input-field">
+						<label for="location">Lieu de la réunion</label>
+						<input type="text" name="location" id="location" required>
+					</div>
+
+					<div class="input-field">
+						<label for="description">Sujet(s) de la réunion</label>
+						<textarea class="materialize-textarea" type="text" name="description" id="description" required></textarea>
+					</div>
+
+					<div class="centre">
+						<input class="btn light-blue" type="submit" value="Demander réunion">
+					</div>
+				</form>
+			</div>
+			';
+		}
+	}
+	?>
