@@ -122,9 +122,9 @@ class Utilisateur extends TableObject {
 	}
 
 		/**
-	 * Fonction qui permet d'afficher un étudiant dans une ligne d'un tableau
-	 * Fonction qui permet d'afficher un étudiant sous forme d'une ligne d'un tableau. 
-	 * Ligne avec 3 colonnes ou 4 (si $groupe=true): le nom de l'étudiant, le prénom de l'étudiant,
+	 * Fonction qui permet d'afficher un utilisateur dans une ligne d'un tableau
+	 * Fonction qui permet d'afficher un utilisateur sous forme d'une ligne d'un tableau. 
+	 * Ligne avec 3 colonnes ou 4 (si $groupe=true): le login de l'utilisateur, le nom de l'utilisateur, le prénom de l'utilisateur,
 	 * un lien pour lui envoyer un mail et le numéro de groupe
 	 * @author Jérémie
 	 * @version 1.2
@@ -146,8 +146,8 @@ class Utilisateur extends TableObject {
 	}
 
 	/**
-	 * Fonction qui affiche une checkbox pour l'étudiant
-	 * Fonction qui permet d'afficher une checkbox avec un id et comme valeur le login de l'étudiant ainsi que le 
+	 * Fonction qui affiche une checkbox pour l'utilisateur
+	 * Fonction qui permet d'afficher une checkbox avec un id et comme valeur le login de l'utilisateur ainsi que le 
 	 * nom et prénom de celui-ci comme label.
 	 * @author Jérémie
 	 * @version 0.2

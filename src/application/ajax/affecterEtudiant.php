@@ -12,11 +12,13 @@ session_start();
 if (isset($_POST['login']))
 {
 	//création du DAO
+	$projetsDAO = new ProjetsDAO (MaBD::getInstance());
 	$groupesDAO = new GroupesDAO(MaBD::getInstance());
 	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 	//récupération des données
 	$etudiant = $etudiantsDAO->getOne($_POST['login']);
 	$groupe = $groupesDAO->getOne($_POST['no_groupe']);
+	$projet = $projetsDAO->getOne($groupe->no_projet);
 	if($etudiant!=null)
 	{
 		$etudiant->no_groupe=$groupe->no_groupe;
@@ -25,6 +27,10 @@ if (isset($_POST['login']))
 		{
 			$groupe->plein=true;
 			$groupesDAO->update($groupe);
+		}
+		if ($projet->affecter!=true) 
+		{
+			$projet->affecter=true;
 		}
 		echo json_encode(true);
 	}

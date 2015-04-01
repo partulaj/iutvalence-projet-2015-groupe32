@@ -11,7 +11,7 @@ $param ['message'] = null;
 $etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 //Définition des variables globales
-define('TARGET', './doc/'); // Repertoire cible
+define('TARGET', '../docs/'); // Repertoire cible
 define('MAX_SIZE', 1000000); // Taille max en octets du fichier
 $tabExt = array('xls','xlm','xlsx');
 
@@ -31,9 +31,9 @@ if(!empty($_POST))
 			{
 				//On récupère la date pour le nom du fichier
 				$dateBrut = new DateTime();
-				$date = $dateBrut->format('Y-m-d');
+				$date = $dateBrut->format('d-m-Y');
                 // On renomme le fichier
-				$nomFichier = $date.'.'. $extension;
+				$nomFichier = 'import du '.$date.'.'. $extension;
                 // Si c'est OK, on teste l'upload
 				if(move_uploaded_file($_FILES['fichier']['tmp_name'], TARGET.$nomFichier))
 				{
@@ -56,29 +56,36 @@ if(!empty($_POST))
 						$ligne=array();		//On réinitialise la ligne
 					}
 					//On parcours le tableau pour insérer dans la BD
-					for ($i=0; $i < count($array) ; $i++) { 
-						if ($array[$i][5]!="0") {
-							$ajac=true;
-						}
-						else
+					for ($i=0; $i < count($array) ; $i++) 
+					{ 
+						//Pour le débogage
+						//echo '<pre>',print_r($array),'</pre>';
+
+						if (!empty($array[$i][0])) 
 						{
-							$ajac=false;
+							if ($array[$i][6]=="etudiant") 
+							{
+								$classement=$array[$i][5];
+							}
+							else
+							{
+								$classement=null;
+							}
+							$res[$i]= array( 
+								"login" => $array[$i][0],
+								"nom"=>$array[$i][1],
+								"prenom"=>$array[$i][2],
+								"mail"=>$array[$i][3],
+								"no_groupe"=>null,
+								"ajac"=>$array[$i][4],
+								"classement"=>$classement,
+								"role"=>$array[$i][6]);
+							$utilisateur = new Utilisateur($res[$i]);
+							$etudiantsDAO->insert($utilisateur);	
 						}
-						$res[$i]= array( 
-							"login" => $array[$i][0],
-							"nom"=>$array[$i][1],
-							"prenom"=>$array[$i][2],
-							"mdp"=>$array[$i][3],
-							"mail"=>$array[$i][4],
-							"no_groupe"=>null,
-							"ajac"=>$ajac,
-							"classement"=>$array[$i][6]);
-						$etudiant = new Etudiant($res[$i]);
-						$etudiantsDAO->insert($etudiant);
 					}
-					echo '</table>';
 					$param['reussi'] = true;
-					$param ['message'] = "Les étudiants ont bien étaient insérés";
+					$param ['message'] = "Les utilisateurs ont bien étaient insérés";
 
 				}
 				else

@@ -13,7 +13,6 @@ session_start();
 if (isset($_POST) and isset ( $_SESSION ['user'])) 
 {
 	//récupération des données
-	$num = $_SESSION['user']->nb_voeux+1;
 	$dateBrut = new DateTime();
 	$date = $dateBrut->format('Y-m-d');
 	$priorite = $_POST['priorite'];
@@ -28,7 +27,6 @@ if (isset($_POST) and isset ( $_SESSION ['user']))
 	$voeu = new Voeu (array("date"=>$date,"priorite"=>$priorite,"no_projet"=>$projet,"login"=>$etudiant->login));
 	//insertion du voeu
 	$voeuxDAO->insert($voeu);
-	$etudiant->nb_voeux = $num;//on ajoute un au nombre de voeu de l'étudiant
 	$etudiantsDAO->update($etudiant);//on met a jour l'etudiant
 	echo json_encode(true);
 }

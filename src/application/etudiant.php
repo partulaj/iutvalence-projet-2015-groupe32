@@ -67,7 +67,7 @@ foreach ($affectationProjet as $projetAAffecter)
 				<div class='card'>
 					<div class='row'>
 						<div class='col s12'>
-							<h5>404 Error</h5>
+							<h5 class='red-text'><i class='mdi-alert-warning'></i> Attention vous n'êtes pas encore affecté</h5>
 							<p>Vous n'êtes pas encore affecté à un groupe, l'interface de gestion des tâches n'est 
 							donc pas disponible pour le moment.<br/>
 							Veuillez aller dans l'onglet Projet pour faire un ou plusieurs Voeux, ou attendre que 
@@ -78,17 +78,11 @@ foreach ($affectationProjet as $projetAAffecter)
 			}
 			?>
 		</div>
-<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.js"></script>
-		<script type="text/javascript" src="../ressources/autosize/autosize.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/etudiant.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
-		<script src="../ressources/js/easteregg.js"></script>
+
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
 
 	</body>
 	</html>

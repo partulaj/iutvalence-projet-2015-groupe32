@@ -57,7 +57,7 @@ require_once "./import.php";
 						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
 							<i class="mdi-hardware-keyboard-arrow-down"></i>
 						</a>
-						<h5>Importation des Etudiants</h5>
+						<h5>Importation des Utilisateurs (Etudiants, Enseignants, Chef)</h5>
 						<p>Veuillez mettre un fichier excel (xls, xlm, xslx) à importer </p>
 					</div>
 				</div>
@@ -80,17 +80,10 @@ require_once "./import.php";
 			</div>
 		</div>
 
-<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.js"></script>
-		<script type="text/javascript" src="../ressources/autosize/autosize.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/etudiant.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
-		<script src="../ressources/js/easteregg.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
 
 		<?php 
 		if ($param['reussi']==true)

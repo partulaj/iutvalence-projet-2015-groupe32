@@ -25,10 +25,8 @@ CREATE TABLE Utilisateurs
 login varchar(20) NOT NULL PRIMARY KEY,
 nom varchar(20),
 prenom varchar(20),
-mdp varchar(50),
 mail varchar(150),
 no_groupe integer DEFAULT null,
-nb_voeux integer DEFAULT 0,
 ajac boolean,
 classement integer UNIQUE,
 role varchar(20),
@@ -67,17 +65,17 @@ FOREIGN KEY (login) REFERENCES Utilisateurs(login)
 
 ALTER TABLE Projets
 ADD FOREIGN KEY (login)
-REFERENCES Utilisateurs(login)
+REFERENCES Utilisateurs(login);
 
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("chef1","Hashirama","Senju","","chef1","chef");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("chef2","Uchiha","Madara","","chef2","chef");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("chef1","Hashirama","Senju","","chef");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("chef2","Uchiha","Madara","","chef");
 
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("ens1","Hatake","Kakashi","","ens1","enseignant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("ens2","Yuhi","Kurenai","","ens2","enseignant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("ens1","Hatake","Kakashi","","enseignant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("ens2","Yuhi","Kurenai","","enseignant");
 
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu1","Uzumaki","Naruto","","etu1","etudiant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu2","Haruto","Sakura","","etu2","etudiant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu3","Uchiha","Sasuke","","etu3","etudiant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu4","Hyuga","Hinata","","etu4","etudiant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu5","Yamanaka","Ino","","etu5","etudiant");
-insert into Utilisateurs (login,nom,prenom,mail,mdp,role) values ("etu6","Rock","Lee","","etu6","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu1","Uzumaki","Naruto","","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu2","Haruto","Sakura","","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu3","Uchiha","Sasuke","","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu4","Hyuga","Hinata","","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu5","Yamanaka","Ino","","etudiant");
+insert into Utilisateurs (login,nom,prenom,mail,role) values ("etu6","Rock","Lee","","etudiant");

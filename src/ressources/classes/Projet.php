@@ -102,6 +102,11 @@ class Projet extends TableObject {
 		MaBD::getInstance()->commit();
 	}
 
+	/**
+	 * Fonction qui affiche un projet sous forme d'option d'un select
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function toOption()
 	{
 		echo '<option value="',$this->no_projet,'">',$this->nom_projet,'</option>';

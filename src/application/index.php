@@ -37,11 +37,7 @@ if (isset($_SESSION['user']))
 		header("Location:enseignant.php");
 		exit();	
 	}
-	// if ($_SESSION['user']->estChef()) 
-	// {
-	// 	header("Location:chef.php");
-	// 	exit();	
-	// }
+
 
 }
 
@@ -124,13 +120,13 @@ if (isset($_POST['connexion']))
 					<div class="row">
 						<div class="input-field col s12">
 							<label for="login">Login</label>
-							<input type="text" name="login" class="validate">
+							<input type="text" name="login" class="validate" required>
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
 							<label for="mdp">Mot de passe</label>
-							<input type="password" name="mdp" class="validate">
+							<input type="password" name="mdp" class="validate" required>
 						</div>
 					</div>
 					<div class="row">
@@ -146,19 +142,9 @@ if (isset($_POST['connexion']))
 		</div>
 	</div>
 
-<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.js"></script>
-		<script type="text/javascript" src="../ressources/autosize/autosize.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/etudiant.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
-		<script src="../ressources/js/easteregg.js"></script>
-
+	<!--Import javascript-->
 	<?php
+	require_once("../ressources/js/javascript.php");
 		//Affichage d'un message
 	if ($param['erreur']==true)
 	{

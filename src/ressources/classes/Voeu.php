@@ -1,8 +1,4 @@
 <?php
-
-/**
- * Classe qui représente un voeu
- */
 class Voeu extends TableObject {
 	public static $keyFieldsNames = array ('no_projet','login'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;

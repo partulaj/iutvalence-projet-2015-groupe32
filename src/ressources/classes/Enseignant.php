@@ -66,7 +66,6 @@ class Enseignant extends Utilisateur {
 	
 	/**
 	 * Fonction d'affichage de la fenêtre modal de création d'un nouveau projet
-	 *
 	 * @author Jérémie
 	 * @version 0.4
 	 */
@@ -160,7 +159,6 @@ class Enseignant extends Utilisateur {
 
 	/**
 	 * Fonction d'affichage de la page d'accueil d'un enseignant
-	 *
 	 * @author Jérémie
 	 * @version 0.2
 	 */
@@ -195,7 +193,6 @@ class Enseignant extends Utilisateur {
 
 	/**
 	 * Fonction qui récupère un tableau avec les groupes de l'enseignant
-	 * 
 	 * @author Jérémie
 	 * @version 0.2
 	 */
@@ -218,6 +215,11 @@ class Enseignant extends Utilisateur {
 		return $res;
 	}
 
+	/**
+	 * Fonction qui récupère tous les groupes de l'enseignant qui sont plein et renvoie un tableau contenant ceci
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function allMyGroupsFiltred()
 	{
 		$res = array();
@@ -239,7 +241,6 @@ class Enseignant extends Utilisateur {
 
 	/**
 	 * Fonction d'affichage des groupes de l'enseignant dans un select
-	 * 
 	 * @author Jérémie
 	 * @version 0.2
 	 */
@@ -252,6 +253,11 @@ class Enseignant extends Utilisateur {
 		}
 	}
 
+	/**
+	 * Fonction qui affiche tous les projet
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function allMyGroupsToOptionsFiltred()
 	{
 		$tab = $this->allMyGroupsFiltred();
@@ -261,6 +267,11 @@ class Enseignant extends Utilisateur {
 		}
 	}
 
+	/**
+	 * Fonction qui affiche l'interface de la page projet.php
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function afficheProjets()
 	{
 

@@ -25,7 +25,7 @@ class Chef extends Enseignant {
 			<li><a href="reunion.php">Réunion</a></li>
 			<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 			<li><a href="message.php">Message</a></li>
-			<li><a href="projet_avancer.php">Projet</a></li>
+			<li><a href="projet_avancer.php">Projet Avancer</a></li>
 		</ul>
 		<nav>
 			<form name="formDeDeconnexion" method="post" action="index.php">
@@ -267,6 +267,11 @@ class Chef extends Enseignant {
 		';
 	}
 
+	/**
+	 * Fonction qui affiche la liste des projets avec export possible 
+	 * @author Jérémie
+	 * @version 1.0
+	 */
 	public function afficheProjetsAvancer()
 	{
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());

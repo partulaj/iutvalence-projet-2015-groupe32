@@ -25,12 +25,10 @@ CREATE TABLE Utilisateurs
 login varchar(20) NOT NULL PRIMARY KEY,
 nom varchar(20),
 prenom varchar(20),
-mdp varchar(50),
 mail varchar(150),
 no_groupe integer DEFAULT null,
-nb_voeux integer DEFAULT 0,
 ajac boolean,
-classement integer UNIQUE,
+classement integer UNIQUE ,
 role varchar(20),
 FOREIGN KEY (no_groupe) REFERENCES Groupes(no_groupe)
 )ENGINE=INNODB;

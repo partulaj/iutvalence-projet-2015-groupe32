@@ -5,6 +5,10 @@
  */
 //Autochargement des classes via un Autoloader
 require_once "../ressources/classes/MyAutoloader.php";
+
+				$dateBrut = new DateTime();
+				$date = $dateBrut->format('l d F Y');
+				echo "$date";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
