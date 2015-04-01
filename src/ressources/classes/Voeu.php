@@ -47,7 +47,7 @@ class Voeu extends TableObject {
 	 */
 	public function toListElem()
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
 		$etudiant = $DAOtemporaire->getOne($this->login);
 		echo '
 		<li class="collection-item">
