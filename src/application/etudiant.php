@@ -12,15 +12,20 @@ session_start();
 //Création des DAO
 $projetDAO = new ProjetsDAO(MaBD::getInstance());
 <<<<<<< HEAD
+<<<<<<< HEAD
 $etudiantDAO = new EtudiantsDAO(MaBD::getInstance());
 $voeuxDAO = new VoeuxDAO(MaBD::getInstance());
 $tachesDAO = new TachesDAO(MaBD::getInstance());
 =======
 $etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
 >>>>>>> refs/remotes/origin/jeremie
+=======
+$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
+>>>>>>> refs/heads/jeremie
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['user']->login_etudiant))
+
+if (!isset($_SESSION['user']) or !$_SESSION['user']->estEtudiant())
 {
 	header("Location:index.php");
 	exit();
@@ -31,8 +36,9 @@ $affectationProjet=$projetDAO->getAll();
 foreach ($affectationProjet as $projetAAffecter)
 {
 	$projetAAffecter->initAffectationAuto();
-	$_SESSION['user']=$etudiantsDAO->getOne($_SESSION['user']->login_etudiant);
+	$_SESSION['user']= new Etudiant ($etudiantsDAO->getOne($_SESSION['user']->login)->getAllFields());
 }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 //Enregistrement du ou des voeux
@@ -59,6 +65,8 @@ if (isset($_POST['enregistrer']))
 				$param['message']="Vous ne pouvez pas faire 2 fois le même voeu";
 				break;
 			}
+=======
+>>>>>>> refs/heads/jeremie
 
 			if ($_SESSION['etu']->nb_voeux == 5)
 			{
@@ -219,9 +227,9 @@ if (isset($_POST['suppression_tache']))
 				<div class='card'>
 					<div class='row'>
 						<div class='col s12'>
-							<h5>404 Error</h5>
-							<p>Vous n'êtes pas encore affecter à un groupe, l'interface de gestion des tâches n'est 
-							donc pas disponible pour le moment.
+							<h5 class='red-text'><i class='mdi-alert-warning'></i> Attention vous n'êtes pas encore affecté</h5>
+							<p>Vous n'êtes pas encore affecté à un groupe, l'interface de gestion des tâches n'est 
+							donc pas disponible pour le moment.<br/>
 							Veuillez aller dans l'onglet Projet pour faire un ou plusieurs Voeux, ou attendre que 
 							vous soyez affecté si cela est déjà fait.</p>
 						</div>
@@ -230,6 +238,7 @@ if (isset($_POST['suppression_tache']))
 			}
 			?>
 		</div>
+<<<<<<< HEAD
 		<div class="row">
 			<h5>Mon Projet</h5>
 			<form>
@@ -259,5 +268,13 @@ if (isset($_POST['suppression_tache']))
 		<script src="../ressources/js/tache.js"></script>
 		<script src="../ressources/js/voeu.js"></script>
 		<script src="../ressources/js/projet.js"></script>
+=======
+
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
+>>>>>>> refs/heads/jeremie
 	</body>
 	</html>

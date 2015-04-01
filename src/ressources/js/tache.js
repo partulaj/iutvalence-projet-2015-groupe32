@@ -54,12 +54,12 @@
  		}
  	});
  	$.post('./ajax/updateTache.php', {no_tache:num,nom_tache:nom,etat_tache:etat,ordre_tache:ordre,etudiants:students,change:check,no_groupe:groupe}, function(data) {
-		if (data!=true) 
-		{
-			toast(data,4000);
-		}
-		else
-		{
+ 		if (data!=true) 
+ 		{
+ 			toast(data,4000);
+ 		}
+ 		else
+ 		{
  			toast('Votre tache à bien était modifié',4000);
  			document.location.reload(true); 			
  		}
@@ -80,11 +80,11 @@
  		}
  	});
  	$.post('./ajax/deleteTache.php', {no_tache:num,etudiants:students}, function(data) {
-		if (data!=true) 
-		{
-			toast(data,4000);
-		}
-		else
+ 		if (data!=true) 
+ 		{
+ 			toast(data,4000);
+ 		}
+ 		else
  		{
  			toast('Votre tache à bien était supprimé',4000);
  			document.location.reload(true);

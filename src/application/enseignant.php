@@ -10,7 +10,7 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start ();
 
 // On vérifie que l'utilisateur est connecté
-if (!isset($_SESSION ['user']->login_enseignant))
+if (!isset($_SESSION['user']) or $_SESSION ['user']->estEtudiant())
 {
 	header ( "Location:index.php" );
 	exit ();
@@ -45,6 +45,7 @@ if (!isset($_SESSION ['user']->login_enseignant))
 		$_SESSION ['user']->afficheNavBar ();
 		?>
 		<div class="container brown lighten-5">
+<<<<<<< HEAD
 <<<<<<< HEAD
 			<div class="card">
 				<div class="row">
@@ -125,15 +126,18 @@ if (!isset($_SESSION ['user']->login_enseignant))
 		<?php 
 		$_SESSION['user']->afficheAccueil();
 		?>
+=======
+			<?php 
+			$_SESSION['user']->afficheAccueil();
+			?>
+>>>>>>> refs/heads/jeremie
 		</div>
 >>>>>>> refs/remotes/origin/jeremie
 
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
 	</body>
 	</html>

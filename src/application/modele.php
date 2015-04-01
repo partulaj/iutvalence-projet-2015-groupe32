@@ -31,12 +31,10 @@ require_once "../ressources/classes/MyAutoloader.php";
 	<body>
 		<h1>Modele de page</h1>
 
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-				<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
 	</body>
 	</html>

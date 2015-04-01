@@ -21,7 +21,10 @@ if (isset($_POST))
 	$etat = $_POST['etat_tache'];
 	$ordre = $_POST['ordre_tache'];
 	$etudiants = $_POST['etudiants'];
-	$change = $_POST['change'];
+	if (!empty($_POST['change'])) 
+	{
+		$change = $_POST['change'];
+	}
 	$groupe = $_POST['no_groupe'];
 
 	//modification de la tache
@@ -36,7 +39,7 @@ if (isset($_POST))
 	$tachesDAO->update($editTache);
 
 	//modification de la répartition de la tache
-	if (!empty($etudiants))
+	if (!empty($etudiants) or !empty($_POST['change']))
 	{
 		for ($i=0; $i <count($etudiants) ; $i++) 
 		{ 
@@ -46,7 +49,7 @@ if (isset($_POST))
 			{
 				$newRealise = new Realise(array(
 					"no_tache"=>$num,
-					"login_etudiant"=>$etudiants[$i]));
+					"login"=>$etudiants[$i]));
 				$realisesDAO->insert($newRealise);
 			}
 			elseif($realise!=null)
@@ -62,6 +65,6 @@ if (isset($_POST))
 }
 else
 {
-	echo json_encode('Désolée une erreur est survenu si celle-ci persiste veuillez la signaler');
+	echo json_encode('Désolé une erreur est survenue si celle-ci persiste veuillez la signaler');
 }
 ?>

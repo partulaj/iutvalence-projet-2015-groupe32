@@ -66,7 +66,7 @@ class VoeuxDAO extends DAO {
 	public function getAllVoeuEtudiant($login)
 	{
 		$res = array();
-		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login_etudiant = ? ORDER BY priorite");
+		$stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE login = ? ORDER BY priorite");
 		$stmt->execute(array($login));
 		foreach($stmt->fetchAll(PDO::FETCH_ASSOC) as $row)
 		{
@@ -84,7 +84,7 @@ class VoeuxDAO extends DAO {
 	 */
 	public function deleteAllMyWish($login)
 	{
-		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE login_etudiant = ?");
+		$stmt=$this->pdo->prepare("DELETE FROM $this->table WHERE login = ?");
 		$stmt->execute(array($login));
 	}
 
@@ -97,7 +97,7 @@ class VoeuxDAO extends DAO {
 	 */
 	public function deleteAllWishForThisProject($no_projet)
 	{
-		$stmt=$this->pdo->prepare("DELETE FROM Voeux WHERE no_projet = ?");
+		$stmt=$this->pdo->prepare("DELETE FROM $this->table WHERE no_projet = ?");
 		$stmt->execute(array($no_projet));
 	}
 }

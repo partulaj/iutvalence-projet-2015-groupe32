@@ -21,12 +21,12 @@ if (isset($_POST['envoi']))
 	{
 		if ($_POST['no_groupe']=="sans_projet")
 		{
-			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef = $_SESSION['user'];
 			$chef->mailToSansProjets($subject, $message);
 		}
 		elseif ($_POST['no_groupe']=="tous") 
 		{
-			$chef = new Chef($_SESSION['user']->getAllFields());
+			$chef =$_SESSION['user'];
 			$chef->mailToAll($subject, $message);
 		}
 		else 
@@ -93,12 +93,10 @@ if (isset($_POST['envoi']))
 			</div>
 		</div>
 
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-				<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
 	</body>
 	</html>

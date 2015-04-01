@@ -6,30 +6,19 @@
 //Autochargement des classes via un Autoloader
 require_once "../ressources/classes/MyAutoloader.php";
 session_start();
-
-//On vérifie que la personne qui accède à la page est un utilisateur authentifié
-if (!isset($_SESSION['user']->login_enseignant)) 
+if (!isset($_SESSION['user'])) 
 {
 	header("Location:index.php");
 	exit();
 }
 
-function afficheGestionProjet($no_projet)
-{
-	$groupesDAO = new GroupesDAO(MaBD::getInstance());
-	$groupes = $groupesDAO->getAll("WHERE no_projet='$no_projet'");
-	foreach ($groupes as $groupe) 
-	{
-		$groupe->managmentInterface();
-	}
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
 
-	<title>Interface de Gestion</title>
+	<title>Réunion</title>
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<!--Import materialize.css-->
@@ -46,26 +35,20 @@ function afficheGestionProjet($no_projet)
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
 	</head>
-	<body class="brown lighten-5">
+	<body>
 		<?php
-		$_SESSION ['user']->afficheNavBar ();
+			$_SESSION['user']->afficheNavBar();
 		?>
-		<div class="container brown lighten-5">
-			<?php 
-				if (isset($_POST)) 
-				{
-					afficheGestionProjet($_POST['projet']);
-				}
-			?>
+		<div class="container">
+			<?php
+			$_SESSION['user']->afficheReunion();
+			?>	
 		</div>
 
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
 	</body>
 	</html>

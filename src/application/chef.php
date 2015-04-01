@@ -10,12 +10,13 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start ();
 
 // On vérifie que l'utilisateur est connecté
-if (! isset ( $_SESSION ['user']->login_chef )) {
+if (!$_SESSION ['user']->estChef()) 
+{
 	header ( "Location:index.php" );
 	exit ();
 }
 
-$etudiantsDAO = new EtudiantsDAO ( MaBD::getInstance () );
+$etudiantsDAO = new UtilisateursDAO ( MaBD::getInstance () );
 // Ajout du module d'importation
 require_once "./import.php";
 ?>
@@ -48,7 +49,7 @@ require_once "./import.php";
 		?>
 		<div class="container brown lighten-5">
 			<?php
-			$_SESSION['user']->afficheAccueil();
+			$_SESSION['user']->afficheInterfaceChef();
 			?>
 			<div class="card hidden-element-block">
 				<div class="row">
@@ -56,7 +57,7 @@ require_once "./import.php";
 						<a class="btn-floating btn-large waves-effect waves-light red arrow-link slide-link">
 							<i class="mdi-hardware-keyboard-arrow-down"></i>
 						</a>
-						<h5>Importation des Etudiants</h5>
+						<h5>Importation des Utilisateurs (Etudiants, Enseignants, Chef)</h5>
 						<p>Veuillez mettre un fichier excel (xls, xlm, xslx) à importer </p>
 					</div>
 				</div>
@@ -122,12 +123,10 @@ require_once "./import.php";
 >>>>>>> refs/remotes/origin/jeremie
 		</div>
 
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/etudiant.js"></script>
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
 
 		<?php 
 		if ($param['reussi']==true)

@@ -39,7 +39,7 @@ if (isset($_POST))
 			"objectif" => $objectif,
 			"contrainte" => $contrainte,
 			"details" => $details,
-			"login_enseignant" => $_SESSION['user']->login_enseignant
+			"login" => $_SESSION['user']->login
 			) );
 		//insertion du nouveau projet
 		$projetsDAO->insert($newProjet);
@@ -75,7 +75,7 @@ if (isset($_POST))
 }
 else
 {
-	echo json_encode('Désolée une erreur est survenu si celle-ci persiste veuillez la signaler');
+	echo json_encode('Désolé une erreur est survenue si celle-ci persiste veuillez la signaler');
 }
 
 ?>

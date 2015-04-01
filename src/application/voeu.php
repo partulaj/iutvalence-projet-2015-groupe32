@@ -10,7 +10,7 @@ require_once "../ressources/classes/MyAutoloader.php";
 session_start();
 
 //On vérifie que l'utilisateur est connecté 
-if (!isset($_SESSION['user']->login_etudiant))
+if (!$_SESSION['user']->estEtudiant())
 {
 	header("Location:index.php");
 	exit();
@@ -24,13 +24,13 @@ if (!isset($_SESSION['user']->login_etudiant))
 function afficheVoeux()
 {
 	$voeuxDAO = new VoeuxDAO(MaBD::getInstance());
-	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['user']->login_etudiant);
+	$lesVoeux = $voeuxDAO->getAllVoeuEtudiant($_SESSION['user']->login);
 	echo	"
 	<div class='card'>
 		<div class='row'>
 			<div class='col s12'>
 				<h5>Vos Voeux</h5>
-				<p>Voici les voeux que vous avez fait, vous pouvez les modifier ou les supprimer</p>
+				<p>Voici les voeux que vous avez faits, vous pouvez les modifier ou les supprimer</p>
 			</div>
 		</div>
 		<table class='responsive-table bordered striped centered'>
@@ -80,12 +80,11 @@ function afficheVoeux()
 			afficheVoeux();
 			?>
 		</div>
-		<!--Import jQuery before materialize.js-->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-		<script src="../ressources/js/init.js"></script>
-		<script src="../ressources/js/tache.js"></script>
-		<script src="../ressources/js/voeu.js"></script>
-		<script src="../ressources/js/projet.js"></script>
+
+	<!--Import javascript-->
+	<?php
+	require_once("../ressources/js/javascript.php");
+	?>
+
 	</body>
 	</html>

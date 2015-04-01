@@ -13,14 +13,14 @@ session_start();
 if (isset($_POST['etudiant1']) and isset($_POST['etudiant2']))
 {
 	//création du DAO
-	$etudiantsDAO = new EtudiantsDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
 
 	//récupération des étudiants
 	$etudiant1 = $etudiantsDAO->getOne($_POST['etudiant1']);
 	$etudiant2 = $etudiantsDAO->getOne($_POST['etudiant2']);
 
 	//vérification des étudiants
-	if (!is_null($etudiant1->no_groupe) and !is_null($etudiant2->no_groupe)) 
+	if (!is_null($etudiant1->no_groupe) or !is_null($etudiant2->no_groupe)) 
 	{
 		//vérification des groupes
 		if ($etudiant1->no_groupe!=$etudiant2->no_groupe) 

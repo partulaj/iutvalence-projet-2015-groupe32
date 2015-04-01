@@ -1,6 +1,6 @@
 <?php
 class Enseignant extends Utilisateur {
-	static public $keyFieldsNames = array('login_enseignant'); // par défaut un seul champ
+	static public $keyFieldsNames = array('login'); // par défaut un seul champ
 	public $hasAutoIncrementedKey = false;
 	
 	/**
@@ -17,105 +17,108 @@ class Enseignant extends Utilisateur {
 		}
 		if ($titre==null) 
 		{
-			$titre=" $this->nom_enseignant $this->prenom_enseignant";
+			$titre="$this->nom $this->prenom";
 		}
-		echo "
-		<ul id='dropdown1' class='dropdown-content'>
-			<li><a href='etudiant.php'>Accueil</a></li>
-			<li><a href='message.php'>Message</a></li>
-			<li><a class='modal-trigger' href='#newprojet'>Nouveau Projet</a></li>
+		echo '
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="enseignant.php">Accueil</a></li>
+			<li><a href="message.php">Message</a></li>
+			<li><a href="projet.php">Gérer mes Projets</a></li>
+			<li><a href="reunion.php">Réunion</a></li>
+			<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 		</ul>
 		<nav>
-			<form name='formDeDeconnexion' method='post' action='index.php'>
-				<input type='hidden' name='deconnexion' value='deconnexion'>
+			<form name="formDeDeconnexion" method="post" action="index.php">
+				<input type="hidden" name="deconnexion" value="deconnexion">
 			</form>
-			<div class='nav-wrapper light-blue'>
-				<a href='#'' class='brand-logo'><span class='$icone'></span>$titre</a>
-				<a href='#' data-activates='mobile-demo' class='button-collapse'><i class='mdi-navigation-menu'></i></a>
-				<ul class='right hide-on-med-and-down'>
+			<div class="nav-wrapper light-blue">
+				<a href="#" class="brand-logo"><span class="',$icone,'"></span>',$titre,'</a>
+				<a href="#"" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+				<ul class="right hide-on-med-and-down">
 					<li>
-						<a class='dropdown-button' href='#!' data-activates='dropdown1'>
-							Menu de Navigation<i class='mdi-navigation-arrow-drop-down right'></i>
+						<a class="dropdown-button" href="#!" data-activates="dropdown1">
+							Menu de Navigation<i class="mdi-navigation-arrow-drop-down right"></i>
 						</a>
 					</li>
 					<li>
-						<a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'>
-							<span class='icon-off'></span>
+						<a class="navbar-link" href="javascript:document.formDeDeconnexion.submit();">
+							<span class="icon-off"></span>
 						</a>
 					</li>
 				</ul>
-				<ul class='side-nav' id='mobile-demo'>
-					<li><a href='enseignant.php'>Accueil</a></li>
-					<li><a href='message.php'>Message</a></li>
-					<li><a class='modal-trigger' href='#newprojet'>Nouveau Projet</a></li>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="enseignant.php">Accueil</a></li>
+					<li><a href="message.php">Message</a></li>
+					<li><a href="projet.php">Gérer mes Projets</a></li>
+					<li><a href="reunion.php">Réunion</a></li>
+					<li><a class="modal-trigger" href="#newprojet">Nouveau Projet</a></li>
 					<li>
-						<a class='navbar-link' href='javascript:document.formDeDeconnexion.submit();'>
-							<span class='icon-off'></span>
+						<a class="navbar-link" href="javascript:document.formDeDeconnexion.submit();">
+							<span class="icon-off"></span>
 						</a>
 					</li>
 				</ul>
 			</div>
 		</nav>	
-		";
+		';
 		$this->NewProjectModal();
 	}
 	
 	/**
 	 * Fonction d'affichage de la fenêtre modal de création d'un nouveau projet
-	 *
 	 * @author Jérémie
 	 * @version 0.4
 	 */
-	private function NewProjectModal()
+	protected function NewProjectModal()
 	{
-		echo "
-		<div id='newprojet' class='modal'>
-			<div class='modal-content'>
+		echo '
+		<div id="newprojet" class="modal">
+			<div class="modal-content">
 				<h4>Nouveau Projet</h4>
-				<div class='input-field'> 
-					<label for='projet_name'>Nom du Projet</label>
-					<input type='text' id='project_name' name='project_name' required>
+				<div class="input-field"> 
+					<label for="projet_name">Nom du Projet</label>
+					<input type="text" id="project_name" name="project_name" required>
 				</div>
-				<div class='row'>
-					<div class='input-field col s6'>
-						<input id='nb_min' type='number' max='4' min='3' value='3' required/>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="nb_min" type="number" max="4" min="3" value="3" required/>
 					</div>
-					<div class='input-field col s6'>
-						<input id='nb_max' type='number' max='5' min='3' value='3' required/>
+					<div class="input-field col s6">
+						<input id="nb_max" type="number" max="6" min="3" value="3" required/>
 					</div>
 				</div>
-				<div class='input-field'>
-					<label for='contexte'>Contexte</label>
-					<textarea class='materialize-textarea' id='contexte' name='contexte' ></textarea>
+				<div class="input-field">
+					<label for="contexte">Contexte</label>
+					<textarea class="materialize-textarea" id="contexte" name="contexte" ></textarea>
 				</div>
-				<div class='input-field'>
-					<label for='objectif'>Objectif</label>
-					<textarea class='materialize-textarea' id='objectif' name='objectif' ></textarea>
+				<div class="input-field">
+					<label for="objectif">Objectif</label>
+					<textarea class="materialize-textarea" id="objectif" name="objectif" ></textarea>
 				</div>
-				<div class='input-field'>
-					<label for='contrainte'>Contraintes</label>
-					<textarea class='materialize-textarea' id='contrainte' name='contrainte' ></textarea>
+				<div class="input-field">
+					<label for="contrainte">Contraintes</label>
+					<textarea class="materialize-textarea" id="contrainte" name="contrainte" ></textarea>
 				</div>
-				<div class='input-field'>
-					<label for='details'>Détails</label>
-					<textarea class='materialize-textarea' id='details' name='details' ></textarea>
+				<div class="input-field">
+					<label for="details">Détails</label>
+					<textarea class="materialize-textarea" id="details" name="details" ></textarea>
 				</div>
-				<div class='switch'>
+				<div class="switch">
 					<label>
 						1 Groupe
-						<input type='checkbox' id='nb_groupes' name='nb_groupes'>
-						<span class='lever'></span>
+						<input type="checkbox" id="nb_groupes" name="nb_groupes">
+						<span class="lever"></span>
 						2 Groupes
 					</label>
 				</div>
 				<br/>
 			</div>
-			<div class='modal-footer'>
-				<button href='#' class='waves-effect waves-red btn-flat modal-action modal-close'>Annuler</button>
-				<button onClick='newProject()' name='new_projet' class='waves-effect waves-green btn-flat modal-action modal-close'><span class='icon-save-floppy'></span> Enregistrer le nouveau Projet</button>
+			<div class="modal-footer">
+				<button href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Annuler</button>
+				<button onClick="newProject()" name="new_projet" class="waves-effect waves-green btn-flat modal-action modal-close"><span class="icon-save-floppy"></span> Enregistrer le nouveau Projet</button>
 			</div>
 		</div>
-		";
+		';
 	}
 	
 	/**
@@ -126,72 +129,70 @@ class Enseignant extends Utilisateur {
 	 */
 	public function afficheMail()
 	{
-		echo "
-		<form action='' method='post'>
+		echo '
+		<form action="" method="post">
 			<h6>Destinataire</h6>
 
-			<select name='no_groupe'>";
+			<select name="no_groupe">';
 				$this->allMyGroupsToOptions();											
-				echo "
+				echo '
 			</select>
-			<input type='hidden' id='groupe' name='groupe' value='true' />
+			<input type="hidden" id="groupe" name="groupe" value="true" />
 
-			<div class='input-field'>
-				<label for='sujet'>Sujet</label> <input type='text' name='sujet' id='sujet' required>
+			<div class="input-field">
+				<label for="sujet">Sujet</label> <input type="text" name="sujet" id="sujet" required>
 			</div>
-			<div class='input-field'>
-				<label for='message'>Message</label>
-				<textarea class='materialize-textarea' name='message' required></textarea>
+			<div class="input-field">
+				<label for="message">Message</label>
+				<textarea class="materialize-textarea" name="message" required></textarea>
 			</div>
-			<div class='input-field'>
-				<div class='centre'>
-					<button type='submit' name='envoi'class='btn light-blue'>
-						<span class='mdi-communication-email'></span> Envoyer
+			<div class="input-field">
+				<div class="centre">
+					<button type="submit" name="envoi"class="btn light-blue">
+						<span class="mdi-communication-email"></span> Envoyer
 					</button>
 				</div>
 			</div>
 		</form>
-		";
+		';
 	}
 
 	/**
 	 * Fonction d'affichage de la page d'accueil d'un enseignant
-	 *
 	 * @author Jérémie
 	 * @version 0.2
 	 */
 	public function afficheAccueil()
 	{
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
 		echo 
-		"
-		<div class='card'>
-			<div class='row'>
-				<div class='col s12'>
+		'
+		<div class="card">
+			<div class="row">
+				<div class="col s12">
 					<h5>Vos Projets</h5>
 					<p>Modifier ou administrer vos Projets</p>
 				</div>
 			</div>
-			<table class='responsive-table bordered striped centered'>
+			<table class="table bordered striped centered container">
 				<tr>
 					<th>Intitulé Projet</th>
+					<th>Objectif</th>
 					<th>Modifier</th>
-					<th>Interface de Gestion</th>
-				</tr>";
+				</tr>';
 				foreach ($projets as $projet) 
 				{
 					$projet->toTableRowForTeachers();	
 				}
-				echo"
+				echo'
 			</table>
 		</div>
-		";
+		';
 	}
 
 	/**
 	 * Fonction qui récupère un tableau avec les groupes de l'enseignant
-	 * 
 	 * @author Jérémie
 	 * @version 0.2
 	 */
@@ -202,7 +203,7 @@ class Enseignant extends Utilisateur {
 
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
-		$projets = $DAOtemporaire->getAll("WHERE login_enseignant='$this->login_enseignant'");
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
 		foreach ($projets as $projet)
 		{
 			$resTemp=$DAOtemporaire2->getAll("WHERE no_projet=$projet->no_projet");
@@ -215,8 +216,31 @@ class Enseignant extends Utilisateur {
 	}
 
 	/**
+	 * Fonction qui récupère tous les groupes de l'enseignant qui sont plein et renvoie un tableau contenant ceci
+	 * @author Jérémie
+	 * @version 1.0
+	 */
+	public function allMyGroupsFiltred()
+	{
+		$res = array();
+		$resTemp = array();
+
+		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
+		$DAOtemporaire2 =new GroupesDAO(MaBD::getInstance());
+		$projets = $DAOtemporaire->getAll("WHERE login='$this->login'");
+		foreach ($projets as $projet)
+		{
+			$resTemp=$DAOtemporaire2->getAll("WHERE no_projet=$projet->no_projet AND plein=TRUE");
+			foreach ($resTemp as $groupe)
+			{
+				$res[] = $groupe;
+			}
+		}
+		return $res;
+	}
+
+	/**
 	 * Fonction d'affichage des groupes de l'enseignant dans un select
-	 * 
 	 * @author Jérémie
 	 * @version 0.2
 	 */
@@ -228,5 +252,86 @@ class Enseignant extends Utilisateur {
 			$groupe->toOption();
 		}
 	}
-}
-?>
+
+	/**
+	 * Fonction qui affiche tous les projet
+	 * @author Jérémie
+	 * @version 1.0
+	 */
+	public function allMyGroupsToOptionsFiltred()
+	{
+		$tab = $this->allMyGroupsFiltred();
+		foreach ($tab as $groupe)
+		{
+			$groupe->toOption();
+		}
+	}
+
+	/**
+	 * Fonction qui affiche l'interface de la page projet.php
+	 * @author Jérémie
+	 * @version 1.0
+	 */
+	public function afficheProjets()
+	{
+
+		echo 
+		'
+		<div class="card">
+			<div class="row">
+				<div class="col s12">
+					<h5>Vos Projets</h5>
+					<p>Choisissez le projet que vous souhaitez administrer</p>
+				</div>
+			</div>
+			<select id="select-projet" onChange="selectChange(this.value)">
+				<option value="" disabled selected>Choisir un Groupe</option>';
+				$this->allMyGroupsToOptionsFiltred();
+				echo
+				'
+			</select>
+		</div>
+		';
+	}
+
+	/**
+	 * Fonction d'affichage de l'interface pour demander une réunion pour les enseignants
+	 * @author Jérémie
+	 * @version 0.2
+	 */
+	public function afficheReunion()
+	{
+		echo '
+		<div class="row">
+			<div class="card col s12">
+			<h5>Réunion</h5>
+				<form method="get" action="http://doodle.com/polls/wizard.html">
+					<input type="hidden" name="type" value="date">
+					<input type="hidden" name="locale" value="fr">
+					<input type="hidden" name="name" value="',$this->nom," ",$this->prenom,'">
+					<input type="hidden" name="eMailAddress" value="',$this->mail,'">
+
+					<div class="input-field">
+						<label for="title">Titre de la réunion</label>
+						<input type="text" name="title" id="title" required>
+					</div>
+
+					<div class="input-field">
+						<label for="location">Lieu de la réunion</label>
+						<input type="text" name="location" id="location" required>
+					</div>
+
+					<div class="input-field">
+						<label for="description">Sujet(s) de la réunion</label>
+						<textarea class="materialize-textarea" type="text" name="description" id="description" required></textarea>
+					</div>
+
+					<div class="centre">
+						<input class="btn light-blue" type="submit" value="Demander réunion">
+					</div>
+				</form>
+			</div>
+			';
+		}
+	}
+	?>

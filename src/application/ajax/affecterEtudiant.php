@@ -1,0 +1,47 @@
+<?php
+/**
+ * Script de suppression des étudiants
+ * @package application/ajax
+ * @author Jérémie
+ * @version 0.4
+ */
+//Autochargement des classes via un Autoloader
+require_once "../../ressources/classes/MyAutoloader.php";
+session_start();
+
+if (isset($_POST['login']))
+{
+	//création du DAO
+	$projetsDAO = new ProjetsDAO (MaBD::getInstance());
+	$groupesDAO = new GroupesDAO(MaBD::getInstance());
+	$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
+	//récupération des données
+	$etudiant = $etudiantsDAO->getOne($_POST['login']);
+	$groupe = $groupesDAO->getOne($_POST['no_groupe']);
+	$projet = $projetsDAO->getOne($groupe->no_projet);
+	if($etudiant!=null)
+	{
+		$etudiant->no_groupe=$groupe->no_groupe;
+		$etudiantsDAO->update($etudiant);
+		if ($groupe->plein!=true) 
+		{
+			$groupe->plein=true;
+			$groupesDAO->update($groupe);
+		}
+		if ($projet->affecter!=true) 
+		{
+			$projet->affecter=true;
+		}
+		echo json_encode(true);
+	}
+	else
+	{
+		echo json_encode("Aucun étudiant avec ce login n'a été trouvé dans la base de données");
+	}
+}
+else
+{
+	echo json_encode("Veuillez saisir le login d'un étudiant a affecter");
+}
+
+?>

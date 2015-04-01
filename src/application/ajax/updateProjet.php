@@ -11,6 +11,8 @@ session_start();
 
 if (isset($_POST)) 
 {
+	$projetsDAO = new ProjetsDAO(MaBD::getInstance());
+	
 	//récupération du projet à modifié
 	$projet = $projetsDAO->getOne($_POST['no_projet']);
 
@@ -24,25 +26,32 @@ if (isset($_POST))
 	$contrainte = trim ( $_POST ['contrainte'] );
 	$details = trim ( $_POST ['details'] );
 
+	if(!empty($name_project) and !empty($contexte) and !empty($objectif) and !empty($contrainte) and !empty($details))
+	{
 	//modification du projet
-	$projet = new Projet(array(
-		"no_projet" =>$no_projet,
-		"nom_projet" => $name_project,
-		"nb_etu_min" => $nb_min,
-		"nb_etu_max" => $nb_max,
-		"contexte" => $contexte,
-		"objectif" => $objectif,
-		"contrainte" => $contrainte,
-		"details" => $details,
-		"login_enseignant" => $_SESSION['user']->login_enseignant
-		));
+		$projet = new Projet(array(
+			"no_projet" =>$no_projet,
+			"nom_projet" => $name_project,
+			"nb_etu_min" => $nb_min,
+			"nb_etu_max" => $nb_max,
+			"contexte" => $contexte,
+			"objectif" => $objectif,
+			"contrainte" => $contrainte,
+			"details" => $details,
+			"login" => $_SESSION['user']->login
+			));
 
 	//validation des modifications du projet 
-	$projetsDAO->update($projet);
-	echo json_encode(true);
+		$projetsDAO->update($projet);
+		echo json_encode(true);
+	}
+	else
+	{
+		echo json_encode("Veuillez remplir tous les champs");
+	}	
 }
 else
 {
-	echo json_encode('Désolée une erreur est survenu si celle-ci persiste veuillez la signaler');
+	echo json_encode('Désolé une erreur est survenue si celle-ci persiste veuillez la signaler');
 }
 ?>

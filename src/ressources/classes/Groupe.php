@@ -16,7 +16,7 @@ class Groupe extends TableObject {
 	{
 		$DAOtemporaire = new ProjetsDAO(MaBD::getInstance());
 		$projet = $DAOtemporaire->getOne($this->no_projet);
-		echo "<option value='$this->no_groupe'> Groupe $this->no_groupe - $projet->nom_projet</option>";
+		echo '<option value="',$this->no_groupe,'"> Groupe ',$this->no_groupe,' - ',$projet->nom_projet,'</option>';
 	}
 
 	/**
@@ -27,8 +27,8 @@ class Groupe extends TableObject {
 	 */
 	public function listMembers($no_tache=null)
 	{
-		$DAOtemporaire = new EtudiantsDAO(MaBD::getInstance());
-		$etudiants = $DAOtemporaire->getAll("WHERE no_groupe='$this->no_groupe'");
+		$DAOtemporaire = new UtilisateursDAO(MaBD::getInstance());
+		$etudiants = $DAOtemporaire->getAll("WHERE role='etudiant' AND no_groupe='$this->no_groupe'");
 		foreach ($etudiants as $etudiant) 
 		{
 			$etudiant->toCheckBox($no_tache);
@@ -44,25 +44,22 @@ class Groupe extends TableObject {
 	{
 		$DAOtemporaire = new TachesDAO(MaBD::getInstance());
 		$taches = $DAOtemporaire->getAll("WHERE no_groupe = '$this->no_groupe' ORDER BY ordre_tache");
-		echo "
-		<div class='card hidden-element-block'>
-			<div class='row'>
-				<div class='col s12'>
-					<a class='btn-floating btn-large waves-effect waves-light red arrow-link slide-link'>
-						<i class='mdi-hardware-keyboard-arrow-down'></i>
-					</a>
+		echo '
+		<div class="card hidden-element-block">
+			<div class="row">
+				<div class="col s12">
 					<h5>Gestion des tâches</h5>
 					<p>Modifier, ajouter ou supprimer des tâches</p>
 				</div>
 			</div>
-			<table class='responsive-table bordered striped centered hide'>
+			<table class="responsive-table bordered striped centered hide">
 				<tr>
 					<th>Tache</th>
 					<th>Etat</th>
 					<th>Personne(s) en Charge</th>
 					<th>Ordre de la tache</th>
 					<th>Action</th>
-				</tr>";
+				</tr>';
 				foreach ($taches as $tache) 
 				{
 					$tache->toTableRow();	
@@ -72,14 +69,14 @@ class Groupe extends TableObject {
 					"nom_tache"=>null,
 					"etat_tache"=>null,
 					"ordre_tache"=>null,
-					"login_etudiant"=>null,
+					"login"=>null,
 					"no_groupe"	=> $this->no_groupe							
 					));
 				$newTache->toAddingTableRow();
-				echo"
+				echo'
 			</table>
 		</div>
-		";
+		';
 	}
 }
 ?>
