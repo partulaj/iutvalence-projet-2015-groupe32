@@ -158,12 +158,18 @@ class Etudiant extends Utilisateur {
 	public function afficheAccueil()
 	{
 		$DAOtemporaire = new TachesDAO(MaBD::getInstance());
+		$DAOtemporaire2 = new ProjetsDAO(MaBD::getInstance());
+		$DAOtemporaire3 = new GroupesDAO(MaBD::getInstance());
 		$taches = $DAOtemporaire->getAll("WHERE no_groupe = '$this->no_groupe' ORDER BY ordre_tache");
+		$groupe = $DAOtemporaire3->getOne($this->no_groupe);
+		$projet = $DAOtemporaire2->getOne($groupe->no_projet);
 		echo '
 		<div class="card">
 			<div class="row">
 				<div class="col s12">
-					<h5>Gestion des tâches</h5>
+					<h5>Gestion des tâches du projet : ',$projet->nom_projet,
+					'<br/> Groupe n°',$this->no_groupe,
+					'</h5>
 					<p>Modifier, ajouter ou supprimer des tâches</p>
 				</div>
 			</div>
