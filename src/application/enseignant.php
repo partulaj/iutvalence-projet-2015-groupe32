@@ -16,6 +16,15 @@ if (!isset($_SESSION['user']) or $_SESSION ['user']->estEtudiant())
 	exit ();
 }
 
+//Création des DAO
+$projetDAO = new ProjetsDAO(MaBD::getInstance());
+$etudiantsDAO = new UtilisateursDAO(MaBD::getInstance());
+//On lance l'affectation automatique
+$affectationProjet=$projetDAO->getAll();
+foreach ($affectationProjet as $projetAAffecter)
+{
+	$projetAAffecter->initAffectationAuto();
+}
 
 ?>
 <!DOCTYPE html>
