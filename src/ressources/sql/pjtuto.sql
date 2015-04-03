@@ -70,7 +70,8 @@ CREATE TABLE IF NOT EXISTS `Projets` (
 
 INSERT INTO `Projets` (`no_projet`, `nom_projet`, `nb_etu_min`, `nb_etu_max`, `contexte`, `objectif`, `contrainte`, `details`, `login`, `affecter`) VALUES
 (1, 'Démo n°1', 3, 3, 'Démonstration du projet', '- objectif 1\n- objectif 2', 'Il faut que ça marche', 'c''est important !!!', 'ens1', 0),
-(2, 'Démo n°2', 3, 3, 'Démonstration du projet', '- recherche dichotomique sur l''annuaire de la NASA pour trouver Mr. Dennis Ritchie\n- créer une nouvelle interface pour le LaTeX', 'Ne pas faire de fautes d''orthographe dans le rapport de projet', 'La recherche dichotomique devra être fait en Visual Basic', 'ens1', 0);
+(2, 'Démo n°2', 3, 3, 'Démonstration du projet', '- recherche dichotomique sur l''annuaire de la NASA pour trouver Mr. Dennis Ritchie\n- créer une nouvelle interface pour le LaTeX', 'Ne pas faire de fautes d''orthographe dans le rapport de projet', 'La recherche dichotomique devra être fait en Visual Basic', 'ens1', 0),
+(3, 'Démo n°3', 3, 3, 'Démonstration du projet', '- recréer Bing\n- recréer Google\n- recréer Unix', 'Internet n''existe pas', 'Vous n''avez pas le droit de recréer Internet', 'chef1', 0);
 
 -- --------------------------------------------------------
 

@@ -30,10 +30,10 @@ class Voeu extends TableObject {
 				</p> 
 			</td>
 			<td>
-				<button type="submit" onClick="editVoeu(',$this->no_projet,',',$this->login,')" class="btn amber">
+				<button type="submit" onClick="editVoeu(',$this->no_projet,',\'',$this->login,'\')" class="btn amber">
 					<span class="mdi-image-edit"></span>  
 				</button>
-				<button type="submit" onClick="delVoeu(',$this->no_projet,',',$this->login,')" class="btn red">
+				<button type="submit" onClick="delVoeu(',$this->no_projet,',\'',$this->login,'\')" class="btn red">
 					<span class="mdi-action-delete"></span>
 				</button>
 			</td>
